@@ -1,7 +1,7 @@
 export interface Post {
   sno: Number
   imgPath: Array<string>
-  description: string
-  updated: Date
+  des: string
+  updated: string
   active: Boolean
 }
