@@ -5,14 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component'
 import { AboutComponent } from './about/about.component';
-import { PostComponent } from './dashboard/post/post.component'
+import { PostContainerComponent } from './dashboard/post-container/post-container.component';
+import { SpecificPostComponent } from './dashboard/post-container/specific-post/specific-post.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     AboutComponent,
-    PostComponent
+    PostContainerComponent,
+    SpecificPostComponent,
   ],
   imports: [
     BrowserModule,
