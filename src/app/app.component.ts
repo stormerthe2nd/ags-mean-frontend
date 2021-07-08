@@ -4,12 +4,11 @@ import { Post } from "./posts"
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 
 export class AppComponent {
   title = 'Posts Cloud';
-
   updated(): string {
     var today: any = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -18,20 +17,18 @@ export class AppComponent {
 
     return today = mm + '/' + dd + '/' + yyyy;
   }
-  newPosts: Post = {
+  postsArr: Array<Post> = [{
     sno: 1,
     imgPath: [""],
     des: "",
     updated: this.updated(),
     active: true
-  }
+  }]
   constructor() {
-    console.log(this.newPosts);
-
   }
 
   addPost() {
-    console.log("addPost executed")
+
   }
 
 }
