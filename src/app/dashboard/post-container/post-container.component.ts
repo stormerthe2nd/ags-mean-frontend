@@ -7,11 +7,10 @@ import { Post } from 'src/app/posts';
   styleUrls: ['./post-container.component.css']
 })
 export class PostContainerComponent implements OnInit {
-  @Input() postsArr: Post[] = [];
+  @Input() postsArr: Post[];
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.postsArr)
   }
 
   postClickEvent(post) {

@@ -1,10 +1,10 @@
-<div class="card me-1 ms-1" style="max-width:300px;">
-  <div style='background-image:url("https://source.unsplash.com/500x500/?nature"); height: 200px;' class="card-img">
+<div class="card me-2 ms-2" style="max-width:300px;min-width: 300px;height: 400px;">
+  <div style='background-image:url("{{post.imgPath[0]}}"); height: 200px;' class="card-img">
   </div>
   <div class="card-body">
     <p class="card-text">{{post.des.slice(201)==""?post.des:post.des.slice(0,200)+"..."}}</p>
   </div>
   <div class="card-footer">
-    <small class="text-muted">Last updated 3 mins ago</small>
+    <small class="text-muted">Last updated {{post.updated}}</small>
   </div>
 </div>

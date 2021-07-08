@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component'
 import { AboutComponent } from './about/about.component';
 import { PostContainerComponent } from './dashboard/post-container/post-container.component';
 import { SpecificPostComponent } from './dashboard/post-container/specific-post/specific-post.component';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SpecificPostComponent } from './dashboard/post-container/specific-post/
     AboutComponent,
     PostContainerComponent,
     SpecificPostComponent,
+    NavComponent,
   ],
   imports: [
     BrowserModule,

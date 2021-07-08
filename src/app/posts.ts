@@ -4,4 +4,5 @@ export interface Post {
   des: string
   updated: string
   active: Boolean
+  category: string
 }

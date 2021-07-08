@@ -8,12 +8,9 @@ import { Post } from "./posts"
 })
 
 export class AppComponent {
-  title = 'Posts Cloud';
+
+  title = 'AGS Cloud Server';
+
   constructor() {
   }
-
-  addPost(desInp: HTMLTextAreaElement, fileInp: HTMLInputElement) {
-    console.log(desInp.value, fileInp.value)
-  }
-
 }
