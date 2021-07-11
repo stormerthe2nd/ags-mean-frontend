@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Post } from 'src/app/posts';
+import { PostService } from 'src/app/post.service';
+import { Post } from 'src/app/posts.model';
 
 @Component({
   selector: 'app-post-container',
@@ -7,10 +8,13 @@ import { Post } from 'src/app/posts';
   styleUrls: ['./post-container.component.css']
 })
 export class PostContainerComponent implements OnInit {
-  @Input() postsArr: Post[];
-  constructor() { }
+  postsArr: Post[];
+  constructor(public PostService: PostService) {
+
+  }
 
   ngOnInit(): void {
+    this.postsArr = this.PostService.getPosts()
   }
 
   postClickEvent(post) {
