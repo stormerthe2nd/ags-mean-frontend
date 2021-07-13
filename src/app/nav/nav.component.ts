@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PostService } from '../post.service';
-import { Post } from '../posts.model';
 
 @Component({
   selector: 'app-nav',
