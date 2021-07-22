@@ -12,18 +12,19 @@ export class NavComponent {
   }
   postCreationStatus = "uninit"
   addPost(form: NgForm): void {
+    const { desInp, fileInp, linkInp } = form.value
     this.postCreationStatus = "uninit"
-    if (form.value.desInp == "") {
+    if (desInp == "" || (fileInp == "" && linkInp == "")) {
       this.postCreationStatus = "empty input"
       document.getElementById("des").focus()
       return
     }
-    let imgPaths: Array<string> = ["https://source.unsplash.com/500x500/?nature"]
-    imgPaths.push(`${form.value.fileInp}`)
+    let imgPaths: Array<string> = [linkInp]
+    imgPaths.push(`${fileInp}`)
     this.postService.addPost({
       sno: this.postService.getPosts().length + 1,
       imgPath: imgPaths,
-      des: form.value.desInp,
+      des: desInp,
       updated: this.postService.updated(),
       active: true,
       category: ''
