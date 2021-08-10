@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PostService } from '../post.service';
+import { Post } from '../posts.model';
 
 @Component({
   selector: 'app-nav',
@@ -8,6 +9,7 @@ import { PostService } from '../post.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
+  postArr: Post[]
   constructor(public postService: PostService) {
   }
   postCreationStatus = "uninit"
@@ -22,7 +24,7 @@ export class NavComponent {
     let imgPaths: Array<string> = [linkInp]
     imgPaths.push(`${fileInp}`)
     this.postService.addPost({
-      sno: this.postService.getPosts().length + 1,
+      sno: 1,
       imgPath: imgPaths,
       des: desInp,
       updated: this.postService.updated(),
@@ -30,7 +32,7 @@ export class NavComponent {
       category: ''
     })
     this.postCreationStatus = "success"
-    console.log(this.postService.getPosts())
+
   }
 
 }
