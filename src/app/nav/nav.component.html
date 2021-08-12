@@ -39,7 +39,8 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
-      <form class="needs-validation" (submit)="addPost(postForm)" #postForm="ngForm" novalidate>
+      <form class="needs-validation" (submit)="addPost(postForm)" #postForm="ngForm" enctype="multipart/form-data"
+        novalidate>
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Upload Post</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -57,7 +58,8 @@
                 data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
                   <div class="input-group mb-3">
-                    <input type="file" name="fileInp" class="form-control" id="inputGroupFile02" ngModel required>
+                    <input type="file" name="fileInp" class="form-control" id="inputGroupFile02"
+                      (change)="selected($event)" ngModel required multiple>
                   </div>
                 </div>
               </div>

@@ -12,20 +12,26 @@ export class NavComponent {
   postArr: Post[]
   constructor(public postService: PostService) {
   }
+  fileInp = []
   postCreationStatus = "uninit"
+
+  selected(event: any) {
+    this.fileInp = event.target.files
+    console.log(this.fileInp)
+  }
+
   addPost(form: NgForm): void {
-    const { desInp, fileInp, linkInp } = form.value
+    const { desInp, linkInp } = form.value
     this.postCreationStatus = "uninit"
-    if (desInp == "" || (fileInp == "" && linkInp == "")) {
+    if (desInp == "" || (this.fileInp.length < 1 && linkInp == "")) {
       this.postCreationStatus = "empty input"
       document.getElementById("des").focus()
       return
     }
-    let imgPaths: Array<string> = [linkInp]
-    imgPaths.push(`${fileInp}`)
+    // linkInp != "" || linkInp != undefined ? this.fileInp.push(linkInp) : {}
     this.postService.addPost({
       sno: 1,
-      imgPath: imgPaths,
+      imgPath: [this.fileInp[0]],
       des: desInp,
       updated: this.postService.updated(),
       active: true,

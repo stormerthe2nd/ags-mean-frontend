@@ -21,6 +21,7 @@ export class PostService {
 
   getPosts() {
     this.http.get<{ data: Post[] }>("http://localhost:3000").subscribe((postData) => {
+      console.log(postData)
       this.postsArr = postData.data
       this.postArrUpdated.next([...this.postsArr])
     })
@@ -31,7 +32,17 @@ export class PostService {
   }
 
   addPost(post: Post) {
-    this.postsArr.push(post)
-    this.postArrUpdated.next([...this.postsArr])
+    console.log("imgUrl ", post.imgPath)
+    const formData = new FormData()
+    formData.append("fileInp", post.imgPath[0])
+    formData.append("desInp", post.des)
+    this.http.post<{ imgUrl: [] }>("http://localhost:3000/imgApi/upload", formData).subscribe(
+      (postData) => {
+        post.imgPath = postData.imgUrl
+        this.postsArr.push(post)
+        this.postArrUpdated.next([...this.postsArr])
+      },
+      (err) => { console.log(err) }
+    )
   }
 }
