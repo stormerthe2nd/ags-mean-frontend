@@ -33,7 +33,7 @@ export class NavComponent {
       sno: 1,
       imgPath: [this.fileInp[0]],
       des: desInp,
-      updated: this.postService.updated(),
+      updated: "",
       active: true,
       category: ''
     })

@@ -10,15 +10,6 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  updated(): string {
-    var today: any = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    var yyyy = today.getFullYear();
-
-    return today = mm + '/' + dd + '/' + yyyy;
-  }
-
   getPosts() {
     this.http.get<{ data: Post[] }>("http://localhost:3000").subscribe((postData) => {
       console.log(postData)
