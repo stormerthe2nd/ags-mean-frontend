@@ -31,7 +31,7 @@ export class NavComponent {
     // linkInp != "" || linkInp != undefined ? this.fileInp.push(linkInp) : {}
     this.postService.addPost({
       sno: 1,
-      imgPath: [this.fileInp[0]],
+      imgPath: [...this.fileInp],
       des: desInp,
       updated: "",
       active: true,

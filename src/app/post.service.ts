@@ -25,7 +25,9 @@ export class PostService {
   addPost(post: Post) {
     console.log("imgUrl ", post.imgPath)
     const formData = new FormData()
-    formData.append("fileInp", post.imgPath[0])
+    post.imgPath.forEach(element => {
+      formData.append("fileInp", element)
+    });
     formData.append("desInp", post.des)
     this.http.post<{ imgUrl: [] }>("http://localhost:3000/imgApi/upload", formData).subscribe(
       (postData) => {
