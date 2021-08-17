@@ -43,5 +43,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# backend files
 server/.env
 server/node_modules
