@@ -49,6 +49,8 @@ export class PostService {
   }
 
   deletePost(id: string) {
-    this.http.delete("http://localhost:3000/postApi/delete/" + id).subscribe(() => { console.log("deleted") })
+    this.http.delete("http://localhost:3000/postApi/delete/" + id).subscribe((data) => {
+      console.log(data)
+    })
   }
 }
