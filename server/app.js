@@ -5,7 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
-const imgApiRouter = require("./routes/imgApi")
+const postApiRouter = require("./routes/postApi")
 const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, REFRESH_TOKEN, DB_URL } = process.env
 var app = express();
 
@@ -44,7 +44,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/', indexRouter);
-app.use("/imgApi", (req, res, next) => { req.drive = drive; req.files = []; next() }, imgApiRouter)
+app.use("/postApi", (req, res, next) => { req.drive = drive; req.files = []; next() }, postApiRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
