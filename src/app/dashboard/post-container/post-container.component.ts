@@ -27,7 +27,6 @@ export class PostContainerComponent implements OnInit, OnDestroy {
   }
 
   postClickEvent(post) {
-    console.log(post)
   }
 
 }

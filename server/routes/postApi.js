@@ -61,10 +61,21 @@ router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
   res.json({ imgUrl: imgUrl })
 })
 
-router.delete("/delete/:id", async (req, res) => {
-  PostModel.deleteOne({ _id: req.params.id }).then(() => {
+router.delete("/delete/:delData", async (req, res) => {
+  try {
+    var delDataArr = req.params.delData.split("|||")
+    console.log("id ", delDataArr[0])
+    console.log("array ", delDataArr[1].split(","))
+    for (var element of delDataArr[1].split(",")) {
+      if (element == "") continue
+      console.log(element)
+      await req.drive.files.delete({ fileId: element })
+    };
+    await PostModel.deleteOne({ _id: delDataArr[0] })
     res.status(200).json({ deleted: true })
-  }).catch((err) => { console.log(err) })
+  } catch (error) {
+    console.log(error)
+  }
 })
 
 

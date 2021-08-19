@@ -48,8 +48,13 @@ export class PostService {
     )
   }
 
-  deletePost(id: string) {
-    this.http.delete("http://localhost:3000/postApi/delete/" + id).subscribe((data) => {
+  deletePost(delData: { id: string, imgPath: string[] }) {
+    var delDataStr = delData.id + "|||"
+    delData.imgPath.forEach(el => {
+      el = el.split("=")[1]
+      delDataStr = delDataStr + el + ","
+    })
+    this.http.delete("http://localhost:3000/postApi/delete/" + delDataStr).subscribe((data) => {
       console.log(data)
     })
   }
