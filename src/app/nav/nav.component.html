@@ -46,42 +46,24 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                  Upload Full Image to Cloud
-                </button>
-              </h2>
-              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-                data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">
-                  <div class="input-group mb-3">
-                    <input type="file" name="fileInp" class="form-control" id="inputGroupFile02"
-                      accept="image/png, image/gif, image/jpeg" (change)="selected($event)" ngModel required multiple>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                  Upload Only Link of the Image to Cloud
-                </button>
-              </h2>
-              <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
-                data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">
-                  <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Image Link</span>
-                    <input id="link" name="linkInp" ngModel required type="text" class="form-control"
-                      aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="input-group mb-3">
+            <input type="file" name="fileInp" class="form-control" id="inputGroupFile02"
+              accept="image/png, image/gif, image/jpeg" (change)="selected($event)" ngModel required multiple>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Image Link</span>
+            <input id="link" name="linkInp" ngModel required type="text" class="form-control"
+              aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
+            <input id="title" name="titleInp" ngModel required type="text" class="form-control"
+              aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Price (₹)</span>
+            <input id="price" name="priceInp" ngModel required type="number" class="form-control"
+              aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
           </div>
           <div class="input-group">
             <span class="input-group-text">Description</span>

@@ -38,6 +38,8 @@ export class PostService {
       formData.append("fileInp", element)
     });
     formData.append("desInp", post.des)
+    formData.append("titleInp", post.title)
+    formData.append("priceInp", post.price)
     this.http.post<{ post: any }>("http://localhost:3000/postApi/upload", formData).subscribe(
       (postData) => {
         postData.post.id = postData.post._id

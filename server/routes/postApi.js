@@ -5,7 +5,6 @@ const multer = require("multer")
 const path = require("path")
 const fsExtra = require("fs-extra")
 const PostModel = require("../model/postModel")
-const postModel = require("../model/postModel")
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, callback) => {
@@ -23,7 +22,6 @@ const upload = multer({
 
 router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
   req.files = req.files.filter(el => { return el !== undefined })
-  console.log(req.body)
   imgUrl = []
   var i = 0;
   for (var el of req.files) {
@@ -55,11 +53,13 @@ router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
     sno: 1,
     imgPath: imgUrl,
     des: req.body.desInp,
+    title: req.body.titleInp,
+    price: req.body.priceInp,
     active: true,
     category: ""
   })
-  post.save()
   console.log(post)
+  post.save()
   fsExtra.emptyDir(path.join(__dirname, "/../temp_uploads/"))
   res.json({ post: post })
 })

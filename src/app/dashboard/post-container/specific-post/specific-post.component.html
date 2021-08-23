@@ -1,14 +1,17 @@
-<div class="card me-2 ms-2" style="max-width:300px;min-width: 300px;height: 400px;">
-  <div style='height: 200px;' class="card-img">
+<!-- <img src="{{post.imgPath[0]}}" alt="{{post.imgPath[0]}}"> -->
+<div class="card border-dark m-2" style="width:25em;">
+  <div class="card-header">Header</div>
+  <div class="images" style="height: 50px;">
     <img src="{{post.imgPath[0]}}" alt="{{post.imgPath[0]}}">
   </div>
-  <div class="card-body" style="height: 200px;">
+  <div class="card-body text-dark">
+    <h5 class="card-title">{{post.title}}</h5>
     <p class="card-text">{{post.des.slice(150)==""?post.des:post.des.slice(0,151)+" ..."}}</p>
   </div>
   <div class="card-footer">
-    <small class="text-muted">Last updated on {{post.updated}}</small>
-    <!-- data-bs-toggle="modal" data-bs-target="#exampleModal2" -->
-    <button class="btn btn-sm btn-outline-danger float-end" (click)="deleteThisPost(post.id)">
+    <p>
+      Last updated on {{post.updated}}
+    </p><button class="btn btn-sm btn-outline-danger float-start" (click)="deleteThisPost(post.id)">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
         viewBox="0 0 16 16">
         <path
@@ -20,7 +23,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- delete alert Modal -->
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

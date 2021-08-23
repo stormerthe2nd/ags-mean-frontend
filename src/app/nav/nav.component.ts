@@ -21,17 +21,19 @@ export class NavComponent {
   }
 
   addPost(form: NgForm): void {
-    const { desInp, linkInp } = form.value
+    const { desInp, linkInp, titleInp, priceInp } = form.value
     this.postCreationStatus = "uninit"
     if (desInp == "" || (this.fileInp.length < 1 && linkInp == "")) {
       this.postCreationStatus = "empty input"
       document.getElementById("des").focus()
       return
     }
-    // linkInp != "" || linkInp != undefined ? this.fileInp.push(linkInp) : {}
+
     this.postService.addPost({
       imgPath: [...this.fileInp],
       des: desInp,
+      title: titleInp,
+      price: priceInp
     })
     this.postCreationStatus = "success"
 

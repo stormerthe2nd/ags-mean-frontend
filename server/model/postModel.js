@@ -3,9 +3,11 @@ var d = new Date()
 var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 module.exports = mongoose.model("Post", mongoose.Schema({
-  sno: Number,
-  imgPath: Array,
-  des: String,
+  sno: { type: Number, required: true },
+  imgPath: { type: Array, required: true },
+  title: { type: String, required: true },
+  price: { type: Number, required: true },
+  des: { type: String, required: true },
   updated: {
     type: String, default: `${d.getDate()}-${months[d.getMonth()]}-${d.getFullYear()}`
   },
