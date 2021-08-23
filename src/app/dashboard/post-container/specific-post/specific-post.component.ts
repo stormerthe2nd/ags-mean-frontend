@@ -14,8 +14,7 @@ export class SpecificPostComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  deleteThisPost(delData: { id: string, imgPath: string[] }) {
-    console.log(delData)
-    this.postService.deletePost(delData)
+  deleteThisPost(id: string) {
+    this.postService.deletePost(id)
   }
 }

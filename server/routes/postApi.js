@@ -5,6 +5,7 @@ const multer = require("multer")
 const path = require("path")
 const fsExtra = require("fs-extra")
 const PostModel = require("../model/postModel")
+const postModel = require("../model/postModel")
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, callback) => {
@@ -61,21 +62,21 @@ router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
   res.json({ imgUrl: imgUrl })
 })
 
-router.delete("/delete/:delData", async (req, res) => {
-  try {
-    var delDataArr = req.params.delData.split("|||")
-    console.log("id ", delDataArr[0])
-    console.log("array ", delDataArr[1].split(","))
-    for (var element of delDataArr[1].split(",")) {
-      if (element == "") continue
-      console.log(element)
-      await req.drive.files.delete({ fileId: element })
-    };
-    await PostModel.deleteOne({ _id: delDataArr[0] })
-    res.status(200).json({ deleted: true })
-  } catch (error) {
-    console.log(error)
-  }
+router.delete("/delete/:id", async (req, res) => {
+  const { id } = req.params
+  var post = await PostModel.findOne({ _id: id })
+  console.log(post)
+  for (var element of post.imgPath) {
+    if (element == "") continue
+    try {
+      await req.drive.files.delete({ fileId: element.split("=")[1] })
+    } catch (error) {
+      console.log(error)
+      continue
+    }
+  };
+  await PostModel.deleteOne({ _id: id })
+  res.status(200).json({ deleted: true })
 })
 
 
