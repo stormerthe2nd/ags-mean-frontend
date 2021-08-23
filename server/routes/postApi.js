@@ -51,15 +51,17 @@ router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
       console.log(err)
     }
   }
-  await new PostModel({
+  var post = await new PostModel({
     sno: 1,
     imgPath: imgUrl,
     des: req.body.desInp,
     active: true,
     category: ""
-  }).save()
+  })
+  post.save()
+  console.log(post)
   fsExtra.emptyDir(path.join(__dirname, "/../temp_uploads/"))
-  res.json({ imgUrl: imgUrl })
+  res.json({ post: post })
 })
 
 router.delete("/delete/:id", async (req, res) => {

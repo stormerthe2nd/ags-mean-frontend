@@ -38,9 +38,12 @@ export class PostService {
       formData.append("fileInp", element)
     });
     formData.append("desInp", post.des)
-    this.http.post<{ imgUrl: [] }>("http://localhost:3000/postApi/upload", formData).subscribe(
+    this.http.post<{ post: any }>("http://localhost:3000/postApi/upload", formData).subscribe(
       (postData) => {
-        post.imgPath = postData.imgUrl
+        postData.post.id = postData.post._id
+        delete postData.post._id
+        post = postData.post
+        console.log(post)
         this.postsArr.push(post)
         this.postArrUpdated.next([...this.postsArr])
       },
@@ -50,8 +53,13 @@ export class PostService {
 
   deletePost(id: string) {
     console.log(id)
-    this.http.delete("http://localhost:3000/postApi/delete/" + id).subscribe((data) => {
-      console.log(data)
+    this.http.delete<{ deleted: boolean }>("http://localhost:3000/postApi/delete/" + id).subscribe((data) => {
+      if (data.deleted) {
+        console.log("inside block")
+        this.postsArr = this.postsArr.filter(item => item.id !== id)
+        console.log(this.postsArr)
+        this.postArrUpdated.next([...this.postsArr])
+      }
     })
   }
 }
