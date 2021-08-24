@@ -14,6 +14,9 @@ export class NavComponent {
   }
   fileInp = []
   postCreationStatus = "uninit"
+  doc = document
+  defaultBg = "rgb(212, 212, 212)"
+  darkBg = "rgb(66, 66, 66)"
 
   selected(event: any) {
     this.fileInp = event.target.files
@@ -39,4 +42,8 @@ export class NavComponent {
 
   }
 
+  changeMode() {
+    if (document.body.style.backgroundColor == this.defaultBg) document.body.style.backgroundColor = this.darkBg
+    else document.body.style.backgroundColor = this.defaultBg
+  }
 }

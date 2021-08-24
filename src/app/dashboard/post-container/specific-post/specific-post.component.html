@@ -1,9 +1,9 @@
-<div style="width:25em; height: 40em;min-height: 40em; margin: 10px">
+<div style="width:20em; height: 30em;min-height: 30em; margin: 10px">
   <!-- Card -->
-  <div class="card">
+  <div class="card" style="border-radius: 10px;">
 
-    <div class="view overlay" style="height: 20em;">
-      <img class="img-fluid w-100" style="height: 20em;" src="{{post.imgPath[0]}}" alt="Sample">
+    <div class="view overlay" style="height: 15em;overflow: hidden;">
+      <img class="img-fluid w-100" style="height: 15em; border-radius: 11px;" src="{{post.imgPath[0]}}" alt="Sample">
       <a href="#!">
         <div class="mask rgba-white-slight"></div>
       </a>
@@ -11,7 +11,7 @@
 
     <div class="card-body text-center">
 
-      <h5>{{post.title}}</h5>
+      <h5>{{post.title[21]?post.title.slice(0,20)+"...":post.title}}</h5>
       <p class="small text-muted text-uppercase mb-2">Shirts</p>
       <p>{{post.des.slice(0,30)+"..."}}</p>
       <hr>
