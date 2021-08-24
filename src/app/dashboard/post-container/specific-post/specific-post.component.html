@@ -1,28 +1,33 @@
-<!-- <img src="{{post.imgPath[0]}}" alt="{{post.imgPath[0]}}"> -->
-<div class="card border-dark m-2" style="width:25em;">
-  <div class="card-header">Header</div>
-  <div class="images" style="height: 50px;">
-    <img src="{{post.imgPath[0]}}" alt="{{post.imgPath[0]}}">
-  </div>
-  <div class="card-body text-dark">
-    <h5 class="card-title">{{post.title}}</h5>
-    <p class="card-text">{{post.des.slice(150)==""?post.des:post.des.slice(0,151)+" ..."}}</p>
-  </div>
-  <div class="card-footer">
-    <p>
-      Last updated on {{post.updated}}
-    </p><button class="btn btn-sm btn-outline-danger float-start" (click)="deleteThisPost(post.id)">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
-        viewBox="0 0 16 16">
-        <path
-          d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-        <path fill-rule="evenodd"
-          d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-      </svg>
-    </button>
-  </div>
-</div>
+<div style="width:25em; height: 40em;min-height: 40em; margin: 10px">
+  <!-- Card -->
+  <div class="card">
 
+    <div class="view overlay" style="height: 20em;">
+      <img class="img-fluid w-100" style="height: 20em;" src="{{post.imgPath[0]}}" alt="Sample">
+      <a href="#!">
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+
+    <div class="card-body text-center">
+
+      <h5>{{post.title}}</h5>
+      <p class="small text-muted text-uppercase mb-2">Shirts</p>
+      <p>{{post.des.slice(0,30)+"..."}}</p>
+      <hr>
+      <h6 class="mb-3">
+        <span class="text-danger mr-1">₹{{post.price + " "}}</span>
+        <span class="text-grey"><s>₹{{post.price+500}}</s></span>
+      </h6>
+
+      <button class="btn btn-outline-primary btn-sm" style="margin-right: 2px;">Edit</button>
+      <button class="btn btn-outline-danger btn-sm" style="margin-left: 2px;"
+        (click)="deleteThisPost(post.id)">Delete</button>
+    </div>
+
+  </div>
+  <!-- Card -->
+</div>
 <!-- delete alert Modal -->
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">

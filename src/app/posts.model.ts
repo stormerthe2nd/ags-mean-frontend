@@ -1,11 +1,11 @@
 export interface Post {
   id: string
-  sno: Number
+  sno: number
   imgPath: Array<string>
   title: string
-  price: Number
+  price: number
   des: string
   updated: string
-  active: Boolean
+  active: boolean
   category: string
 }
