@@ -90,6 +90,21 @@
             <span class="input-group-text">Description</span>
             <textarea id="des" type="text" class="form-control" name="desInp" ngModel></textarea>
           </div>
+          <div class="input-group mt-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Category</label>
+            </div>
+            <select class="form-select" aria-label="Default select example" [required]>
+              <option selected>Uncategorised</option>
+              <option value="Mens Wear">Mens Wear</option>
+              <option value="Watches">Watches</option>
+              <option value="Glares">Glares</option>
+              <option value="Cosmetics">Cosmetics</option>
+              <option value="Headsets/Earbuds">Headsets/Earbuds</option>
+              <option value="Mobile Accessories">Mobile Accessories</option>
+              <option value="Household">Household</option>
+            </select>
+          </div>
           <div *ngIf="postCreationStatus=='success'" class="alert alert-success fade show mt-1 text-center"
             role="alert">
             <strong>Post Created Successfully</strong>
