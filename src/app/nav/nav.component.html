@@ -94,8 +94,9 @@
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">Category</label>
             </div>
-            <select class="form-select" aria-label="Default select example" [required]>
-              <option selected>Uncategorised</option>
+            <select class="form-select" (change)="selectChangeHandler($event)" name="categoryInp"
+              aria-label="Default select example" required>
+              <option value="Uncategorised">Uncategorised</option>
               <option value="Mens Wear">Mens Wear</option>
               <option value="Watches">Watches</option>
               <option value="Glares">Glares</option>
@@ -109,9 +110,8 @@
             role="alert">
             <strong>Post Created Successfully</strong>
           </div>
-          <div *ngIf="postCreationStatus=='empty input'" class="alert alert-danger fade show mt-1 text-center"
-            role="alert">
-            <strong>Please fill up the necessary Input</strong>
+          <div *ngIf="postCreationStatus=='invalid'" class="alert alert-danger fade show mt-1 text-center" role="alert">
+            <strong>{{this.message}}</strong>
           </div>
         </div>
         <div class="modal-footer">

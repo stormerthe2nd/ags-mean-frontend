@@ -15,6 +15,11 @@ const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
 )
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
+oAuth2Client.generateAuthUrl({
+  access_type: 'offline',
+  scope: ['https://www.googleapis.com/auth/drive.metadata.readonly'],
+});
+
 const drive = google.drive({
   version: "v3",
   auth: oAuth2Client

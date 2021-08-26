@@ -32,7 +32,7 @@ export class PostService {
   }
 
   addPost(post: any) {
-    console.log("imgUrl ", post.imgPath)
+    console.log(post)
     const formData = new FormData()
     post.imgPath.forEach(element => {
       formData.append("fileInp", element)
@@ -40,6 +40,8 @@ export class PostService {
     formData.append("desInp", post.des)
     formData.append("titleInp", post.title)
     formData.append("priceInp", post.price)
+    formData.append("linkInp", post.link)
+    formData.append("categoryInp", post.category)
     this.http.post<{ post: any }>("http://localhost:3000/postApi/upload", formData).subscribe(
       (postData) => {
         postData.post.id = postData.post._id
@@ -57,9 +59,7 @@ export class PostService {
     console.log(id)
     this.http.delete<{ deleted: boolean }>("http://localhost:3000/postApi/delete/" + id).subscribe((data) => {
       if (data.deleted) {
-        console.log("inside block")
         this.postsArr = this.postsArr.filter(item => item.id !== id)
-        console.log(this.postsArr)
         this.postArrUpdated.next([...this.postsArr])
       }
     })

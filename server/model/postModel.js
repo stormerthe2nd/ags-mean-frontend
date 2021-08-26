@@ -12,5 +12,5 @@ module.exports = mongoose.model("Post", mongoose.Schema({
     type: String, default: `${d.getDate()}-${months[d.getMonth()]}-${d.getFullYear()}`
   },
   active: { type: Boolean, default: true },
-  category: { type: String, default: "Other" },
+  category: { type: String, default: "Uncategorised" },
 }))

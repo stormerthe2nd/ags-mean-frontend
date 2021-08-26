@@ -51,12 +51,12 @@ router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
   }
   var post = await new PostModel({
     sno: 1,
-    imgPath: imgUrl,
+    imgPath: imgUrl.concat(req.body.linkInp),
     des: req.body.desInp,
     title: req.body.titleInp,
     price: req.body.priceInp,
     active: true,
-    category: ""
+    category: req.body.categoryInp
   })
   console.log(post)
   post.save()
