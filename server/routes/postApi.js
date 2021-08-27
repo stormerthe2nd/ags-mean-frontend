@@ -47,6 +47,7 @@ router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
       imgUrl.push(`https://drive.google.com/thumbnail?id=${fileId}`)
     } catch (err) {
       console.log(err)
+      return res.end()
     }
   }
   var post = await new PostModel({
@@ -80,6 +81,5 @@ router.delete("/delete/:id", async (req, res) => {
   await PostModel.deleteOne({ _id: id })
   res.status(200).json({ deleted: true })
 })
-
 
 module.exports = router

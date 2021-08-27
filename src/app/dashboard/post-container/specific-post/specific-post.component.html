@@ -20,8 +20,9 @@
         <span class="text-grey"><s>₹{{post.price+500}}</s></span>
       </h6>
 
-      <button class="btn btn-outline-primary btn-sm" style="margin-right: 2px;">Edit</button>
-      <button class="btn btn-outline-danger btn-sm" style="margin-left: 2px;"
+      <button class="btn btn-outline-primary btn-sm" style="margin-right: 3px;" data-bs-toggle="modal"
+        data-bs-target="#exampleModal" (click)="sendPost(post)">Edit</button>
+      <button class="btn btn-outline-danger btn-sm" style="margin-left: 3px;"
         (click)="deleteThisPost(post.id)">Delete</button>
     </div>
 

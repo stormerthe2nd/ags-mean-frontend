@@ -11,6 +11,7 @@ import { AboutComponent } from './about/about.component';
 import { PostContainerComponent } from './dashboard/post-container/post-container.component';
 import { SpecificPostComponent } from './dashboard/post-container/specific-post/specific-post.component';
 import { NavComponent } from './nav/nav.component';
+import { PostFormComponent } from './nav/post-form/post-form.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { NavComponent } from './nav/nav.component';
     PostContainerComponent,
     SpecificPostComponent,
     NavComponent,
+    PostFormComponent,
   ],
   imports: [
     BrowserModule,
