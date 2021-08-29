@@ -10,11 +10,13 @@
         <div class="modal-body">
           <div *ngIf="this.postService.selectedPostToEdit!=null; else elseBlock">
             <div *ngFor="let link of this.postService.selectedPostToEdit.imgPath">
-              <img class="border rounded border-dark mt-1 mb-2 me-1 float-start" width="50" height="50" src="{{link}}">
+              <img class="border rounded border-dark mt-1 mb-2 me-1 float-start" width="40" height="40" [src]="link">
             </div>
           </div>
           <ng-template #elseBlock></ng-template>
-          <div class="input-group mb-3">
+          <div class="
+          
+          input-group mb-3">
             <input type="file" name="fileInp" class="form-control" id="inputGroupFile02"
               accept="image/png, image/gif, image/jpeg" (change)="selected($event)" ngModel required multiple>
           </div>

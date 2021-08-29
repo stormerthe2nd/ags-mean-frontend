@@ -55,5 +55,11 @@ export class PostFormComponent {
     form.reset()
   }
 
+  enter(link: string) {
+
+  }
+  out() {
+
+  }
 
 }
