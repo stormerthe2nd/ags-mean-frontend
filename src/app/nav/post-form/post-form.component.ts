@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'src/app/post.service';
@@ -11,9 +11,10 @@ import { Post } from 'src/app/posts.model';
 })
 export class PostFormComponent {
   postArr: Post[]
-  @Input() post: Post;
+  post: Post;
   constructor(public postService: PostService, public route: ActivatedRoute) {
   }
+
 
   fileInp = []
   postCreationStatus = "uninit"
@@ -53,7 +54,5 @@ export class PostFormComponent {
     this.postCreationStatus = "success"
   }
 
-  receivePost(event: any) {
-    console.log(event)
-  }
+
 }

@@ -1,5 +1,4 @@
-<div (sendPostEmitter)="receivePost($event)" class="modal fade" id="exampleModal" tabindex="-1"
-  aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <form class="needs-validation" (submit)="addPost(postForm)" #postForm="ngForm" enctype="multipart/form-data"
@@ -9,6 +8,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          <div *ngIf="this.postService.selectedPostToEdit!=null; else elseBlock">
+            <img class="border rounded border-dark mb-2" width="50" height="50"
+              src="{{this.postService.selectedPostToEdit.imgPath[0]}}">
+          </div>
+          <ng-template #elseBlock></ng-template>
           <div class="input-group mb-3">
             <input type="file" name="fileInp" class="form-control" id="inputGroupFile02"
               accept="image/png, image/gif, image/jpeg" (change)="selected($event)" ngModel required multiple>
@@ -20,24 +24,27 @@
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
-            <input id="title" name="titleInp" ngModel required type="text" class="form-control"
-              aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input id="title" name="titleInp" [ngModel]='this.postService.selectedPostToEdit?.title' required
+              type="text" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">Price (₹)</span>
-            <input id="price" name="priceInp" ngModel required type="number" class="form-control"
-              aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input id="price" name="priceInp" [ngModel]="this.postService.selectedPostToEdit?.price" required
+              type="number" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
           </div>
           <div class="input-group">
             <span class="input-group-text">Description</span>
-            <textarea id="des" type="text" class="form-control" name="desInp" ngModel></textarea>
+            <textarea id="des" type="text" class="form-control" name="desInp"
+              [ngModel]="this.postService.selectedPostToEdit?.des"></textarea>
           </div>
           <div class="input-group mt-3">
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">Category</label>
             </div>
-            <select class="form-select" (change)="selectChangeHandler($event)" name="categoryInp"
-              aria-label="Default select example" required>
+            <select class="form-select" [ngModel]="this.postService.selectedPostToEdit?.category"
+              (change)="selectChangeHandler($event)" name="categoryInp" aria-label="Default select example" required>
               <option value="Uncategorised">Uncategorised</option>
               <option value="Mens Wear">Mens Wear</option>
               <option value="Watches">Watches</option>

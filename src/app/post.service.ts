@@ -7,6 +7,7 @@ import { HttpClient } from "@angular/common/http";
 @Injectable({ providedIn: "root" })
 export class PostService {
   postsArr: Post[] = [];
+  selectedPostToEdit: Post = null
   private postArrUpdated = new Subject<Post[]>()
 
   constructor(private http: HttpClient) { }
@@ -63,5 +64,13 @@ export class PostService {
         this.postArrUpdated.next([...this.postsArr])
       }
     })
+  }
+
+  selectedToEdit(post: Post) {
+    this.selectedPostToEdit = post
+  }
+
+  emptyUploadForm() {
+    this.selectedPostToEdit = null
   }
 }

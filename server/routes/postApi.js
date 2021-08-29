@@ -82,4 +82,15 @@ router.delete("/delete/:id", async (req, res) => {
   res.status(200).json({ deleted: true })
 })
 
+router.delete("/delete/image/:dbId&:imgId", async (req, res) => {
+  try {
+    // await req.drive.files.delete({ fileId: req.params.imgId.split("=")[1] })
+    console.log(req.params)
+    res.json({ deleted: true })
+  } catch (error) {
+    console.log(error)
+    res.json({ deleted: false })
+  }
+})
+
 module.exports = router

@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PostService } from 'src/app/post.service';
 import { Post } from 'src/app/posts.model';
 
@@ -9,7 +9,6 @@ import { Post } from 'src/app/posts.model';
 })
 export class SpecificPostComponent implements OnInit {
   @Input() post: Post;
-  @Output() sendPostEmitter: EventEmitter<Post> = new EventEmitter()
   constructor(public postService: PostService) { }
 
   ngOnInit(): void {
@@ -19,8 +18,8 @@ export class SpecificPostComponent implements OnInit {
     this.postService.deletePost(id)
   }
 
-  sendPost(post: Post) {
-    console.log(post)
-    this.sendPostEmitter.emit(post)
+  selectedPost(post: Post) {
+    this.postService.selectedToEdit(post)
   }
+
 }

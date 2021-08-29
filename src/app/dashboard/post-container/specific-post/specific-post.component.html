@@ -1,16 +1,13 @@
 <div style="width:20em; height: 30em;min-height: 30em; margin: 10px">
   <!-- Card -->
   <div class="card" style="border-radius: 10px;">
-
     <div class="view overlay" style="height: 15em;overflow: hidden;">
       <img class="img-fluid w-100" style="height: 15em; border-radius: 11px;" src="{{post.imgPath[0]}}" alt="Sample">
       <a href="#!">
         <div class="mask rgba-white-slight"></div>
       </a>
     </div>
-
     <div class="card-body text-center">
-
       <h5>{{post.title[21]?post.title.slice(0,20)+"...":post.title}}</h5>
       <p class="small text-muted text-uppercase mb-2">{{post.category}}</p>
       <p>{{post.des.slice(0,30)+"..."}}</p>
@@ -21,11 +18,10 @@
       </h6>
 
       <button class="btn btn-outline-primary btn-sm" style="margin-right: 3px;" data-bs-toggle="modal"
-        data-bs-target="#exampleModal" (click)="sendPost(post)">Edit</button>
+        data-bs-target="#exampleModal" (click)="selectedPost(post)">Edit</button>
       <button class="btn btn-outline-danger btn-sm" style="margin-left: 3px;"
         (click)="deleteThisPost(post.id)">Delete</button>
     </div>
-
   </div>
   <!-- Card -->
 </div>

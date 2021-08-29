@@ -17,8 +17,8 @@
               Posts
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Upload
-                  Post</a>
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  (click)="this.postService.emptyUploadForm()">Upload</a>
               </li>
               <li><a class="dropdown-item" href="#search">Find Post</a></li>
             </ul>
