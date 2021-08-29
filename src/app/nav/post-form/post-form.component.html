@@ -9,8 +9,9 @@
         </div>
         <div class="modal-body">
           <div *ngIf="this.postService.selectedPostToEdit!=null; else elseBlock">
-            <img class="border rounded border-dark mb-2" width="50" height="50"
-              src="{{this.postService.selectedPostToEdit.imgPath[0]}}">
+            <div *ngFor="let link of this.postService.selectedPostToEdit.imgPath">
+              <img class="border rounded border-dark mt-1 mb-2 me-1 float-start" width="50" height="50" src="{{link}}">
+            </div>
           </div>
           <ng-template #elseBlock></ng-template>
           <div class="input-group mb-3">

@@ -52,6 +52,7 @@ export class PostFormComponent {
       category: this.categoryInp == undefined ? this.categoryInp = "Uncategorised" : this.categoryInp
     })
     this.postCreationStatus = "success"
+    form.reset()
   }
 
 

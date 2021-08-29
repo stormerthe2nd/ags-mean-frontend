@@ -50,9 +50,11 @@ router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
       return res.end()
     }
   }
+  imgUrl.concat(req.body.linkInp)
+  imgUrl = imgUrl.filter((el) => { return el != "" })
   var post = await new PostModel({
     sno: 1,
-    imgPath: imgUrl.concat(req.body.linkInp),
+    imgPath: imgUrl,
     des: req.body.desInp,
     title: req.body.titleInp,
     price: req.body.priceInp,
