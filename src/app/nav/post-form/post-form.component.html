@@ -4,13 +4,16 @@
       <form class="needs-validation" (submit)="addPost(postForm)" #postForm="ngForm" enctype="multipart/form-data"
         novalidate>
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Upload Post</h5>
+          <h5 *ngIf="this.postService.selectedPostToEdit==null;else h5Block" class="modal-title" id="exampleModalLabel">
+            Upload Post</h5>
+          <ng-template #h5Block>
+            <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
+          </ng-template>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div *ngIf="this.postService.selectedPostToEdit!=null; else elseBlock">
             <div *ngFor="let link of this.postService.selectedPostToEdit.imgPath">
-
               <div class="border rounded float-start m-1 mb-2" (mouseover)="this.entered=true"
                 (mouseout)="this.entered=false">
                 <div *ngIf="!this.entered;else hoverBlock" width="40" height="40">
