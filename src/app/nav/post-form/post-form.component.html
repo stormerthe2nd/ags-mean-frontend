@@ -10,7 +10,18 @@
         <div class="modal-body">
           <div *ngIf="this.postService.selectedPostToEdit!=null; else elseBlock">
             <div *ngFor="let link of this.postService.selectedPostToEdit.imgPath">
-              <img class="border rounded border-dark mt-1 mb-2 me-1 float-start" width="40" height="40" [src]="link">
+
+              <div class="border rounded float-start m-1 mb-2" (mouseover)="this.entered=true"
+                (mouseout)="this.entered=false">
+                <div *ngIf="!this.entered;else hoverBlock" width="40" height="40">
+                  <img class="overflow" width="40" height="40" [src]="link">
+                </div>
+                <ng-template #hoverBlock width="40" height="40">
+                  <img class="overflow" width="40" height="40"
+                    src="https://img.icons8.com/material-outlined/2x/fa314a/delete-trash.png">
+                </ng-template>
+              </div>
+
             </div>
           </div>
           <ng-template #elseBlock></ng-template>

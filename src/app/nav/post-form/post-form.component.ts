@@ -15,7 +15,7 @@ export class PostFormComponent {
   constructor(public postService: PostService, public route: ActivatedRoute) {
   }
 
-
+  entered = false
   fileInp = []
   postCreationStatus = "uninit"
   categoryInp = undefined
@@ -54,12 +54,4 @@ export class PostFormComponent {
     this.postCreationStatus = "success"
     form.reset()
   }
-
-  enter(link: string) {
-
-  }
-  out() {
-
-  }
-
 }
