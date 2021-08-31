@@ -1,13 +1,14 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
-      <form class="needs-validation" (submit)="addPost(postForm)" #postForm="ngForm" enctype="multipart/form-data"
-        novalidate>
+      <form class="needs-validation"
+        (submit)="this.postService.selectedPostToEdit==null?addPost(postForm):editPost(postForm)" #postForm="ngForm"
+        enctype="multipart/form-data" novalidate>
         <div class="modal-header">
           <h5 *ngIf="this.postService.selectedPostToEdit==null;else h5Block" class="modal-title" id="exampleModalLabel">
             Upload Post</h5>
           <ng-template #h5Block>
-            <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
+            <h5 class="modal-title me-3" id="exampleModalLabel">Edit Post</h5>
           </ng-template>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -16,26 +17,29 @@
             <div *ngFor="let link of this.postService.selectedPostToEdit.imgPath">
               <div class="border rounded float-start m-1 mb-2" (mouseover)="this.entered=true"
                 (mouseout)="this.entered=false">
-                <div *ngIf="!this.entered;else hoverBlock" width="40" height="40">
-                  <img class="overflow" width="40" height="40" [src]="link">
+                <div style="width: 40px;height: 40px;">
+                  <img class="overflow-hidden w-100" [src]="link">
                 </div>
-                <ng-template #hoverBlock width="40" height="40">
-                  <img class="overflow" width="40" height="40"
-                    src="https://img.icons8.com/material-outlined/2x/fa314a/delete-trash.png">
-                </ng-template>
+                <button type="button" class="btn btn-sm btn-outline-danger  shadow-none"
+                  (click)="deleteImage(link)">delete</button>
               </div>
-
             </div>
+            <button *ngIf="this.deletedLinks.length >0" type="button" class="btn btn-sm btn-outline-primary m-1 mb-2"
+              (click)="undoImage()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z" />
+                <path
+                  d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z" />
+              </svg>
+            </button>
           </div>
           <ng-template #elseBlock></ng-template>
-          <div class="
-          
-          input-group mb-3">
+          <div class="input-group mb-3">
             <input type="file" name="fileInp" class="form-control" id="inputGroupFile02"
               accept="image/png, image/gif, image/jpeg" (change)="selected($event)" ngModel required multiple>
           </div>
           <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Link</span>
+            <span class="input-group-text" id="inputGroup-sizing-default"> Add Link</span>
             <input id="link" name="linkInp" ngModel required type="text" class="form-control"
               aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
           </div>
@@ -72,18 +76,23 @@
               <option value="Household">Household</option>
             </select>
           </div>
-          <div *ngIf="postCreationStatus=='success'" class="alert alert-success fade show mt-1 text-center"
-            role="alert">
-            <strong>Post Created Successfully</strong>
+          <div *ngIf="postCreationStatus=='success' && this.postService.selectedPostToEdit==null"
+            class="alert alert-success fade show mt-1 text-center" role="alert">
+            <strong>{{this.message}}</strong>
           </div>
-          <div *ngIf="postCreationStatus=='invalid'" class="alert alert-danger fade show mt-1 text-center" role="alert">
+          <div *ngIf="postCreationStatus=='invalid' && this.postService.selectedPostToEdit==null"
+            class="alert alert-danger fade show mt-1 text-center" role="alert">
             <strong>{{this.message}}</strong>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
             (click)="postCreationStatus='uninit'">Close</button>
-          <button type="submit" class="btn btn-primary">Upload</button>
+          <button *ngIf="this.postService.selectedPostToEdit==null;else submitBlock" type="submit"
+            class="btn btn-primary">Upload</button>
+          <ng-template #submitBlock>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </ng-template>
         </div>
       </form>
     </div>

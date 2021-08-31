@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'src/app/post.service';
@@ -9,17 +9,22 @@ import { Post } from 'src/app/posts.model';
   templateUrl: './post-form.component.html',
   styleUrls: ['./post-form.component.css']
 })
-export class PostFormComponent {
+export class PostFormComponent implements OnInit {
   postArr: Post[]
   post: Post;
-  constructor(public postService: PostService, public route: ActivatedRoute) {
-  }
-
+  deletedLinks: string[] = []
   entered = false
   fileInp = []
   postCreationStatus = "uninit"
   categoryInp = undefined
   message = ''
+
+  constructor(public postService: PostService, public route: ActivatedRoute) {
+  }
+
+  ngOnInit() {
+    this.postService.selectedPostToEdit
+  }
 
   selected(event: any) {
     this.fileInp = event.target.files
@@ -52,6 +57,22 @@ export class PostFormComponent {
       category: this.categoryInp == undefined ? this.categoryInp = "Uncategorised" : this.categoryInp
     })
     this.postCreationStatus = "success"
+    this.message = "Post will be created shortly"
     form.reset()
   }
+
+  editPost(form: NgForm) {
+    console.log(form.value)
+  }
+
+  deleteImage(link: string) {
+    this.deletedLinks.push(link)
+    this.postService.selectedPostToEdit.imgPath = this.postService.selectedPostToEdit.imgPath.filter((el) => { return el != link })
+  }
+
+  undoImage() {
+    this.postService.selectedPostToEdit.imgPath = this.postService.selectedPostToEdit.imgPath.concat(this.deletedLinks)
+    this.deletedLinks.length = 0
+  }
+
 }
