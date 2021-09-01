@@ -20,11 +20,11 @@ const upload = multer({
   })
 })
 
-router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
-  req.files = req.files.filter(el => { return el !== undefined })
+const uploadImage = async function (req, res) {
   imgUrl = []
   var i = 0;
   for (var el of req.files) {
+    if (el == undefined) continue
     try {
       i++
       console.log("uploading file " + i)
@@ -39,7 +39,7 @@ router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
           body: fs.createReadStream(el.path)
         }
       })
-      fileId = response.data.id
+      fileId = response.data.id   // file access
       await req.drive.permissions.create({
         fileId: fileId,
         requestBody: { role: "reader", type: "anyone" }
@@ -47,9 +47,30 @@ router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
       imgUrl.push(`https://drive.google.com/thumbnail?id=${fileId}`)
     } catch (err) {
       console.log(err)
-      return res.end()
+      return null
     }
   }
+  fsExtra.emptyDir(path.join(__dirname, "/../temp_uploads/"))
+  return imgUrl
+}
+
+const deleteImage = async function (req, res, imgPath) {
+  for (var element of imgPath) {
+    if (element == "") continue
+    try {
+      await req.drive.files.delete({ fileId: element.split("=")[1] })
+    } catch (error) {
+      console.log(error)
+      continue
+    }
+  };
+}
+
+router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
+  req.files = req.files.filter(el => { return el !== undefined })
+  let imgUrl = await uploadImage(req, res)
+  console.log("req body", req.body)
+  if (!imgUrl) return res.json({ msg: "some error occured" })
   imgUrl.concat(req.body.linkInp)
   imgUrl = imgUrl.filter((el) => { return el != "" })
   var post = await new PostModel({
@@ -63,7 +84,6 @@ router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
   })
   console.log(post)
   post.save()
-  fsExtra.emptyDir(path.join(__dirname, "/../temp_uploads/"))
   res.json({ post: post })
 })
 
@@ -71,17 +91,19 @@ router.delete("/delete/:id", async (req, res) => {
   const { id } = req.params
   var post = await PostModel.findOne({ _id: id })
   console.log(post)
-  for (var element of post.imgPath) {
-    if (element == "") continue
-    try {
-      await req.drive.files.delete({ fileId: element.split("=")[1] })
-    } catch (error) {
-      console.log(error)
-      continue
-    }
-  };
+  await deleteImage(req, res, post.imgPath)
   await PostModel.deleteOne({ _id: id })
   res.status(200).json({ deleted: true })
+})
+
+router.put("/update/:id", upload.array("imgToAdd", 12), async (req, res) => {
+  const { id } = req.params
+  const { links, imgToDel, desInp, titleInp, priceInp, categoryInp } = req.body
+  console.log("req body", req.body)
+  console.log(req.files.length)
+  if (req.files.length > 0) var imgUrl = await uploadImage(req, res)
+  if (imgToDel) await deleteImage(req, res, imgToDel)
+  res.json(req.body)
 })
 
 module.exports = router

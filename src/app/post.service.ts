@@ -43,6 +43,7 @@ export class PostService {
     formData.append("priceInp", post.price)
     formData.append("linkInp", post.link)
     formData.append("categoryInp", post.category)
+    console.log(formData)
     this.http.post<{ post: any }>("http://localhost:3000/postApi/upload", formData).subscribe(
       (postData) => {
         postData.post.id = postData.post._id
@@ -57,7 +58,6 @@ export class PostService {
   }
 
   deletePost(id: string) {
-    console.log(id)
     this.http.delete<{ deleted: boolean }>("http://localhost:3000/postApi/delete/" + id).subscribe((data) => {
       if (data.deleted) {
         this.postsArr = this.postsArr.filter(item => item.id !== id)
@@ -73,4 +73,26 @@ export class PostService {
   emptyUploadForm() {
     this.selectedPostToEdit = null
   }
+
+  editPost(post: any) {
+    const editFormData = new FormData()
+    console.log(post)
+    post.imgToAdd.forEach(element => {
+      editFormData.append("imgToAdd", element)
+    });
+    post.links.forEach(element => {
+      editFormData.append("links", element)
+    });
+    post.imgToDel.forEach(element => {
+      editFormData.append("imgToDel", element)
+    });
+    editFormData.append("desInp", post.des)
+    editFormData.append("titleInp", post.title)
+    editFormData.append("priceInp", post.price)
+    editFormData.append("categoryInp", post.category)
+    console.log(editFormData)
+    this.http.put<{ msg: any }>("http://localhost:3000/postApi/update/" + post.id, editFormData).subscribe((data) => { console.log(data) },
+      (err) => { console.log(err) })
+  }
+
 }

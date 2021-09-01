@@ -62,7 +62,17 @@ export class PostFormComponent implements OnInit {
   }
 
   editPost(form: NgForm) {
-    console.log(form.value)
+    const { desInp, linkInp, titleInp, priceInp } = form.value
+    this.postService.editPost({
+      id: this.postService.selectedPostToEdit.id,
+      imgToAdd: [...this.fileInp],
+      links: [...this.postService.selectedPostToEdit.imgPath, linkInp != "" ? linkInp : ""],
+      imgToDel: this.deletedLinks,
+      des: desInp,
+      title: titleInp,
+      price: priceInp,
+      category: this.categoryInp == undefined ? this.categoryInp = "Uncategorised" : this.categoryInp
+    })
   }
 
   deleteImage(link: string) {
