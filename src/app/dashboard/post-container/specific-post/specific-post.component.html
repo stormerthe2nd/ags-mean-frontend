@@ -1,11 +1,16 @@
 <div style="width:20em; height: 30em;min-height: 30em; margin: 10px">
   <!-- Card -->
-  <div class="card" style="border-radius: 10px;">
-    <div class="hovereffect" style="height: 15em;overflow: hidden;">
+  <div class="card hovereffect" style="border-radius: 10px;">
+    <div class="" style="height: 15em;overflow: hidden;">
       <img style="height: 15em; border-radius: 11px;" class="img-responsive w-100" [src]="post.imgPath[0]" alt="">
       <div class="overlay">
         <h2>{{post.title[21]?post.title.slice(0,20)+"...":post.title}}</h2>
-        <a class="info" href="#">Explore</a>
+        <a class="info mt-5 mb-5" href="#">Explore</a>
+        <hr>
+        <button class="btn btn-primary btn-sm info" style="margin-right: 5px;" data-bs-toggle="modal"
+          data-bs-target="#exampleModal" (click)="selectedPost(post)">Edit</button>
+        <button class="btn btn-danger btn-sm info" style="margin-left: 5px;"
+          (click)="deleteThisPost(post.id)">Delete</button>
       </div>
     </div>
 
@@ -18,11 +23,6 @@
         <span class="text-danger mr-1">₹{{post.price + " "}}</span>
         <span class="text-grey"><s>₹{{post.price+500}}</s></span>
       </h6>
-
-      <button class="btn btn-outline-primary btn-sm" style="margin-right: 3px;" data-bs-toggle="modal"
-        data-bs-target="#exampleModal" (click)="selectedPost(post)">Edit</button>
-      <button class="btn btn-outline-danger btn-sm" style="margin-left: 3px;"
-        (click)="deleteThisPost(post.id)">Delete</button>
     </div>
   </div>
   <!-- Card -->
