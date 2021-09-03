@@ -32,7 +32,7 @@ const uploadImage = async function (req, res) {
         requestBody: {
           name: el.originalname,
           mimeType: el.mimetype,
-          parents: ["1TbzAhzKs_beyGlCGh-NSP4v7CBigeDq8"] // folder id in drive
+          // parents: ["1TbzAhzKs_beyGlCGh-NSP4v7CBigeDq8"] // folder id in drive
         },
         media: {
           mimeType: el.mimetype,

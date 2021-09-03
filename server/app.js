@@ -6,24 +6,32 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
 const postApiRouter = require("./routes/postApi")
-const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, REFRESH_TOKEN, DB_URL } = process.env
+const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, REFRESH_TOKEN, DB_URL, GOOGLE_APPLICATION_CREDENTIALS } = process.env
 var app = express();
+
 
 // google drive api setup
 const { google } = require("googleapis")
-const oAuth2Client = new google.auth.OAuth2(
-  CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
-)
-oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
-oAuth2Client.generateAuthUrl({
-  access_type: 'offline',
-  scope: ['https://www.googleapis.com/auth/drive.metadata.readonly'],
-});
+const KeyFilePath = GOOGLE_APPLICATION_CREDENTIALS
+const scope = [
+  "https://www.googleapis.com/auth/drive",
+  "https://www.googleapis.com/auth/drive.file",
+  "https://www.googleapis.com/auth/drive.appdata",
+  "https://www.googleapis.com/auth/drive.scripts",
+  "https://www.googleapis.com/auth/drive.metadata"
+]
+
+const auth = new google.auth.GoogleAuth({
+  KeyFile: GOOGLE_APPLICATION_CREDENTIALS,
+  scopes: scope
+})
 
 const drive = google.drive({
   version: "v3",
-  auth: oAuth2Client
+  auth: auth
 })
+
+
 
 // database setup
 const mongoose = require("mongoose")
@@ -33,6 +41,7 @@ mongoose.connect(DB_URL, {
 }).then(() => console.log("database connected"))
   .catch((err) => console.log(err));
 
+// express app  essentials
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -44,6 +53,7 @@ app.use((req, res, next) => {
   next()
 })
 
+// binding routers to path
 app.use('/', indexRouter);
 app.use("/postApi", (req, res, next) => { req.drive = drive; req.files = []; next() }, postApiRouter)
 
