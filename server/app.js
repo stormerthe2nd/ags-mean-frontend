@@ -6,32 +6,26 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
 const postApiRouter = require("./routes/postApi")
-const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, REFRESH_TOKEN, DB_URL, GOOGLE_APPLICATION_CREDENTIALS } = process.env
+const { DB_URL, GOOGLE_APPLICATION_CREDENTIALS } = process.env
 var app = express();
 
 
 // google drive api setup
 const { google } = require("googleapis")
-const KeyFilePath = GOOGLE_APPLICATION_CREDENTIALS
-const scope = [
-  "https://www.googleapis.com/auth/drive",
-  "https://www.googleapis.com/auth/drive.file",
-  "https://www.googleapis.com/auth/drive.appdata",
-  "https://www.googleapis.com/auth/drive.scripts",
-  "https://www.googleapis.com/auth/drive.metadata"
-]
-
 const auth = new google.auth.GoogleAuth({
   KeyFile: GOOGLE_APPLICATION_CREDENTIALS,
-  scopes: scope
+  scopes: [
+    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive.appdata",
+    "https://www.googleapis.com/auth/drive.scripts",
+    "https://www.googleapis.com/auth/drive.metadata"
+  ]
 })
-
 const drive = google.drive({
   version: "v3",
   auth: auth
 })
-
-
 
 // database setup
 const mongoose = require("mongoose")
