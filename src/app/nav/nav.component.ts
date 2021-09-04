@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PostService } from '../post.service';
 import { Post } from '../posts.model';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-nav',
@@ -15,9 +16,22 @@ export class NavComponent {
   doc = document
   defaultBg = "rgb(212, 212, 212)"
   darkBg = "rgb(66, 66, 66)"
+  hidden = false
 
   changeMode() {
     if (document.body.style.backgroundColor == this.defaultBg) document.body.style.backgroundColor = this.darkBg
     else document.body.style.backgroundColor = this.defaultBg
+  }
+
+  hideTitle() {
+    if (!this.hidden) {
+      $('.main-title').hide(300);
+      $('.btn-lg').hide(300);
+      this.hidden = true
+      return
+    }
+    $('.main-title').show(700);
+    $('.btn-lg').show(700);
+    this.hidden = false
   }
 }

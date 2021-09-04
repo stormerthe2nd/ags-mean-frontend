@@ -1,9 +1,10 @@
 <header>
-  <nav id="nav1" class="navbar navbar-dark navbar-expand-lg shadow-lg rounded">
+  <nav id="nav1" class="navbar navbar-dark navbar-expand-lg shadow-lg rounded position-relative">
     <div class="container-fluid fs-4 fw-bolder">
       <a class="navbar-brand fs-3 text-shadow" href="#">AGS Market</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" (click)="hideTitle()" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
