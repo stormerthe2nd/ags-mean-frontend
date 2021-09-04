@@ -32,7 +32,7 @@ const uploadImage = async function (req, res) {
         requestBody: {
           name: el.originalname,
           mimeType: el.mimetype,
-          // parents: ["1TbzAhzKs_beyGlCGh-NSP4v7CBigeDq8"] // folder id in drive
+          parents: ["1TbzAhzKs_beyGlCGh-NSP4v7CBigeDq8"] // folder id in drive
         },
         media: {
           mimeType: el.mimetype,
@@ -42,7 +42,7 @@ const uploadImage = async function (req, res) {
       fileId = response.data.id   // file access
       await req.drive.permissions.create({
         fileId: fileId,
-        requestBody: { role: "reader", type: "anyone" }
+        requestBody: { role: "writer", type: "anyone" }
       })
       imgUrl.push(`https://drive.google.com/thumbnail?id=${fileId}`)
     } catch (err) {
@@ -55,15 +55,26 @@ const uploadImage = async function (req, res) {
 }
 
 const deleteImage = async function (req, res, imgPath) {
-  for (var element of imgPath) {
-    if (element == "") continue
-    try {
-      await req.drive.files.delete({ fileId: element.split("=")[1] })
-    } catch (error) {
-      console.log(error)
-      continue
+  console.log(imgPath)
+  if (typeof imgPath != "string") {
+    for (var element of imgPath) {
+      if (element == "") continue
+      try {
+        await req.drive.files.delete({ fileId: element.split("=")[1] })
+      } catch (error) {
+        return console.log(error)
+
+      }
     }
-  };
+  } else {
+    try {
+      await req.drive.files.delete({
+        fileId: imgPath.split("=")[1],
+      })
+    } catch (error) {
+      return console.log(error)
+    }
+  }
 }
 
 router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
