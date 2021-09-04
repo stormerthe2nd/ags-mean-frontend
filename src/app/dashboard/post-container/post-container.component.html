@@ -1,3 +1,5 @@
-<div id="post-container" *ngFor="let post of postsArr" class="card-group mb-5" style="overflow: hidden;float:left;">
-  <app-specific-post [post]="post" (click)="postClickEvent(post)"></app-specific-post>
+<div class="container-fluid">
+  <div id="post-container" *ngFor="let post of postsArr" class="card-group mb-5" style="overflow: hidden;float:left;">
+    <app-specific-post [post]="post"></app-specific-post>
+  </div>
 </div>

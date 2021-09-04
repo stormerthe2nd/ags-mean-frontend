@@ -25,7 +25,4 @@ export class PostContainerComponent implements OnInit, OnDestroy {
     this.postSub.unsubscribe()
   }
 
-  postClickEvent(post) {
-  }
-
 }
