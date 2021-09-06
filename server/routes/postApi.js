@@ -114,6 +114,7 @@ router.put("/update/:id", upload.array("imgToAdd", 12), async (req, res) => {
   console.log(req.files.length)
   if (req.files.length > 0) var imgUrl = await uploadImage(req, res)
   if (imgToDel) await deleteImage(req, res, imgToDel)
+  await PostModel.findByIdAndUpdate({ _id: id })
   res.json(req.body)
 })
 

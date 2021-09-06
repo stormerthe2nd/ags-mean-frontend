@@ -15,7 +15,7 @@ export class SpecificPostComponent implements OnInit {
   }
 
   deleteThisPost(id: string) {
-    this.postService.deletePost(id)
+    confirm("Are you sure you want to Delete this Post") ? this.postService.deletePost(id) : {}
   }
 
   selectedPost(post: Post) {

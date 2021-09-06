@@ -4,7 +4,7 @@
       <form class="needs-validation"
         (submit)="this.postService.selectedPostToEdit==null?addPost(postForm):editPost(postForm)" #postForm="ngForm"
         enctype="multipart/form-data" novalidate>
-        <div class="modal-header">
+        <div class="modal-header text-dark">
           <h5 *ngIf="this.postService.selectedPostToEdit==null;else h5Block" class="modal-title" id="exampleModalLabel">
             Upload Post</h5>
           <ng-template #h5Block>
