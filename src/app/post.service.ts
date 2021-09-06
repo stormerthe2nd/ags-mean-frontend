@@ -24,6 +24,9 @@ export class PostService {
       .subscribe((mappedPost) => {
         console.log(mappedPost)
         this.postsArr = mappedPost
+        this.postsArr.forEach((post) => {
+          post.imgPath = post.imgPath.filter(link => { return link != "" })
+        })
         this.postArrUpdated.next([...this.postsArr])
       })
   }
@@ -76,7 +79,6 @@ export class PostService {
 
   editPost(post: any) {
     const editFormData = new FormData()
-    console.log(post)
     post.imgToAdd.forEach(element => {
       editFormData.append("imgToAdd", element)
     });
@@ -90,9 +92,10 @@ export class PostService {
     editFormData.append("titleInp", post.title)
     editFormData.append("priceInp", post.price)
     editFormData.append("categoryInp", post.category)
-    console.log(editFormData)
-    this.http.put<{ msg: any }>("http://localhost:3000/postApi/update/" + post.id, editFormData).subscribe((data) => { console.log(data) },
+    this.http.put<{ msg: any }>("http://localhost:3000/postApi/update/" + post.id, editFormData).subscribe((data) => {
+      console.log(data)
+      this.getPosts()
+    },
       (err) => { console.log(err) })
   }
-
 }

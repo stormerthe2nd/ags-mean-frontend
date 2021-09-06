@@ -110,12 +110,28 @@ router.delete("/delete/:id", async (req, res) => {
 router.put("/update/:id", upload.array("imgToAdd", 12), async (req, res) => {
   const { id } = req.params
   const { links, imgToDel, desInp, titleInp, priceInp, categoryInp } = req.body
-  console.log("req body", req.body)
-  console.log(req.files.length)
-  if (req.files.length > 0) var imgUrl = await uploadImage(req, res)
-  if (imgToDel) await deleteImage(req, res, imgToDel)
-  await PostModel.findByIdAndUpdate({ _id: id })
-  res.json(req.body)
+  var updatedLinks = links
+  if (req.files.length > 0) {
+    var imgUrl = await uploadImage(req, res)
+    console.log(imgUrl)
+    updatedLinks = updatedLinks.concat(imgUrl)
+  }
+  if (imgToDel) {
+    await deleteImage(req, res, imgToDel)
+    updatedLinks = updatedLinks.filter((el) => { return !imgToDel.includes(el) })
+  }
+  let post = new PostModel({
+    _id: id,
+    sno: 1,
+    imgPath: updatedLinks = updatedLinks.filter((el) => { return el != "" }),
+    des: desInp,
+    title: titleInp,
+    price: priceInp,
+    active: true,
+    category: categoryInp
+  })
+  var result = await PostModel.updateOne({ _id: id }, post)
+  res.json(result)
 })
 
 module.exports = router

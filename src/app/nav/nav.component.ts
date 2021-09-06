@@ -14,12 +14,12 @@ export class NavComponent {
   constructor(public postService: PostService) {
   }
   doc = document
-  defaultBg = "rgb(212, 212, 212)"
-  darkBg = "rgb(66, 66, 66)"
+  lightBg = "rgb(212, 212, 212)"
+  defaultBg = "rgb(66, 66, 66)"
   hidden = false
 
   changeMode() {
-    if (document.body.style.backgroundColor == this.defaultBg) document.body.style.backgroundColor = this.darkBg
+    if (document.body.style.backgroundColor == this.defaultBg) document.body.style.backgroundColor = this.lightBg
     else document.body.style.backgroundColor = this.defaultBg
   }
 
