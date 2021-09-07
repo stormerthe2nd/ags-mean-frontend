@@ -55,7 +55,6 @@ const uploadImage = async function (req, res) {
 }
 
 const deleteImage = async function (req, res, imgPath) {
-  console.log(imgPath)
   if (typeof imgPath != "string") {
     for (var element of imgPath) {
       if (element == "") continue
@@ -63,7 +62,6 @@ const deleteImage = async function (req, res, imgPath) {
         await req.drive.files.delete({ fileId: element.split("=")[1] })
       } catch (error) {
         return console.log(error)
-
       }
     }
   } else {
@@ -110,10 +108,11 @@ router.delete("/delete/:id", async (req, res) => {
 router.put("/update/:id", upload.array("imgToAdd", 12), async (req, res) => {
   const { id } = req.params
   const { links, imgToDel, desInp, titleInp, priceInp, categoryInp } = req.body
+  console.log(req.body)
   var updatedLinks = links
   if (req.files.length > 0) {
+    console.log("imgUrl", imgUrl)
     var imgUrl = await uploadImage(req, res)
-    console.log(imgUrl)
     updatedLinks = updatedLinks.concat(imgUrl)
   }
   if (imgToDel) {

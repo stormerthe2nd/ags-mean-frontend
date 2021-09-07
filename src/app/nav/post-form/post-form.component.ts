@@ -32,7 +32,6 @@ export class PostFormComponent implements OnInit {
 
   selectChangeHandler(event: any) {
     this.categoryInp = event.target.value
-    console.log(this.post)
   }
 
   addPost(form: NgForm): void {
@@ -73,16 +72,15 @@ export class PostFormComponent implements OnInit {
       price: priceInp,
       category: this.categoryInp == undefined ? this.categoryInp = "Uncategorised" : this.categoryInp
     })
+    this.deletedLinks = []
+    form.controls["fileInp"].reset()
   }
 
   deleteImage(link: string) {
-    this.deletedLinks.push(link)
-    this.postService.selectedPostToEdit.imgPath = this.postService.selectedPostToEdit.imgPath.filter((el) => { return el != link })
-  }
-
-  undoImage() {
-    this.postService.selectedPostToEdit.imgPath = this.postService.selectedPostToEdit.imgPath.concat(this.deletedLinks)
-    this.deletedLinks.length = 0
+    if (confirm("Are you sure you want to Delete this Image")) {
+      this.deletedLinks.push(link)
+      this.postService.selectedPostToEdit.imgPath = this.postService.selectedPostToEdit.imgPath.filter((el) => { return el != link })
+    }
   }
 
 }
