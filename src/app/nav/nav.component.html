@@ -1,7 +1,8 @@
 <header>
-  <nav id="nav1" class="navbar navbar-dark navbar-expand-lg shadow-lg rounded position-relative">
+  <nav id="nav1" class="navbar navbar-dark bg-dark navbar-expand-lg shadow-lg rounded position-relative"
+    style="opacity: 0.9;">
     <div class="container-fluid fs-4 fw-bolder">
-      <a class="navbar-brand fs-3 text-shadow" href="#">AGS Market</a>
+      <a class="navbar-brand fs-3 text-shadow text-light" href="#">AGS Market</a>
       <button class="navbar-toggler" (click)="hideTitle()" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
         aria-label="Toggle navigation">
@@ -13,18 +14,8 @@
             <a class="nav-link text-shadow" aria-current="page" routerLink="/"><button
                 class="btn btn-outline-light">Home</button></a>
           </li>
-          <li class="nav-item">
+          <li class=" nav-item">
             <a class="nav-link text-shadow" routerLink="/about"><button class="btn btn-outline-light">About</button></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-shadow" (click)="changeMode()">
-              <div *ngIf="this.doc.body.style.backgroundColor==this.defaultBg;else elseBlock">
-                <button class="btn btn-outline-light">Light</button>
-              </div>
-              <ng-template #elseBlock>
-                <button class="btn btn-outline-light">Dark</button>
-              </ng-template>
-            </a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-shadow" href="#" id="navbarDropdown" role="button"
@@ -41,7 +32,7 @@
         </ul>
         <div class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button id="search" class="btn btn-light" routerLink="/" type="submit">Search</button>
+          <button id="search" class="btn btn-outline-light" routerLink="/" type="submit">Search</button>
         </div>
       </div>
     </div>
