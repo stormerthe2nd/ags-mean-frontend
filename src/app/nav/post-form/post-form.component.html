@@ -56,8 +56,9 @@
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">Category</label>
             </div>
-            <select class="form-select" [ngModel]="this.postService.selectedPostToEdit?.category"
-              (change)="selectChangeHandler($event)" name="categoryInp" aria-label="Default select example" required>
+            <select class="form-select"
+              [ngModel]="this.postService.selectedPostToEdit?this.postService.selectedPostToEdit.category:undefined"
+              id="categoryInp" name="categoryInp" aria-label="Default select example" required>
               <option value="Uncategorised">Uncategorised</option>
               <option value="Mens Wear">Mens Wear</option>
               <option value="Watches">Watches</option>
@@ -79,10 +80,13 @@
             class="alert alert-danger fade show mt-1 text-center" role="alert">
             <strong>{{this.message}}</strong>
           </div>
+          <div *ngIf="this.message==''" class="alert alert-danger fade show mt-1 text-center d-none" role="alert">
+            <strong></strong>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-            (click)="postCreationStatus='uninit'">Close</button>
+            (click)="postCreationStatus='uninit';this.message=''">Close</button>
           <button *ngIf="this.postService.selectedPostToEdit==null;else submitBlock" type="submit"
             class="btn btn-primary">Upload</button>
           <ng-template #submitBlock>

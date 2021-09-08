@@ -1,5 +1,6 @@
-<div class="container-fluid">
-  <div id="post-container" *ngFor="let post of postsArr" class="card-group mb-5" style="overflow: hidden;float:left;">
+<div class="text-center">
+  <div id="post-container" *ngFor="let post of postsArr" class="card-group mb-5"
+    style="overflow: hidden;display:inline-block">
     <app-specific-post [post]="post"></app-specific-post>
   </div>
 </div>

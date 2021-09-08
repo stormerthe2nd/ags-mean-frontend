@@ -1,6 +1,6 @@
 .bg-img {
   /* The image used */
-  background-image: url("https://freerangestock.com/sample/51042/business-meeting-and-teamwork--large-team-at-the-table.jpg");
+  background-image: url("/assets/images/b4.jpg");
   color: azure;
   height: 550px;
 
@@ -19,7 +19,7 @@
 }
 
 .text-shadow{
-  text-shadow: 1px 1px 0px #d3d2d2;
+  text-shadow: 5px 5px 5px #0c0c0c;
 }
 
 .main-title{

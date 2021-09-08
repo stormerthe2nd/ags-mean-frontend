@@ -21,7 +21,6 @@ export class PostFormComponent implements OnInit {
 
   constructor(public postService: PostService, public route: ActivatedRoute) {
   }
-
   ngOnInit() {
     this.postService.selectedPostToEdit
   }
@@ -30,11 +29,8 @@ export class PostFormComponent implements OnInit {
     this.fileInp = event.target.files
   }
 
-  selectChangeHandler(event: any) {
-    this.categoryInp = event.target.value
-  }
-
-  addPost(form: NgForm): void {
+  addPost(form: NgForm) {
+    this.categoryInp = (<HTMLInputElement>document.getElementById("categoryInp")).value
     const { desInp, linkInp, titleInp, priceInp } = form.value
     this.postCreationStatus = "uninit"
     if (desInp == "" || titleInp == "") {
@@ -61,6 +57,8 @@ export class PostFormComponent implements OnInit {
   }
 
   editPost(form: NgForm) {
+    this.categoryInp = (<HTMLInputElement>document.getElementById("categoryInp")).value
+    console.log(this.categoryInp)
     const { desInp, linkInp, titleInp, priceInp } = form.value
     this.postService.editPost({
       id: this.postService.selectedPostToEdit.id,
@@ -74,6 +72,8 @@ export class PostFormComponent implements OnInit {
     })
     this.deletedLinks = []
     form.controls["fileInp"].reset()
+    this.message = ""
+    this.ngOnInit()
   }
 
   deleteImage(link: string) {
