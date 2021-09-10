@@ -45,7 +45,7 @@ export class PostService {
     formData.append("titleInp", post.title)
     formData.append("priceInp", post.price)
     formData.append("linkInp", post.link)
-    formData.append("categoryInp", post.category)
+    formData.append("categoryInp", post.category === '' ? "Uncategorised" : post.category)
     console.log(formData)
     this.http.post<{ post: any }>("http://localhost:3000/postApi/upload", formData).subscribe(
       (postData) => {
