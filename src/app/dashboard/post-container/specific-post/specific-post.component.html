@@ -1,5 +1,4 @@
 <div style="width:18em; height: 27em;min-height: 27em;margin-inline: 10px;">
-  <!-- Card -->
   <div class="card border-dark text-dark hovereffect" style="border-radius: 10px;">
     <div class="" style="height: 15em;overflow: hidden;">
       <img style="height: 15em;" class="img-responsive w-100" [src]="post.imgPath[0]" alt="">
@@ -13,24 +12,20 @@
           (click)="deleteThisPost(post.id)">Delete</button>
       </div>
     </div>
-
     <div class="card-body text-center">
       <h5>{{post.title[21]?post.title.slice(0,20)+"...":post.title}}</h5>
       <p class="small text-muted text-uppercase mb-2">{{post.category}}</p>
-      <p>{{post.des.slice(0,30)+"..."}}</p>
+      <p>{{post.des[31]?post.des.slice(0,30)+"...":post.des}}</p>
       <hr>
       <h6 class="mb-3 text-center">
         <span class="text-danger mr-1 d-inline-block">
           <p class="text-dark d-inline-block">Price:-</p> ₹{{post.price + " "}}
         </span>
-        <!-- <span class="text-grey"><s>₹{{post.price+500}}</s></span> -->
         <p class="mt-3 text-muted">Last Updated {{post.updated}}</p>
       </h6>
     </div>
   </div>
-  <!-- Card -->
 </div>
-<!-- delete alert Modal -->
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

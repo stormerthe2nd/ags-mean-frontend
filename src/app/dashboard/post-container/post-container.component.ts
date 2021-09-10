@@ -25,4 +25,8 @@ export class PostContainerComponent implements OnInit, OnDestroy {
     this.postSub.unsubscribe()
   }
 
+  filterCategory(category) {
+    return this.postsArr.filter((el: Post) => { return el.category === category })
+  }
+
 }

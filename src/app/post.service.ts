@@ -98,4 +98,11 @@ export class PostService {
     },
       (err) => { console.log(err) })
   }
+
+  categories() {
+    return [
+      "Mens Wear", "Ladies Wear", "Kids Wear", "Watches", "Glares", "Cosmetics", "Headsets/Earbuds", "Mobile Accessories", "Household", "Bags", "Foot Wear", "Bedsheets", "Uncategorised"
+    ]
+  }
 }
+

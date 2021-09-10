@@ -59,17 +59,7 @@
             <select class="form-select"
               [ngModel]="this.postService.selectedPostToEdit?this.postService.selectedPostToEdit.category:undefined"
               id="categoryInp" name="categoryInp" aria-label="Default select example" required>
-              <option value="Uncategorised">Uncategorised</option>
-              <option value="Mens Wear">Mens Wear</option>
-              <option value="Watches">Watches</option>
-              <option value="Glares">Glares</option>
-              <option value="Cosmetics">Cosmetics</option>
-              <option value="Headsets/Earbuds">Headsets/Earbuds</option>
-              <option value="Mobile Accessories">Mobile Accessories</option>
-              <option value="Household">Household</option>
-              <option value="Bags">Bags</option>
-              <option value="Foot Wear">Foot Wear</option>
-              <option value="Bedsheets">Bedsheets</option>
+              <option *ngFor="let category of this.postService.categories()" [value]="category">{{category}}</option>
             </select>
           </div>
           <div *ngIf="postCreationStatus=='success' && this.postService.selectedPostToEdit==null"
