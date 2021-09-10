@@ -11,7 +11,6 @@ import { Post } from 'src/app/posts.model';
 export class PostContainerComponent implements OnInit, OnDestroy {
   postsArr: Post[];
   categories = this.PostService.categories()
-  filteredPost: any
   private postSub: Subscription
   constructor(public PostService: PostService) {
 
@@ -21,25 +20,16 @@ export class PostContainerComponent implements OnInit, OnDestroy {
     this.PostService.getPosts()
     this.postSub = this.PostService.postArrUpdatedListener().subscribe((postsArr: Post[]) => {
       this.postsArr = postsArr
-      this.filteredPost = this.filterCategory(this.categories, this.postsArr)
-      console.log('filteredPost', this.filteredPost)
     })
+
   }
   ngOnDestroy(): void {
     this.postSub.unsubscribe()
   }
 
-  filterCategory(categories, arr) {
-    console.log(categories, arr)
-    var arr2 = []
-    categories.forEach(cat => {
-      var arr3 = []
-      arr.forEach(element => {
-        if (element.category === cat) arr3.push(element)
-      });
-      arr2.push(arr3)
-    })
-    return arr2
+  filterCategories(cat, arr) {
+    if (arr === undefined) return
+    return arr.some(post => post.category === cat);
   }
 
 }
