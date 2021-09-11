@@ -17,6 +17,7 @@ export class PostFormComponent implements OnInit {
   fileInp = []
   postCreationStatus = "uninit"
   categoryInp = undefined
+  freeShipInp = undefined
   message = ''
 
   constructor(public postService: PostService, public route: ActivatedRoute) {
@@ -31,6 +32,8 @@ export class PostFormComponent implements OnInit {
 
   addPost(form: NgForm) {
     this.categoryInp = (<HTMLInputElement>document.getElementById("categoryInp")).value
+    this.freeShipInp = (<HTMLInputElement>document.getElementById("freeShipInp")).value
+    console.log("shipping free", this.freeShipInp)
     const { desInp, linkInp, titleInp, priceInp } = form.value
     this.postCreationStatus = "uninit"
     if (desInp == "" || titleInp == "") {
@@ -49,7 +52,8 @@ export class PostFormComponent implements OnInit {
       des: desInp,
       title: titleInp,
       price: priceInp,
-      category: this.categoryInp == undefined ? this.categoryInp = "Uncategorised" : this.categoryInp
+      freeShip: this.freeShipInp == undefined ? false : this.freeShipInp,
+      category: this.categoryInp == undefined ? "Uncategorised" : this.categoryInp
     })
     this.postCreationStatus = "success"
     this.message = "Post will be created shortly"
@@ -58,7 +62,7 @@ export class PostFormComponent implements OnInit {
 
   editPost(form: NgForm) {
     this.categoryInp = (<HTMLInputElement>document.getElementById("categoryInp")).value
-    console.log(this.categoryInp)
+    this.freeShipInp = (<HTMLInputElement>document.getElementById("freeShipInp")).value
     const { desInp, linkInp, titleInp, priceInp } = form.value
     this.postService.editPost({
       id: this.postService.selectedPostToEdit.id,
@@ -68,7 +72,8 @@ export class PostFormComponent implements OnInit {
       des: desInp,
       title: titleInp,
       price: priceInp,
-      category: this.categoryInp == undefined ? this.categoryInp = "Uncategorised" : this.categoryInp
+      freeShip: this.freeShipInp == undefined ? false : this.freeShipInp,
+      category: this.categoryInp == undefined ? "Uncategorised" : this.categoryInp
     })
     this.deletedLinks = []
     form.controls["fileInp"].reset()
@@ -82,5 +87,4 @@ export class PostFormComponent implements OnInit {
       this.postService.selectedPostToEdit.imgPath = this.postService.selectedPostToEdit.imgPath.filter((el) => { return el != link })
     }
   }
-
 }

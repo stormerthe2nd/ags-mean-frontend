@@ -14,16 +14,14 @@
 }
 
 /* Position the navbar container inside the image */
-.container-custom {
-  position: absolute;
-}
+
 
 .text-shadow{
   text-shadow: 5px 5px 5px #0c0c0c;
 }
 
 .main-title{
-  position: absolute;
+  position: relative;
   text-align: center;
   top:200px;
   left: 50%;
@@ -33,7 +31,8 @@
 
 .btn-lg{
   position: absolute;
-  top:350px;
+  bottom: 8px;
   left: 50%;
   transform: translate(-50%, -50%);
+
 }

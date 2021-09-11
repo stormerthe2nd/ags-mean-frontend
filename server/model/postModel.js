@@ -7,6 +7,7 @@ module.exports = mongoose.model("Post", mongoose.Schema({
   imgPath: { type: Array, required: true },
   title: { type: String, required: true },
   price: { type: Number, required: true },
+  freeShip: { type: Boolean, required: true, default: false },
   des: { type: String, required: true },
   updated: {
     type: String, default: `${d.getDate()}-${months[d.getMonth()]}-${d.getFullYear()}`

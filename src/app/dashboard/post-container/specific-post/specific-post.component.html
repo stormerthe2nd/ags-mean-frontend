@@ -20,8 +20,9 @@
       <h6 class="mb-3 text-center">
         <span class="text-danger mr-1 d-inline-block">
           <p class="text-dark d-inline-block">Price:-</p> ₹{{post.price + " "}}
+          <p class="fw-normal text-muted d-inline-block">{{post.freeShip?'Free Shipping':'Shipping Extra'}}</p>
         </span>
-        <p class="mt-3 text-muted">Last Updated {{post.updated}}</p>
+        <p class="text-muted">Last Updated {{post.updated}}</p>
       </h6>
     </div>
   </div>

@@ -4,6 +4,7 @@ export interface Post {
   imgPath: Array<string>
   title: string
   price: number
+  freeShip: boolean
   des: string
   updated: string
   active: boolean

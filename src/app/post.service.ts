@@ -44,6 +44,7 @@ export class PostService {
     formData.append("desInp", post.des)
     formData.append("titleInp", post.title)
     formData.append("priceInp", post.price)
+    formData.append("freeShipInp", post.freeShip)
     formData.append("linkInp", post.link)
     formData.append("categoryInp", post.category === '' ? "Uncategorised" : post.category)
     console.log(formData)
@@ -91,6 +92,7 @@ export class PostService {
     editFormData.append("desInp", post.des)
     editFormData.append("titleInp", post.title)
     editFormData.append("priceInp", post.price)
+    editFormData.append("freeShipInp", post.freeShip)
     editFormData.append("categoryInp", post.category)
     this.http.put<{ msg: any }>("http://localhost:3000/postApi/update/" + post.id, editFormData).subscribe((data) => {
       console.log(data)

@@ -1,4 +1,3 @@
-// change the refresh token from google auth playground to change drive location
 const router = require("express").Router()
 const fs = require("fs")
 const multer = require("multer")
@@ -19,6 +18,7 @@ const upload = multer({
     }
   })
 })
+
 
 const uploadImage = async function (req, res) {
   imgUrl = []
@@ -54,6 +54,7 @@ const uploadImage = async function (req, res) {
   return imgUrl
 }
 
+
 const deleteImage = async function (req, res, imgPath) {
   if (typeof imgPath != "string") {
     for (var element of imgPath) {
@@ -75,6 +76,7 @@ const deleteImage = async function (req, res, imgPath) {
   }
 }
 
+
 router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
   req.files = req.files.filter(el => { return el !== undefined })
   let imgUrl = await uploadImage(req, res)
@@ -88,6 +90,7 @@ router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
     des: req.body.desInp,
     title: req.body.titleInp,
     price: req.body.priceInp,
+    freeShip: JSON.parse(req.body.freeShipInp),
     active: true,
     category: req.body.categoryInp
   })
@@ -95,6 +98,7 @@ router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
   post.save()
   res.json({ post: post })
 })
+
 
 router.delete("/delete/:id", async (req, res) => {
   const { id } = req.params
@@ -105,9 +109,10 @@ router.delete("/delete/:id", async (req, res) => {
   res.status(200).json({ deleted: true })
 })
 
+
 router.put("/update/:id", upload.array("imgToAdd", 12), async (req, res) => {
   const { id } = req.params
-  const { links, imgToDel, desInp, titleInp, priceInp, categoryInp } = req.body
+  const { links, imgToDel, desInp, titleInp, priceInp, freeShipInp, categoryInp } = req.body
   console.log(req.body)
   var updatedLinks = links
   if (req.files.length > 0) {
@@ -126,6 +131,7 @@ router.put("/update/:id", upload.array("imgToAdd", 12), async (req, res) => {
     des: desInp,
     title: titleInp,
     price: priceInp,
+    freeShip: freeShipInp,
     active: true,
     category: categoryInp
   })

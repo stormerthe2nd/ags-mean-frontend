@@ -15,16 +15,19 @@ export class NavComponent {
   }
   doc = document
   hidden = false
+  opened = false
+  closed = false
 
-  hideTitle() {
+  hideTitle(opened: boolean, closed: boolean) {
+
     if (!this.hidden) {
-      $('.main-title').hide(300);
-      $('.btn-lg').hide(300);
+      $('.main-title').hide(200);
+      $('.btn-lg').hide(200);
       this.hidden = true
-      return
+    } else {
+      $('.main-title').show(300);
+      $('.btn-lg').show(300);
+      this.hidden = false
     }
-    $('.main-title').show(700);
-    $('.btn-lg').show(700);
-    this.hidden = false
   }
 }
