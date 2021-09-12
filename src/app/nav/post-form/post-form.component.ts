@@ -30,22 +30,54 @@ export class PostFormComponent implements OnInit {
     this.fileInp = event.target.files
   }
 
+  setStatus(status, msg, id) {
+    Array.from(document.getElementsByClassName("form-select")).forEach((el: any) => {
+      el.style.boxShadow = '0px 0px'
+    })
+    Array.from(document.getElementsByClassName("form-control")).forEach((el: any) => {
+      el.style.boxShadow = '0px 0px'
+    })
+    if (id !== "") {
+      document.getElementById(id).style.boxShadow = "0px 2px rgb(253, 140, 140)"
+      document.getElementById(id).focus()
+    }
+    this.postCreationStatus = status
+    this.message = msg
+  }
+
+  validForm(desInp, titleInp, priceInp, freeShipInp, categoryInp): boolean {
+    if (titleInp == '' || !titleInp) {
+      this.setStatus("invalid", "please provide a Title", "title")
+      return false
+    }
+    else if (!priceInp) {
+      this.setStatus("invalid", "please provide a valid Price", "price")
+      return false
+    }
+    else if (freeShipInp == '' || !freeShipInp) {
+      this.setStatus("invalid", "please provide Shipping Details", "freeShip")
+      return false
+    }
+    else if (desInp == '' || !desInp) {
+      this.setStatus("invalid", "please provide a Description", "des")
+      return false
+    }
+    else if (categoryInp == '' || !categoryInp) {
+      this.setStatus("invalid", "please provide a Category", "category")
+      return false
+    } else {
+      this.setStatus("success", "Post will be Saved Shortly", "")
+      return true
+    }
+  }
+
   addPost(form: NgForm) {
-    this.categoryInp = (<HTMLInputElement>document.getElementById("categoryInp")).value
-    this.freeShipInp = (<HTMLInputElement>document.getElementById("freeShipInp")).value
-    console.log("shipping free", this.freeShipInp)
+    this.categoryInp = (<HTMLInputElement>document.getElementById("category")).value
+    this.freeShipInp = (<HTMLInputElement>document.getElementById("freeShip")).value
+
     const { desInp, linkInp, titleInp, priceInp } = form.value
     this.postCreationStatus = "uninit"
-    if (desInp == "" || titleInp == "") {
-      this.postCreationStatus = "invalid"
-      this.message = "please fill all the necessary inputs"
-      return
-    }
-    if (priceInp == null) {
-      this.postCreationStatus = "invalid"
-      this.message = "please enter a valid price"
-      return
-    }
+    if (!this.validForm(desInp, titleInp, priceInp, this.freeShipInp, this.categoryInp)) return
     this.postService.addPost({
       imgPath: [...this.fileInp],
       link: [linkInp != "" ? linkInp : ""],
@@ -55,15 +87,14 @@ export class PostFormComponent implements OnInit {
       freeShip: this.freeShipInp == undefined ? false : this.freeShipInp,
       category: this.categoryInp == undefined ? "Uncategorised" : this.categoryInp
     })
-    this.postCreationStatus = "success"
-    this.message = "Post will be created shortly"
     form.reset()
   }
 
   editPost(form: NgForm) {
-    this.categoryInp = (<HTMLInputElement>document.getElementById("categoryInp")).value
-    this.freeShipInp = (<HTMLInputElement>document.getElementById("freeShipInp")).value
+    this.categoryInp = (<HTMLInputElement>document.getElementById("category")).value
+    this.freeShipInp = (<HTMLInputElement>document.getElementById("freeShip")).value
     const { desInp, linkInp, titleInp, priceInp } = form.value
+    if (!this.validForm(desInp, titleInp, priceInp, this.freeShipInp, this.categoryInp)) return
     this.postService.editPost({
       id: this.postService.selectedPostToEdit.id,
       imgToAdd: [...this.fileInp],
@@ -77,7 +108,8 @@ export class PostFormComponent implements OnInit {
     })
     this.deletedLinks = []
     form.controls["fileInp"].reset()
-    this.message = ""
+    form.controls["categoryInp"].reset()
+    form.controls["freeShipInp"].reset()
     this.ngOnInit()
   }
 

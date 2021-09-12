@@ -51,9 +51,8 @@
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">Shipping</label>
             </div>
-            <select class="form-select"
-              [ngModel]="this.postService.selectedPostToEdit?this.postService.selectedPostToEdit?.freeShip:undefined"
-              id="freeShipInp" name="freeShipInp" aria-label="Default select example" required>
+            <select class="form-select" [ngModel]="undefined" id="freeShip" name="freeShipInp"
+              aria-label="Default select example" required>
               <option value="false">Shipping Extra</option>
               <option value="true">Free Shipping</option>
             </select>
@@ -67,22 +66,18 @@
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">Category</label>
             </div>
-            <select class="form-select"
-              [ngModel]="this.postService.selectedPostToEdit?this.postService.selectedPostToEdit.category:undefined"
-              id="categoryInp" name="categoryInp" aria-label="Default select example" required>
+            <select class="form-select" [ngModel]="undefined" id="category" name="categoryInp"
+              aria-label="Default select example" required>
               <option *ngFor="let category of this.postService.categories()" [value]="category">{{category}}</option>
             </select>
           </div>
-          <div *ngIf="postCreationStatus=='success' && this.postService.selectedPostToEdit==null"
+          <div *ngIf="postCreationStatus=='success' && this.message!=''"
             class="alert alert-success fade show mt-1 text-center" role="alert">
             <strong>{{this.message}}</strong>
           </div>
-          <div *ngIf="postCreationStatus=='invalid' && this.postService.selectedPostToEdit==null"
+          <div *ngIf="postCreationStatus=='invalid' && this.message!=''"
             class="alert alert-danger fade show mt-1 text-center" role="alert">
             <strong>{{this.message}}</strong>
-          </div>
-          <div *ngIf="this.message==''" class="alert alert-danger fade show mt-1 text-center d-none" role="alert">
-            <strong></strong>
           </div>
         </div>
         <div class="modal-footer">

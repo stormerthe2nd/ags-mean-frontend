@@ -84,15 +84,16 @@ router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
   if (!imgUrl) return res.json({ msg: "some error occured" })
   imgUrl.concat(req.body.linkInp)
   imgUrl = imgUrl.filter((el) => { return el != "" })
+  var freeShip = JSON.parse(req.body.freeShipInp)
   var post = await new PostModel({
     sno: 1,
     imgPath: imgUrl,
     des: req.body.desInp,
     title: req.body.titleInp,
     price: req.body.priceInp,
-    freeShip: JSON.parse(req.body.freeShipInp),
+    freeShip: freeShip == "" || freeShip === undefined ? false : freeShip,
     active: true,
-    category: req.body.categoryInp
+    category: req.body.categoryInp == "" || req.body.categoryInp === undefined ? "Uncategorised" : req.body.categoryInp
   })
   console.log(post)
   post.save()
@@ -131,9 +132,9 @@ router.put("/update/:id", upload.array("imgToAdd", 12), async (req, res) => {
     des: desInp,
     title: titleInp,
     price: priceInp,
-    freeShip: freeShipInp,
+    freeShip: freeShipInp == "" || freeShipInp === undefined ? false : freeShipInp,
     active: true,
-    category: categoryInp
+    category: categoryInp == "" || categoryInp === undefined ? "Uncategorised" : categoryInp
   })
   var result = await PostModel.updateOne({ _id: id }, post)
   res.json(result)

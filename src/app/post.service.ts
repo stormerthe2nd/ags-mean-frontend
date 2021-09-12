@@ -25,7 +25,7 @@ export class PostService {
         console.log(mappedPost)
         this.postsArr = mappedPost
         this.postsArr.forEach((post) => {
-          post.imgPath = post.imgPath.filter(link => { return link != "" })
+          post.imgPath = post.imgPath.filter(link => { return link != "" && link != "null" })
         })
         this.postArrUpdated.next([...this.postsArr])
       })
@@ -103,7 +103,7 @@ export class PostService {
 
   categories() {
     return [
-      "Mens Wear", "Ladies Wear", "Kids Wear", "Watches", "Glares", "Cosmetics", "Headsets/Earbuds", "Mobile Accessories", "Household", "Bags", "Foot Wear", "Bedsheets", "Uncategorised"
+      "Watches", "Bags", "Glares", "Headsets/Earbuds", "Cosmetics", "Mens Wear", "Mobile Accessories", "Ladies Wear", "Household", "Foot Wear", "Kids", "Bedsheets", "Uncategorised"
     ]
   }
 }
