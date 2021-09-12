@@ -50,7 +50,7 @@ const uploadImage = async function (req, res) {
       return null
     }
   }
-  fsExtra.emptyDir(path.join(__dirname, "/../temp_uploads/"))
+  // fsExtra.emptyDir(path.join(__dirname, "/../temp_uploads/"))
   return imgUrl
 }
 

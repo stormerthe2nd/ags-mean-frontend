@@ -11,5 +11,6 @@ export class AppComponent {
   title = 'AGS Cloud Server';
 
   constructor() {
+
   }
 }
