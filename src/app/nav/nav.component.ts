@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { PostService } from '../post.service';
 import { Post } from '../posts.model';
 import * as $ from 'jquery';
@@ -12,6 +11,7 @@ import * as $ from 'jquery';
 export class NavComponent {
   postArr: Post[]
   constructor(public postService: PostService) {
+
   }
   doc = document
   hidden = false
@@ -19,7 +19,6 @@ export class NavComponent {
   closed = false
 
   hideTitle(opened: boolean, closed: boolean) {
-
     if (!this.hidden) {
       $('.main-title').hide(200);
       $('.btn-lg').hide(200);
@@ -29,5 +28,6 @@ export class NavComponent {
       $('.btn-lg').show(300);
       this.hidden = false
     }
+
   }
 }

@@ -4,8 +4,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index');
 const postApiRouter = require("./routes/postApi")
+const productRouter = require("./routes/product")
 const { DB_URL, GOOGLE_APPLICATION_CREDENTIALS } = process.env
 var app = express();
 
@@ -50,6 +51,7 @@ app.use((req, res, next) => {
 // binding routers to path
 app.use('/', indexRouter);
 app.use("/postApi", (req, res, next) => { req.drive = drive; req.files = []; next() }, postApiRouter)
+app.use('/product', productRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
