@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { PostService } from 'src/app/post.service';
 import { Post } from 'src/app/posts.model';
 
+
 @Component({
   selector: 'app-specific-post',
   templateUrl: './specific-post.component.html',

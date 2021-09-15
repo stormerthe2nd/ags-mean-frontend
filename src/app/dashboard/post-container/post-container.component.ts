@@ -21,7 +21,6 @@ export class PostContainerComponent implements OnInit, OnDestroy {
     this.postSub = this.PostService.postArrUpdatedListener().subscribe((postsArr: Post[]) => {
       this.postsArr = postsArr
     })
-
   }
   ngOnDestroy(): void {
     this.postSub.unsubscribe()

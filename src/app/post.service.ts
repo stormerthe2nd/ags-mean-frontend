@@ -30,7 +30,6 @@ export class PostService {
         this.postArrUpdated.next([...this.postsArr])
       })
   }
-
   postArrUpdatedListener() {
     return this.postArrUpdated.asObservable()
   }
@@ -102,9 +101,6 @@ export class PostService {
   }
 
   categories() {
-    return [
-      "Watches", "Bags", "Glares", "Headsets/Earbuds", "Cosmetics", "Mens Wear", "Mobile Accessories", "Ladies Wear", "Household", "Foot Wear", "Kids", "Bedsheets", "Uncategorised"
-    ]
+    return ["Watches", "Bags", "Glares", "Headsets/Earbuds", "Cosmetics", "Mens Wear", "Mobile Accessories", "Ladies Wear", "Household", "Foot Wear", "Kids", "Bedsheets", "Uncategorised"]
   }
 }
-

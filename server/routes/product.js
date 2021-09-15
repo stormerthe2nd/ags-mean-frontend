@@ -4,7 +4,6 @@ var router = express.Router();
 
 router.get('/:id', async function (req, res) {
   var post = await postModel.findById(req.params.id)
-  console.log(post)
   res.json({ post: post });
 });
 

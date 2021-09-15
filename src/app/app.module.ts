@@ -12,8 +12,8 @@ import { PostContainerComponent } from './dashboard/post-container/post-containe
 import { SpecificPostComponent } from './dashboard/post-container/specific-post/specific-post.component';
 import { NavComponent } from './nav/nav.component';
 import { PostFormComponent } from './nav/post-form/post-form.component';
-import { ProductComponent } from './product/product.component';
 import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +24,6 @@ import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
     SpecificPostComponent,
     NavComponent,
     PostFormComponent,
-    ProductComponent,
     ScrollToTopComponent,
   ],
   imports: [
