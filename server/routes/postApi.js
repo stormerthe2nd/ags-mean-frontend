@@ -1,3 +1,5 @@
+// running 2 uploads simultaneaously merges the list of images
+
 const router = require("express").Router()
 const fs = require("fs")
 const multer = require("multer")
@@ -50,7 +52,7 @@ const uploadImage = async function (req, res) {
       return null
     }
   }
-  // fsExtra.emptyDir(path.join(__dirname, "/../temp_uploads/"))
+  fsExtra.emptyDir(path.join(__dirname, "/../temp_uploads/"))
   return imgUrl
 }
 

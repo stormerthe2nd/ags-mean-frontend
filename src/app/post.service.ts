@@ -103,4 +103,8 @@ export class PostService {
   categories() {
     return ["Watches", "Bags", "Glares", "Headsets/Earbuds", "Cosmetics", "Mens Wear", "Mobile Accessories", "Ladies Wear", "Household", "Foot Wear", "Kids", "Bedsheets", "Uncategorised"]
   }
+
+  getPostById(id) {
+    return this.http.get<any>(`http://localhost:3000/product/${id}`).toPromise()
+  }
 }
