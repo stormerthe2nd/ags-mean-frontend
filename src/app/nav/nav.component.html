@@ -22,11 +22,11 @@
               aria-expanded="false">
               <button class="btn btn-outline-light dropdown-toggle">Posts</button>
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu" style="z-index: 999;position:absolute;" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
                   (click)="this.postService.emptyUploadForm()">Upload</a>
               </li>
-              <li><a class="dropdown-item" href="#search">Find Post</a></li>
+              <li><a class="dropdown-item" id="find" href="#search">Find Post</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -44,8 +44,8 @@
 
         </ul>
         <div class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button id="search" class="btn btn-outline-light" routerLink="/" type="submit">Search</button>
+          <input class="form-control me-2" type="search" placeholder="Search" id="searchInp" aria-label="Search">
+          <button id="search" class="btn btn-outline-light" routerLink="/search/:query" type="submit">Search</button>
         </div>
       </div>
     </div>

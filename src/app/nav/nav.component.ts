@@ -28,6 +28,5 @@ export class NavComponent {
       $('.btn-lg').show(300);
       this.hidden = false
     }
-
   }
 }

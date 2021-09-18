@@ -14,6 +14,7 @@ import { NavComponent } from './nav/nav.component';
 import { PostFormComponent } from './nav/post-form/post-form.component';
 import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 import { ProductComponent } from './product/product.component';
+import { SearchResultComponent } from './search-result/search-result.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { ProductComponent } from './product/product.component';
     PostFormComponent,
     ScrollToTopComponent,
     ProductComponent,
+    SearchResultComponent,
   ],
   imports: [
     BrowserModule,
