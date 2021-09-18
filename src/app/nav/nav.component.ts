@@ -10,6 +10,7 @@ import * as $ from 'jquery';
 })
 export class NavComponent {
   postArr: Post[]
+  query = ""
   constructor(public postService: PostService) {
 
   }
@@ -28,5 +29,10 @@ export class NavComponent {
       $('.btn-lg').show(300);
       this.hidden = false
     }
+  }
+
+  change() {
+    console.log('query ', this.query)
+    this.query = (<HTMLInputElement>document.getElementById('searchInp')).value
   }
 }

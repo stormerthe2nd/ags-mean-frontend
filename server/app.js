@@ -7,6 +7,7 @@ var logger = require('morgan');
 const indexRouter = require('./routes/index');
 const postApiRouter = require("./routes/postApi")
 const productRouter = require("./routes/product")
+const searchRouter = require("./routes/search")
 const { DB_URL, GOOGLE_APPLICATION_CREDENTIALS } = process.env
 var app = express();
 
@@ -52,6 +53,7 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use("/postApi", (req, res, next) => { req.drive = drive; req.files = []; next() }, postApiRouter)
 app.use('/product', productRouter)
+app.use('/search', searchRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

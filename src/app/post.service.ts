@@ -107,4 +107,8 @@ export class PostService {
   getPostById(id) {
     return this.http.get<any>(`http://localhost:3000/product/${id}`).toPromise()
   }
+
+  searchPost(query) {
+    return this.http.get<any>(`http://localhost:3000/search/${query}`).toPromise()
+  }
 }

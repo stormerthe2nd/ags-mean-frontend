@@ -1,4 +1,4 @@
-// running 2 uploads simultaneaously merges the list of images
+// TODO running 2 uploads simultaneaously merges the list of images
 
 const router = require("express").Router()
 const fs = require("fs")
@@ -141,5 +141,6 @@ router.put("/update/:id", upload.array("imgToAdd", 12), async (req, res) => {
   var result = await PostModel.updateOne({ _id: id }, post)
   res.json(result)
 })
+
 
 module.exports = router

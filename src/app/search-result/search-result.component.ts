@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from '../post.service';
+import { Post } from '../posts.model';
 
 @Component({
   selector: 'app-search-result',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchResultComponent implements OnInit {
 
-  constructor() { }
+  postsArr: Post[]
+
+  constructor(private PostService: PostService) {
+    PostService.searchPost(window.location.href.split("/").splice(-1)[0]).then((data) => { console.log(data) })
+  }
 
   ngOnInit(): void {
   }
