@@ -15,6 +15,8 @@ import { PostFormComponent } from './nav/post-form/post-form.component';
 import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 import { ProductComponent } from './product/product.component';
 import { SearchResultComponent } from './search-result/search-result.component';
+import { ImgMagnifier } from 'ng-img-magnifier';
+
 
 
 @NgModule({
@@ -29,12 +31,14 @@ import { SearchResultComponent } from './search-result/search-result.component';
     ScrollToTopComponent,
     ProductComponent,
     SearchResultComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ImgMagnifier
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -10,10 +10,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
+  location = String(window.location).replaceAll("/", "")
+  origin = window.location.origin.replaceAll("/", "")
   postArr: Post[]
   query = ""
   constructor(public postService: PostService, public router: Router) {
-
   }
   doc = document
   hidden = false

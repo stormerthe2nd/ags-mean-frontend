@@ -5,3 +5,8 @@
 .btn{
   border-radius: 0px;
 }
+
+.dropdown-menu{
+  position:absolute ;
+  z-index: 1000;
+}

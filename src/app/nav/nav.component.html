@@ -1,6 +1,5 @@
 <header>
-  <nav id="nav1" class="navbar navbar-dark bg-dark navbar-expand-lg shadow-lg rounded position-relative"
-    style="opacity: 0.9;">
+  <nav id="nav1" class="navbar navbar-dark bg-dark navbar-expand-lg shadow-lg position-relative" style="opacity: 0.9;">
     <div class="container-fluid fs-4 fw-bolder">
       <a class="navbar-brand fs-3 text-shadow text-light" href="#">AGS Market</a>
       <button class="navbar-toggler" (click)="hideTitle(true,false)" type="button" data-bs-toggle="collapse"
@@ -17,19 +16,11 @@
           <li class="nav-item">
             <a class="nav-link text-shadow" routerLink="/about"><button class="btn btn-outline-light">About</button></a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link text-shadow" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              <button class="btn btn-outline-light dropdown-toggle">Posts</button>
-            </a>
-            <ul class="dropdown-menu" style="z-index: 999;position:absolute;" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                  (click)="this.postService.emptyUploadForm()">Upload</a>
-              </li>
-              <li><a class="dropdown-item" id="find" href="#search">Find Post</a></li>
-            </ul>
+          <li class="nav-item">
+            <a class="nav-link text-shadow"><button class="btn btn-outline-light" data-bs-toggle="modal"
+                data-bs-target="#exampleModal" (click)="this.postService.emptyUploadForm()">Upload Post</button></a>
           </li>
-          <li class="nav-item dropdown">
+          <li *ngIf="location===origin" class="nav-item dropdown">
             <a class="nav-link " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
               <button class="btn btn-outline-light dropdown-toggle">Categories</button>

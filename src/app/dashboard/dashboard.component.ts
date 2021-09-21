@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import * as $ from 'jquery';
 
 @Component({
   selector: "app-dashboard",
@@ -9,7 +10,6 @@ import { Component } from '@angular/core'
 export class DashboardComponent {
 
   constructor() {
-
   }
 
 }
