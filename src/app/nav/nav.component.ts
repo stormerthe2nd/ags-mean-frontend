@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PostService } from '../post.service';
 import { Post } from '../posts.model';
 import * as $ from 'jquery';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -11,7 +12,7 @@ import * as $ from 'jquery';
 export class NavComponent {
   postArr: Post[]
   query = ""
-  constructor(public postService: PostService) {
+  constructor(public postService: PostService, public router: Router) {
 
   }
   doc = document
@@ -32,7 +33,14 @@ export class NavComponent {
   }
 
   change() {
-    console.log('query ', this.query)
     this.query = (<HTMLInputElement>document.getElementById('searchInp')).value
+  }
+
+  submitQuery(query) {
+    if (query === "") return
+    if (String(window.location).includes("search")) {
+    } else {
+      this.router.navigate([`/search/${query}`])
+    }
   }
 }

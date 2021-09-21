@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'about', component: AboutComponent },
   { path: 'product/:id', component: ProductComponent },
-  { path: 'search/:query', component: SearchResultComponent },
+  { path: 'search/:query', component: SearchResultComponent, pathMatch: 'full' },
 ];
 
 @NgModule({

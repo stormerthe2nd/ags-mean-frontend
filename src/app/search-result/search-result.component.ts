@@ -1,3 +1,4 @@
+import { query } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
 import { Post } from '../posts.model';
@@ -8,11 +9,14 @@ import { Post } from '../posts.model';
   styleUrls: ['./search-result.component.css']
 })
 export class SearchResultComponent implements OnInit {
-
-  postsArr: Post[]
+  query = window.location.href.split("/").splice(-1)[0]
+  postsArr = [] as Post[]
 
   constructor(private PostService: PostService) {
-    PostService.searchPost(window.location.href.split("/").splice(-1)[0]).then((data) => { console.log(data) })
+    PostService.searchPost(this.query).then((data) => {
+      this.postsArr = data.searchResults
+      console.log(data)
+    })
   }
 
   ngOnInit(): void {

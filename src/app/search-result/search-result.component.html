@@ -1,1 +1,15 @@
-<p>search-result works!</p>
+<app-nav></app-nav>
+<div class="container-fluid mt-5 text-light">
+  <div>
+    <div class="text-center">
+      <div class="text-center mb-2 p-1">
+        <p id="" class="display-5 text-light text-decoration-underline">Showing Results of '{{this.query}}'</p>
+      </div>
+      <div id="post-container" *ngFor="let post of postsArr" class="card-group mb-3"
+        style="overflow: hidden;display:inline-block">
+        <app-specific-post [post]="post"></app-specific-post>
+        <hr style="color: white;">
+      </div>
+    </div>
+  </div>
+</div>
