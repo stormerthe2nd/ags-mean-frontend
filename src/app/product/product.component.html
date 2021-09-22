@@ -1,21 +1,39 @@
 <app-nav></app-nav>
 <div class="container mt-4">
   <div class="images">
-    <div class="main-frame">
-      <ng-img-magnifier thumbImage="{{post.imgPath[this.index]}}" fullImage="{{post.imgPath[this.index]}}" [top]="15"
-        [right]="5" [lensWidth]="100" [lensHeight]="100" [resultWidth]="30" [resultHeight]="50">
-      </ng-img-magnifier>
+    <div class="main-frame mt-3 mb-3">
+      <ng-img-magnifier thumbImage="{{post.imgPath[this.index]}}" fullImage="{{post.imgPath[this.index]}}" [top]="0"
+        [right]="0" [lensWidth]="100" [lensHeight]="100" [resultWidth]="30" [resultHeight]="30"></ng-img-magnifier>
     </div>
-    <hr class="bg-dark">
     <div style="max-width: 300px;">
       <img *ngFor="let img of post.imgPath" [src]="img"
-        class="mt-1 ms-2 img-boxes zoom {{ this.index === post.imgPath.indexOf(img)?'in-frame':''}}"
+        class="mt-1 mb-1 ms-2 img-boxes zoom {{ this.index === post.imgPath.indexOf(img)?'in-frame':''}}"
         (click)="pushToFrame(img)">
     </div>
   </div>
-  <div class="info text-center text-dark m-2">
-    <div>
-      <h3 class="h3">{{post.title}}</h3>
+  <hr class="bg-light">
+  <div class="info text-center m-2">
+    <div class="title">
+      <h2 class="display-3 text-light">{{post.title}}</h2>
     </div>
+    <div class="category">
+      <p class="text-muted text-uppercase">{{post.category}}</p>
+    </div>
+    <div class="price" style="display: flex; justify-content:center;">
+      <h4 class="fw-bold fs-2 text-danger"><span class="fw-normal text-light">Price:</span> ₹{{post.price}}</h4>
+    </div>
+    <p class="fw-normal fs-5"><em>{{post.freeShip?'Free Shipping':'Shipping Extra'}}</em></p>
+    <div class="description m-3">
+      <button class="btn btn-outline-light mb-2" type="button" data-bs-toggle="collapse"
+        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Description
+      </button>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body border border-light" style="background-color: black;">
+          <p class="lead text-light">{{post.des}}</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

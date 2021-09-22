@@ -1,25 +1,35 @@
-
+/* mobile */
 @media only screen and (min-width: 300px) {
   .container{
+    overflow-y:scroll;
     box-shadow: 0 0 8px 4px white;
-    background-color: white;
+    background-color: black;
+    color: white;
     width: fit-content;
     min-width: 310px;
     padding: 10px;
   }
 
 }
-
+/* laptop */
 @media only screen and (min-width : 600px) {
   .container{
+    overflow-y:scroll;
     box-shadow: 0 0 8px 4px white;
-    background-color: white;
+    background-color: black;
+    color: white;
     width: fit-content;
     min-width: 310px;
     display: flex;
     padding: 10px;
   }
+  .images{
+    position:sticky;
+    top:0
+ } 
 }
+
+ 
 
 .img-rounded{
   height: 300px;
@@ -34,11 +44,11 @@
 }
 
 .zoom {
-  padding: 1px;
+  padding: 2px;
 }
 
 .in-frame {
-  border:black 3px solid;
+  border:whitesmoke 3px solid;
 }
 
 .info{
