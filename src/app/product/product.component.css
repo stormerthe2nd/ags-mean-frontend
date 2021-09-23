@@ -69,3 +69,9 @@
 .info{
   height: 300px;
 }
+
+.btn-sm{
+  position:absolute;
+  top:5px;
+  right: 5px;
+}

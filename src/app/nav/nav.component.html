@@ -20,7 +20,7 @@
             <a class="nav-link text-shadow"><button class="btn btn-outline-light" data-bs-toggle="modal"
                 data-bs-target="#exampleModal" (click)="this.postService.emptyUploadForm()">Upload Post</button></a>
           </li>
-          <li *ngIf="location===origin" class="nav-item dropdown">
+          <li *ngIf="location===origin || location.includes('#')" class="nav-item dropdown">
             <a class="nav-link " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
               <button class="btn btn-outline-light dropdown-toggle">Categories</button>

@@ -1,11 +1,14 @@
 <app-nav></app-nav>
+<div class="container text-center">
+  <button class="btn btn-outline-light w-25 mt-2" (click)="back()"><i class="fas fa-arrow-left"></i> Back</button>
+</div>
 <div class="con container-fluid ">
   <div class="images">
     <div class="container-fluid main-frame mt-3 mb-3">
       <ng-img-magnifier thumbImage="{{post.imgPath[this.index]}}" fullImage="{{post.imgPath[this.index]}}" [top]="0"
         [right]="0" [lensWidth]="100" [lensHeight]="100" [resultWidth]="30" [resultHeight]="30"></ng-img-magnifier>
     </div>
-    <div style="max-width: 300px;">
+    <div style="max-width: 300px;" class="ms-2 mb-2">
       <img *ngFor="let img of post.imgPath" [src]="img"
         class="mt-1 mb-1 ms-2 p-1 img-boxes zoom {{ this.index === post.imgPath.indexOf(img)?'in-frame':''}}"
         (click)="pushToFrame(img)">
@@ -25,7 +28,10 @@
     <p class="fw-normal fs-5"><em>{{post.freeShip?'Free Shipping':'Shipping Extra'}}</em></p>
     <div class="description m-3">
       <div class="card card-body border border-light" style="background-color: black;">
-        <p class="lead text-light">{{post.des}}</p>
+        <p class="fw-normal fs-3 text-light">Description <button class="btn btn-outline-light btn-sm shadow-none"
+            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Copied"><i id="copy" class="fas fa-copy"
+              (click)="copyToClipboard()"></i></button></p>
+        <p id="description" class="lead text-light">{{post.des}}</p>
       </div>
     </div>
   </div>

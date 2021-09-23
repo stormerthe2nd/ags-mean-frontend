@@ -21,4 +21,24 @@ export class ProductComponent implements OnInit {
     this.index = this.post.imgPath.indexOf(img)
   }
 
+  copyToClipboard() {
+    var copy = (<HTMLInputElement>document.getElementById("copy"))
+    copy.classList.remove("fa-copy")
+    copy.classList.add("fa-check")
+    var item = (<HTMLInputElement>document.getElementById("description")).innerHTML;
+    document.addEventListener('copy', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', (item));
+      e.preventDefault();
+      document.removeEventListener('copy', null);
+    });
+    document.execCommand('copy');
+    setTimeout(() => {
+      copy.classList.remove("fa-check")
+      copy.classList.add("fa-copy")
+    }, 5000)
+  }
+
+  back() {
+    history.back()
+  }
 }
