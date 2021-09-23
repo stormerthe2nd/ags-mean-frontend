@@ -1,13 +1,13 @@
 <app-nav></app-nav>
-<div class="container mt-4">
+<div class="con container-fluid ">
   <div class="images">
-    <div class="main-frame mt-3 mb-3">
+    <div class="container-fluid main-frame mt-3 mb-3">
       <ng-img-magnifier thumbImage="{{post.imgPath[this.index]}}" fullImage="{{post.imgPath[this.index]}}" [top]="0"
         [right]="0" [lensWidth]="100" [lensHeight]="100" [resultWidth]="30" [resultHeight]="30"></ng-img-magnifier>
     </div>
     <div style="max-width: 300px;">
       <img *ngFor="let img of post.imgPath" [src]="img"
-        class="mt-1 mb-1 ms-2 img-boxes zoom {{ this.index === post.imgPath.indexOf(img)?'in-frame':''}}"
+        class="mt-1 mb-1 ms-2 p-1 img-boxes zoom {{ this.index === post.imgPath.indexOf(img)?'in-frame':''}}"
         (click)="pushToFrame(img)">
     </div>
   </div>
@@ -24,16 +24,9 @@
     </div>
     <p class="fw-normal fs-5"><em>{{post.freeShip?'Free Shipping':'Shipping Extra'}}</em></p>
     <div class="description m-3">
-      <button class="btn btn-outline-light mb-2" type="button" data-bs-toggle="collapse"
-        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        Description
-      </button>
-      <div class="collapse" id="collapseExample">
-        <div class="card card-body border border-light" style="background-color: black;">
-          <p class="lead text-light">{{post.des}}</p>
-        </div>
+      <div class="card card-body border border-light" style="background-color: black;">
+        <p class="lead text-light">{{post.des}}</p>
       </div>
     </div>
-
   </div>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import * as $ from "jquery"
 
 @Component({
   selector: 'app-scroll-to-top',
@@ -19,13 +20,7 @@ export class ScrollToTopComponent implements OnInit {
     }
   }
   scrollToTop() {
-    (function smoothscroll() {
-      var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
-      if (currentScroll > 0) {
-        window.requestAnimationFrame(smoothscroll);
-        window.scrollTo(0, currentScroll - (currentScroll / 2));
-      }
-    })();
+    $('body, html').animate({ scrollTop: 0 }, 600);
   }
   ngOnInit() { }
 }
