@@ -13,7 +13,8 @@ export class NavComponent {
   location = String(window.location).replaceAll("/", "")
   origin = window.location.origin.replaceAll("/", "")
   postArr: Post[]
-  query = ""
+  query: string
+
   constructor(public postService: PostService, public router: Router) {
   }
   doc = document
@@ -33,15 +34,8 @@ export class NavComponent {
     }
   }
 
+
   change() {
     this.query = (<HTMLInputElement>document.getElementById('searchInp')).value
-  }
-
-  submitQuery(query) {
-    if (query === "") return
-    if (String(window.location).includes("search")) {
-    } else {
-      this.router.navigate([`/search/${query}`])
-    }
   }
 }

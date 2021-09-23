@@ -35,10 +35,11 @@
 
         </ul>
         <div class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" (change)="change()" id="searchInp"
+          <input class="form-control me-2" type="search" placeholder="Search" (click)="change()" id="searchInp"
             aria-label="Search">
-          <button id="search" (click)="submitQuery(this.query)" class="btn btn-outline-light"
-            type="button">Search</button>
+          <a>
+            <button id="search" class="btn btn-outline-light" type="button">Search</button>
+          </a>
         </div>
       </div>
     </div>
