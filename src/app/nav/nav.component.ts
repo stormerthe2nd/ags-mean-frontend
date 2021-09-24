@@ -37,6 +37,7 @@ export class NavComponent {
 
 
   reset() {
+    if (!this.query) return
     this.router.navigate(['/search', this.query]);
   }
 

@@ -6,7 +6,7 @@
   <div class="images">
     <div class="container-fluid main-frame mt-3 mb-3">
       <ng-img-magnifier thumbImage="{{post.imgPath[this.index]}}" fullImage="{{post.imgPath[this.index]}}" [top]="0"
-        [right]="0" [lensWidth]="100" [lensHeight]="100" [resultWidth]="30" [resultHeight]="30"></ng-img-magnifier>
+        [right]="0" [lensWidth]="100" [lensHeight]="100" [resultWidth]="30" [resultHeight]="25"></ng-img-magnifier>
     </div>
     <div style="max-width: 300px;" class="ms-2 mb-2">
       <img *ngFor="let img of post.imgPath" [src]="img"
