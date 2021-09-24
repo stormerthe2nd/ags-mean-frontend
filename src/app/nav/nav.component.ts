@@ -3,6 +3,7 @@ import { PostService } from '../post.service';
 import { Post } from '../posts.model';
 import * as $ from 'jquery';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -15,7 +16,7 @@ export class NavComponent {
   postArr: Post[]
   query: string
 
-  constructor(public postService: PostService, public router: Router) {
+  constructor(public postService: PostService, public router: Router, private activeRoute: ActivatedRoute) {
   }
   doc = document
   hidden = false
@@ -34,6 +35,10 @@ export class NavComponent {
     }
   }
 
+
+  reset() {
+    this.router.navigate(['/search', this.query]);
+  }
 
   change() {
     this.query = (<HTMLInputElement>document.getElementById('searchInp')).value

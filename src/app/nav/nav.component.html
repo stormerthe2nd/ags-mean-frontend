@@ -35,9 +35,9 @@
 
         </ul>
         <div class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" (click)="change()" id="searchInp"
+          <input class="form-control me-2" type="search" placeholder="Search" (change)="change()" id="searchInp"
             aria-label="Search">
-          <a>
+          <a (click)="reset()">
             <button id="search" class="btn btn-outline-light" type="button">Search</button>
           </a>
         </div>
