@@ -32,11 +32,54 @@
               </div>
             </ul>
           </li>
-
         </ul>
         <div class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" (change)="change()" id="searchInp"
-            aria-label="Search">
+          <div class="dropdown">
+            <button class="btn btn-dark shadow-none dropdown-toggle" type="button" id="dropdownMenu3"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-filter"></i>
+            </button>
+            <div id='drop' class="p-2 bg-dark dropdown-menu" aria-labelledby="dropdownMenu3">
+              <div (click)="this.searchBy = 'Title'" class="form-check">
+                <input class="form-check-input" type="radio" name="searchBy" id="title" value="title" checked>
+                <label class="form-check-label fw-normal text-light" for="title">
+                  Title
+                </label>
+              </div>
+              <div (click)="this.searchBy = 'Description'" class="form-check">
+                <input class="form-check-input" type="radio" name="searchBy" id="des" value="des">
+                <label class="form-check-label fw-normal text-light" for="des">
+                  Description
+                </label>
+              </div>
+              <div (click)="this.searchBy = 'Category'" class="form-check">
+                <input class="form-check-input" type="radio" name="searchBy" id="cat" value="cat">
+                <label class="form-check-label fw-normal text-light" for="cat">
+                  Category
+                </label>
+              </div>
+              <div (click)="this.searchBy = 'Price'" class="form-check">
+                <input class="form-check-input" type="radio" name="searchBy" id="price" value="price">
+                <label class="form-check-label fw-normal text-light" for="price">
+                  Price
+                </label>
+              </div>
+              <div (click)="this.searchBy = 'Availability'" class="form-check">
+                <input class="form-check-input" type="radio" name="searchBy" id="active" value="active">
+                <label class="form-check-label fw-normal text-light" for="active">
+                  Availability
+                </label>
+              </div>
+              <div (click)="this.searchBy = 'Date Updated'" class="form-check">
+                <input class="form-check-input" type="radio" name="searchBy" id="date" value="date">
+                <label class="form-check-label fw-normal text-light" for="date">
+                  Date Updated
+                </label>
+              </div>
+            </div>
+          </div>
+          <input class="form-control ms-2 me-2" type="search" placeholder="Search by {{searchBy}}" (change)="change()"
+            id="searchInp" aria-label="Search">
           <button id="search" class="btn btn-outline-light" type="button" (click)="reset()"><i
               class="fas fa-search"></i></button>
         </div>

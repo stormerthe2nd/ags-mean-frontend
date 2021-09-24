@@ -11,12 +11,18 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
+  searchBy: string = "Title"
   location = String(window.location).replaceAll("/", "")
   origin = window.location.origin.replaceAll("/", "")
   postArr: Post[]
   query: string
 
   constructor(public postService: PostService, public router: Router, private activeRoute: ActivatedRoute) {
+    $(document).ready(() => {
+      $("#dropdownMenu3").click(() => {
+        $("#drop").css("display") === "none" ? $("#drop").show() : $("#drop").hide()
+      })
+    })
   }
   doc = document
   hidden = false
@@ -35,10 +41,9 @@ export class NavComponent {
     }
   }
 
-
   reset() {
     if (!this.query) return
-    this.router.navigate(['/search', this.query]);
+    this.router.navigate(['/search', this.searchBy, this.query]);
   }
 
   change() {
