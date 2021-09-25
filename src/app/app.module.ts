@@ -38,7 +38,7 @@ import { ImgMagnifier } from 'ng-img-magnifier';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ImgMagnifier
+    ImgMagnifier,
   ],
   providers: [],
   bootstrap: [AppComponent]

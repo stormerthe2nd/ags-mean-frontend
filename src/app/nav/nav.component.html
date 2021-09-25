@@ -27,27 +27,37 @@
             </a>
             <ul style="position: absolute;" class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
               <li *ngFor="let category of this.postService.categories()"><a class="dropdown-item"
-                  href="#{{category}}">{{category}}</a></li>
+                  routerLink="/search/Category/{{category}}">{{category}}</a></li>
             </ul>
           </li>
         </ul>
         <div class="d-flex">
           <div class="input-group">
             <button id="navbarDarkDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-              class=" nav-link dropdown-toggle btn btn-dark btn-sm shadow-none " style="color: white;">
+              class=" nav-link dropdown-toggle btn btn-secondary btn-sm shadow-none " style="color: white;">
               <i class="fas fa-filter"></i>
             </button>
             <ul style="position: absolute;" class="dropdown-menu dropdown-menu-dark"
               aria-labelledby="navbarDarkDropdownMenuLink2">
-              <li *ngFor="let item of searchQuerys"><a (click)="this.searchBy = item" class="dropdown-item"
-                  href="#">{{item}}</a></li>
+              <li *ngFor="let item of searchQuerys">
+                <a (click)="this.searchBy = item" class="dropdown-item">{{item}}</a>
+              </li>
             </ul>
-            <input class="form-control ms-2 me-2" type="search" placeholder="Search by {{searchBy}}" (change)="change()"
-              id="searchInp" aria-label="Search">
-
+            <input *ngIf="searchBy !== 'Date';else dateBlock" class="form-control ms-2 me-2" type="search"
+              placeholder="Search by {{searchBy}}" (change)="change()" id="searchInp" aria-label="Search">
+            <ng-template #dateBlock>
+              <div>
+                <input class="form-control ms-2 float-start" style="width:50px;" type="search" maxlength="2"
+                  placeholder="dd" id="dd" aria-label="Search">
+                <input class="form-control ms-2 float-start" style="width: 55px;" type="search" maxlength="2"
+                  placeholder="mm" id="mm" aria-label="Search">
+                <input class="form-control ms-2 me-2 float-start" type="search" style="width: 60px;" maxlength="4"
+                  placeholder="yyyy" id="yyyy" aria-label="Search">
+              </div>
+            </ng-template>
           </div>
 
-          <button id="search" class="btn btn-outline-light" type="button" (click)="reset()"><i
+          <button id="search" class="btn btn-outline-light" type="button" (click)="redirect()"><i
               class="fas fa-search"></i></button>
         </div>
       </div>
