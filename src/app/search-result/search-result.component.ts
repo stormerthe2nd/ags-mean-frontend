@@ -18,8 +18,8 @@ export class SearchResultComponent implements OnInit {
       this.query = paramMap.get("query")
       this.searchBy = paramMap.get("searchBy")
       PostService.searchPost(this.searchBy, this.query).then((data) => {
+        data.searchResults.forEach(post => { post.id = post._id; delete post._id })
         this.postsArr = data.searchResults
-        console.log(data)
       })
     });
   }

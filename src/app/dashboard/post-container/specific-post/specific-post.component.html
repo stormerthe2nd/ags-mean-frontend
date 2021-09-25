@@ -5,7 +5,7 @@
         style="object-fit: cover;" alt="Error Loading Image">
       <div class="overlay">
         <h2>{{post.title[21]?post.title.slice(0,20)+"...":post.title}}</h2>
-        <a class="mt-5 mb-5 info" routerLink="/product/{{post.id}}">
+        <a class="mt-5 mb-5 info" (click)="redirect(post.id)">
           View Post
         </a>
         <hr style="clear: both;visibility: hidden;">

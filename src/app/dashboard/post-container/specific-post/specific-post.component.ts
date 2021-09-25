@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PostService } from 'src/app/post.service';
 import { Post } from 'src/app/posts.model';
 
@@ -10,7 +11,7 @@ import { Post } from 'src/app/posts.model';
 })
 export class SpecificPostComponent implements OnInit {
   @Input() post: Post;
-  constructor(public postService: PostService) { }
+  constructor(private postService: PostService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -21,6 +22,11 @@ export class SpecificPostComponent implements OnInit {
 
   selectedPost(post: Post) {
     this.postService.selectedToEdit(post)
+  }
+
+  redirect(id) {
+    console.log(this.post)
+    this.router.navigate(["/product", id])
   }
 
 }
