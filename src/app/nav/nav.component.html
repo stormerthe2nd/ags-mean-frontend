@@ -1,5 +1,5 @@
 <header>
-  <nav id="nav1" class="navbar navbar-dark bg-dark navbar-expand-lg shadow-lg position-relative" style="opacity: 0.9;">
+  <nav id="nav1" class="navbar navbar-dark bg-dark navbar-expand-lg shadow-lg position-relative">
     <div class="container-fluid fs-4 fw-bolder">
       <a class="navbar-brand fs-3 text-shadow text-light" href="#">AGS Market</a>
       <button class="navbar-toggler" (click)="hideTitle(true,false)" type="button" data-bs-toggle="collapse"
@@ -20,63 +20,33 @@
             <a class="nav-link text-shadow"><button class="btn btn-outline-light" data-bs-toggle="modal"
                 data-bs-target="#exampleModal" (click)="this.postService.emptyUploadForm()">Upload Post</button></a>
           </li>
-          <li *ngIf="location===origin || location.includes('#')" class="nav-item dropdown">
+          <li class="nav-item dropdown">
             <a class="nav-link " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
               <button class="btn btn-outline-light dropdown-toggle">Categories</button>
             </a>
-            <ul class="dropdown-menu bg-dark" style="width: 500px;" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
               <div *ngFor="let category of this.postService.categories()">
-                <a href="#{{category}}"><button
-                    class="btn btn-sm m-1 btn-outline-light float-start">{{category}}</button></a>
+                <a href="#{{category}}"><button class="btn btn-sm m-1 btn-outline-light">{{category}}</button></a>
               </div>
             </ul>
           </li>
         </ul>
         <div class="d-flex">
-          <div class="dropdown">
-            <button class="btn btn-dark shadow-none dropdown-toggle" type="button" id="dropdownMenu3"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-filter"></i>
-            </button>
-            <div id='drop' class="p-2 bg-dark dropdown-menu" aria-labelledby="dropdownMenu3">
-              <div (click)="this.searchBy = 'Title'" class="form-check">
-                <input class="form-check-input" type="radio" name="searchBy" id="title" value="title" checked>
-                <label class="form-check-label fw-normal text-light" for="title">
-                  Title
-                </label>
-              </div>
-              <div (click)="this.searchBy = 'Description'" class="form-check">
-                <input class="form-check-input" type="radio" name="searchBy" id="des" value="des">
-                <label class="form-check-label fw-normal text-light" for="des">
-                  Description
-                </label>
-              </div>
-              <div (click)="this.searchBy = 'Category'" class="form-check">
-                <input class="form-check-input" type="radio" name="searchBy" id="cat" value="cat">
-                <label class="form-check-label fw-normal text-light" for="cat">
-                  Category
-                </label>
-              </div>
-              <div (click)="this.searchBy = 'Price'" class="form-check">
-                <input class="form-check-input" type="radio" name="searchBy" id="price" value="price">
-                <label class="form-check-label fw-normal text-light" for="price">
-                  Price
-                </label>
-              </div>
-              <div (click)="this.searchBy = 'Availability'" class="form-check">
-                <input class="form-check-input" type="radio" name="searchBy" id="active" value="active">
-                <label class="form-check-label fw-normal text-light" for="active">
-                  Availability
-                </label>
-              </div>
-              <div (click)="this.searchBy = 'Date Updated'" class="form-check">
-                <input class="form-check-input" type="radio" name="searchBy" id="date" value="date">
-                <label class="form-check-label fw-normal text-light" for="date">
-                  Date Updated
-                </label>
-              </div>
-            </div>
+
+          <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <button id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                  class=" nav-link dropdown-toggle btn btn-dark btn-sm shadow-none">
+                  <i class="fas fa-filter"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                  <li *ngFor="let item of searchQuerys"><a (click)="this.searchBy = item" class="dropdown-item"
+                      href="#">{{item}}</a></li>
+                </ul>
+              </li>
+            </ul>
           </div>
           <input class="form-control ms-2 me-2" type="search" placeholder="Search by {{searchBy}}" (change)="change()"
             id="searchInp" aria-label="Search">

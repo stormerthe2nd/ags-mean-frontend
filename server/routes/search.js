@@ -6,7 +6,7 @@ router.get('/:searchBy/:query', async function (req, res) {
   var searchResults = []
   var query = req.params.query.toLowerCase()
   const postsArr = await postModel.find({})
-
+  console.log(req.params.searchBy.toLowerCase())
   postsArr.forEach(post => {
 
     post.title.toLowerCase().includes(query) ? searchResults.push(post) : {}

@@ -11,18 +11,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
-  searchBy: string = "Title"
-  location = String(window.location).replaceAll("/", "")
-  origin = window.location.origin.replaceAll("/", "")
+  searchQuerys = ["Title", "Description", "Category", "Price", "Availability", "Date Updated"]
+  searchBy: string = this.searchQuerys[0]
   postArr: Post[]
   query: string
 
   constructor(public postService: PostService, public router: Router, private activeRoute: ActivatedRoute) {
-    $(document).ready(() => {
-      $("#dropdownMenu3").click(() => {
-        $("#drop").css("display") === "none" ? $("#drop").show() : $("#drop").hide()
-      })
-    })
   }
   doc = document
   hidden = false
