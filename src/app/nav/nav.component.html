@@ -43,21 +43,16 @@
                 <a (click)="this.searchBy = item" class="dropdown-item">{{item}}</a>
               </li>
             </ul>
-            <input *ngIf="searchBy !== 'Date';else dateBlock" class="form-control ms-2 me-2" type="search"
+            <input *ngIf="searchBy !== 'Date';else dateBlock" class="form-control ms-2" type="search"
               placeholder="Search by {{searchBy}}" (change)="change()" id="searchInp" aria-label="Search">
             <ng-template #dateBlock>
               <div>
-                <input class="form-control ms-2 float-start" style="width:50px;" type="search" maxlength="2"
-                  placeholder="dd" id="dd" aria-label="Search">
-                <input class="form-control ms-2 float-start" style="width: 55px;" type="search" maxlength="2"
-                  placeholder="mm" id="mm" aria-label="Search">
-                <input class="form-control ms-2 me-2 float-start" type="search" style="width: 60px;" maxlength="4"
-                  placeholder="yyyy" id="yyyy" aria-label="Search">
+                <input class="form-control ms-2 me-2" type="date" id="dateInp" aria-label="Search">
               </div>
             </ng-template>
           </div>
 
-          <button id="search" class="btn btn-outline-light" type="button" (click)="redirect()"><i
+          <button id="search" class="btn btn-outline-light ms-3" type="button" (click)="redirect()"><i
               class="fas fa-search"></i></button>
         </div>
       </div>

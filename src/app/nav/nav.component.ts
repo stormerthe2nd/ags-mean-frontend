@@ -4,7 +4,6 @@ import { Post } from '../posts.model';
 import * as $ from 'jquery';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { merge } from 'jquery';
 
 @Component({
   selector: 'app-nav',
@@ -14,6 +13,7 @@ import { merge } from 'jquery';
 export class NavComponent {
   date = "00-00-0000"
   searchQuerys = ["Title", "Description", "Category", "Date"]
+  months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   searchBy: string = this.searchQuerys[0]
   postArr: Post[]
   query: string
@@ -38,8 +38,17 @@ export class NavComponent {
   }
 
   redirect() {
-    if (this.searchBy === "Date") this.query = [$("#dd").val(), $("#mm").val(), $("#yyyy").val(),].join("-")
-    if (!this.query) return
+    if (this.searchBy === "Date") {
+      this.query = (<HTMLInputElement>document.getElementById('dateInp')).value
+      var date = this.query.split("-")
+      var index: any = Number(date[1] != "10" ? date[1].replace("0", "") : date[1]) - 1
+      date[1] = this.months[index]
+      index = date[2]
+      date[2] = date[0]
+      date[0] = index
+      this.query = date.join("-")
+    }
+    if (!this.query) return alert("Please Provide a Query")
     this.router.navigate(['/search', this.searchBy, this.query]);
   }
 
