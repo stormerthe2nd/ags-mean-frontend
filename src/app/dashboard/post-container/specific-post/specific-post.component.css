@@ -86,6 +86,31 @@
   .hovereffect:hover a.info {
   -webkit-transition-delay:.2s;
   transition-delay:.2s;
+  } 
+
+  @media only screen and (min-device-width: 617px) {
+    .post1{
+    width:18em; height: 27em;min-height: 27em;margin-inline: 10px;
+    }
+    .image-con{
+      height: 13em;overflow: hidden;min-height: 13em;
+    }
+    .in-img{
+      height: 100%;
+      width: 100%;
+    }
   }
-  
+
+  @media only screen and (max-device-width: 616px) {
+    .post1{
+      width:10em; height: 15em;min-height: 15em;margin-inline: 4px
+    }
+    .image-con{
+      height: 7em;overflow: hidden;min-height: 7em;
+    }
+    .in-img{
+      height: 100%;
+      width: 100%;
+    }
+  }
   

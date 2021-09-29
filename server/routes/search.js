@@ -15,7 +15,6 @@ router.get('/:searchBy/:query', async function (req, res) {
     else if (searchBy === "Date") {
       let updated = post.updated.split("-")
       let date = query.split("-")
-      console.log(date)
       if (date[0] == updated[0] && date[1] == updated[1].toLowerCase() && date[2] == updated[2]) searchResults.push(post)
     }
   })

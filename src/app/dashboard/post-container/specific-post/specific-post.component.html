@@ -1,8 +1,8 @@
-<div style="width:18em; height: 27em;min-height: 27em;margin-inline: 10px;">
+<div class="post1">
   <div class="card border-dark text-dark hovereffect" style="border-radius: 10px;">
-    <div style="height: 13em;overflow: hidden;min-height: 13em;">
-      <img routerLink="/product/{{post.id}}" [src]="post.imgPath[0]" class="w-100 h-100 rounded"
-        style="object-fit: cover;" alt="Error Loading Image">
+    <div class="image-con">
+      <img routerLink="/product/{{post.id}}" [src]="post.imgPath[0]" class="in-img rounded" style="object-fit: cover;"
+        alt="Error Loading Image">
       <div class="overlay">
         <h2>{{post.title[21]?post.title.slice(0,20)+"...":post.title}}</h2>
         <a class="mt-5 mb-5 info" (click)="redirect(post.id)">
@@ -15,17 +15,17 @@
             class="fas fa-trash"></i></button>
       </div>
     </div>
-    <div routerLink="/product/{{post.id}}" class="card-body text-center">
+    <div routerLink="/product/{{post.id}}" class="content-con card-body text-center">
       <h5>{{post.title[21]?post.title.slice(0,20)+"...":post.title}}</h5>
-      <p class="small text-muted text-uppercase mb-2">{{post.category}}</p>
-      <p>{{post.des[26]?post.des.slice(0,25)+"...":post.des}}</p>
+      <p class="small text-muted text-uppercase mb-2 un-imp">{{post.category}}</p>
+      <p class="un-imp">{{post.des[26]?post.des.slice(0,25)+"...":post.des}}</p>
       <hr>
       <h6 class="mb-3 text-center">
         <span class="text-danger mr-1 d-inline-block">
           <p class="text-dark d-inline-block">Price:-</p> ₹{{post.price + " "}}
           <p class="fw-normal text-muted d-inline-block">{{post.freeShip?'Free Shipping':'Shipping Extra'}}</p>
         </span>
-        <p class="text-muted">Last Updated {{post.updated}}</p>
+        <p class="text-muted un-imp">Last Updated {{post.updated}}</p>
       </h6>
     </div>
   </div>

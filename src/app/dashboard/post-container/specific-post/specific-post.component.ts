@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostService } from 'src/app/post.service';
 import { Post } from 'src/app/posts.model';
+import * as $ from "jquery"
 
 
 @Component({
@@ -11,7 +12,19 @@ import { Post } from 'src/app/posts.model';
 })
 export class SpecificPostComponent implements OnInit {
   @Input() post: Post;
-  constructor(private postService: PostService, private router: Router) { }
+  constructor(private postService: PostService, private router: Router) {
+    $(document).ready(function () {
+      var display = function () {
+        if ($(window).width() < 618) {
+          $(".un-imp").css("display", "none")
+        } else if ($(window).width() >= 618) {
+          $(".un-imp").css("display", "block")
+        }
+      }
+      display()
+      $(window).on("resize", display)
+    })
+  }
 
   ngOnInit(): void {
   }
