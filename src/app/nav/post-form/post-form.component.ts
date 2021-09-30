@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ComponentRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/post.service';
 import { Post } from 'src/app/posts.model';
 
@@ -19,11 +19,14 @@ export class PostFormComponent implements OnInit {
   categoryInp = undefined
   freeShipInp = undefined
   message = ''
+  private componentRef: ComponentRef<any>;
 
-  constructor(public postService: PostService, public route: ActivatedRoute) {
+  constructor(public postService: PostService, public route: ActivatedRoute, public router: Router) {
+
   }
   ngOnInit() {
-    this.postService.selectedPostToEdit
+    this.postService.selectedPostToEdit;
+    (<HTMLInputElement>(document.getElementById("freeShip"))).value = `${this.postService.selectedPostToEdit?.freeShip}`;
   }
 
   selected(event: any) {
@@ -31,12 +34,8 @@ export class PostFormComponent implements OnInit {
   }
 
   setStatus(status, msg, id) {
-    Array.from(document.getElementsByClassName("form-select")).forEach((el: any) => {
-      el.style.boxShadow = '0px 0px'
-    })
-    Array.from(document.getElementsByClassName("form-control")).forEach((el: any) => {
-      el.style.boxShadow = '0px 0px'
-    })
+    Array.from(document.getElementsByClassName("form-select")).forEach((el: any) => { el.style.boxShadow = '0px 0px' })
+    Array.from(document.getElementsByClassName("form-control")).forEach((el: any) => { el.style.boxShadow = '0px 0px' })
     if (id !== "") {
       document.getElementById(id).style.boxShadow = "0px 2px rgb(253, 140, 140)"
       document.getElementById(id).focus()
@@ -74,7 +73,6 @@ export class PostFormComponent implements OnInit {
   addPost(form: NgForm) {
     this.categoryInp = (<HTMLInputElement>document.getElementById("category")).value
     this.freeShipInp = (<HTMLInputElement>document.getElementById("freeShip")).value
-
     const { desInp, linkInp, titleInp, priceInp } = form.value
     this.postCreationStatus = "uninit"
     if (!this.validForm(desInp, titleInp, priceInp, this.freeShipInp, this.categoryInp)) return
@@ -107,9 +105,8 @@ export class PostFormComponent implements OnInit {
       category: this.categoryInp == undefined ? "Uncategorised" : this.categoryInp
     })
     this.deletedLinks = []
-    form.controls["fileInp"].reset()
-    form.controls["categoryInp"].reset()
-    form.controls["freeShipInp"].reset()
+    form.controls["fileInp"].reset();
+    (<HTMLInputElement>(document.getElementById("freeShip"))).value = "";
     this.ngOnInit()
   }
 

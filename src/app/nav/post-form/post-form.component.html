@@ -53,8 +53,8 @@
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">Shipping</label>
             </div>
-            <select class="form-select" [ngModel]="undefined" id="freeShip" name="freeShipInp"
-              aria-label="Default select example" required>
+            <select class="form-select" [ngModel]="this.postService.selectedPostToEdit?.freeShip" id="freeShip"
+              name="freeShipInp" aria-label="Default select example" required>
               <option value="false">Shipping Extra</option>
               <option value="true">Free Shipping</option>
             </select>
@@ -68,8 +68,8 @@
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">Category</label>
             </div>
-            <select class="form-select" [ngModel]="undefined" id="category" name="categoryInp"
-              aria-label="Default select example" required>
+            <select class="form-select" [ngModel]="this.postService.selectedPostToEdit?.category" id="category"
+              name="categoryInp" aria-label="Default select example" required>
               <option *ngFor="let category of this.postService.categories()" [value]="category">{{category}}</option>
             </select>
           </div>
