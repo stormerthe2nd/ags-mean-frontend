@@ -93,11 +93,7 @@ export class PostService {
     editFormData.append("priceInp", post.price)
     editFormData.append("freeShipInp", post.freeShip)
     editFormData.append("categoryInp", post.category)
-    this.http.put<{ msg: any }>("http://localhost:3000/postApi/update/" + post.id, editFormData).subscribe((data) => {
-      console.log(data)
-      this.getPosts()
-    },
-      (err) => { console.log(err) })
+    return this.http.put<{ msg: any }>("http://localhost:3000/postApi/update/" + post.id, editFormData)
   }
 
   categories() {

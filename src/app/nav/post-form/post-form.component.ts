@@ -101,13 +101,15 @@ export class PostFormComponent implements OnInit {
       des: desInp,
       title: titleInp,
       price: priceInp,
-      freeShip: this.freeShipInp == undefined ? false : this.freeShipInp,
-      category: this.categoryInp == undefined ? "Uncategorised" : this.categoryInp
+      freeShip: !this.freeShipInp ? false : this.freeShipInp,
+      category: !this.categoryInp ? "Uncategorised" : this.categoryInp
+    }).subscribe(data=>{
+      this.ngOnInit()
+      console.log(data)
     })
     this.deletedLinks = []
     form.controls["fileInp"].reset();
     (<HTMLInputElement>(document.getElementById("freeShip"))).value = "";
-    this.ngOnInit()
   }
 
   deleteImage(link: string) {
