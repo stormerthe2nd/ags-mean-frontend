@@ -4,7 +4,7 @@
       <form class="needs-validation"
         (submit)="this.postService.selectedPostToEdit==null?addPost(postForm):editPost(postForm)" #postForm="ngForm"
         enctype="multipart/form-data" novalidate>
-        <div class="modal-header text-dark">
+        <div class="modal-header text-light bg-dark">
           <h5 *ngIf="this.postService.selectedPostToEdit==null;else h5Block" class="modal-title" id="exampleModalLabel">
             Upload Post <i class="fas fa-upload"></i></h5>
           <ng-template #h5Block>
@@ -12,7 +12,7 @@
           </ng-template>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body bg-dark">
           <div *ngIf="this.postService.selectedPostToEdit!=null; else elseBlock">
             <div *ngFor="let link of this.postService.selectedPostToEdit.imgPath">
               <div class="border rounded float-start m-1 mb-2" (mouseover)="this.entered=true"
@@ -87,7 +87,7 @@
             <strong>{{this.message}}</strong>
           </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer bg-dark">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
             (click)="postCreationStatus='uninit';this.message=''">Close</button>
           <button *ngIf="this.postService.selectedPostToEdit==null;else submitBlock" type="submit"

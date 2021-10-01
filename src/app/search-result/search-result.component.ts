@@ -20,7 +20,6 @@ export class SearchResultComponent implements OnInit {
       PostService.searchPost(this.searchBy, this.query).then((data) => {
         data.searchResults.forEach(post => { post.id = post._id; delete post._id })
         this.postsArr = data.searchResults
-        console.log(this.postsArr.length)
       })
     });
   }
