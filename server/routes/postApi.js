@@ -138,8 +138,10 @@ router.put("/update/:id", upload.array("imgToAdd", 12), async (req, res) => {
     active: true,
     category: categoryInp == "" || categoryInp === undefined ? "Uncategorised" : categoryInp
   })
-  var result = await PostModel.updateOne({ _id: id }, post)
-  res.json(result)
+  await PostModel.updateOne({ _id: id }, post)
+  post.id = post._id
+  delete post._id
+  res.json(post)
 })
 
 

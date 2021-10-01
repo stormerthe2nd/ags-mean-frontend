@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy, ComponentRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'src/app/post.service';
 import { Post } from 'src/app/posts.model';
 
@@ -19,14 +19,14 @@ export class PostFormComponent implements OnInit {
   categoryInp = undefined
   freeShipInp = undefined
   message = ''
-  private componentRef: ComponentRef<any>;
 
-  constructor(public postService: PostService, public route: ActivatedRoute, public router: Router) {
+  constructor(public postService: PostService, public route: ActivatedRoute) {
 
   }
   ngOnInit() {
     this.postService.selectedPostToEdit;
     (<HTMLInputElement>(document.getElementById("freeShip"))).value = `${this.postService.selectedPostToEdit?.freeShip}`;
+    (<HTMLInputElement>(document.getElementById("category"))).value = `${this.postService.selectedPostToEdit?.category}`;
   }
 
   selected(event: any) {
@@ -103,13 +103,15 @@ export class PostFormComponent implements OnInit {
       price: priceInp,
       freeShip: !this.freeShipInp ? false : this.freeShipInp,
       category: !this.categoryInp ? "Uncategorised" : this.categoryInp
-    }).subscribe(data=>{
+    }).subscribe((data: any) => {
+      this.deletedLinks = []
+      form.controls["fileInp"].reset();
+      this.postService.selectedPostToEdit = data
       this.ngOnInit()
-      console.log(data)
-    })
-    this.deletedLinks = []
-    form.controls["fileInp"].reset();
+      this.postService.getPosts()
+    });
     (<HTMLInputElement>(document.getElementById("freeShip"))).value = "";
+    (<HTMLInputElement>(document.getElementById("category"))).value = "";
   }
 
   deleteImage(link: string) {
