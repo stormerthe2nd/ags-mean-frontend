@@ -15,7 +15,7 @@ export class PostFormComponent implements OnInit {
   post: Post;
   deletedLinks: string[] = []
   entered = false
-  fileInp = []
+  fileInp: any = []
   postCreationStatus = "uninit"
   categoryInp = undefined
   freeShipInp = undefined
@@ -45,7 +45,19 @@ export class PostFormComponent implements OnInit {
     this.message = msg
   }
 
-  validForm(desInp, titleInp, priceInp, freeShipInp, categoryInp): boolean {
+  validForm(fileInp, desInp, titleInp, priceInp, freeShipInp, categoryInp): boolean {
+    let allowedMimeTypes = ["jpg", "jpeg", "gif", "png", "webp"]
+    for (var i = 0; i < fileInp.length; i++) {
+      let fileType = fileInp[i].name.split(".").slice(-1)[0]
+      if (!allowedMimeTypes.includes(fileInp[i].name.split(".").slice(-1)[0])) {
+        this.setStatus("invalid", `.${fileType} file is not Supported as an Image File`, "inputGroupFile02")
+        return false
+      }
+    }
+    // fileInp.forEach(file => {
+    //   console.log(file.name)
+
+    // });
     if (titleInp == '' || !titleInp) {
       this.setStatus("invalid", "please provide a Title", "title")
       return false
@@ -76,7 +88,7 @@ export class PostFormComponent implements OnInit {
     this.freeShipInp = (<HTMLInputElement>document.getElementById("freeShip")).value
     const { desInp, linkInp, titleInp, priceInp } = form.value
     this.postCreationStatus = "uninit"
-    if (!this.validForm(desInp, titleInp, priceInp, this.freeShipInp, this.categoryInp)) return
+    if (!this.validForm(this.fileInp, desInp, titleInp, priceInp, this.freeShipInp, this.categoryInp)) return
     this.postCreationStatus = "load"
     this.postService.addPost({
       imgPath: [...this.fileInp],
@@ -102,7 +114,7 @@ export class PostFormComponent implements OnInit {
     this.categoryInp = (<HTMLInputElement>document.getElementById("category")).value
     this.freeShipInp = (<HTMLInputElement>document.getElementById("freeShip")).value
     const { desInp, linkInp, titleInp, priceInp } = form.value
-    if (!this.validForm(desInp, titleInp, priceInp, this.freeShipInp, this.categoryInp)) return
+    if (!this.validForm(this.fileInp, desInp, titleInp, priceInp, this.freeShipInp, this.categoryInp)) return
     this.postCreationStatus = "load"
     console.log(this.postService.selectedPostToEdit.id)
     this.postService.editPost({
