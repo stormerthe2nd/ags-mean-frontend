@@ -48,8 +48,9 @@ const uploadImage = async function (req, res) {
       })
       imgUrl.push(`https://drive.google.com/thumbnail?id=${fileId}`)
     } catch (err) {
+      console.log("error in catch block")
       console.log(err)
-      return null
+      continue
     }
   }
   fsExtra.emptyDir(path.join(__dirname, "/../temp_uploads/"))
@@ -139,8 +140,6 @@ router.put("/update/:id", upload.array("imgToAdd", 12), async (req, res) => {
     category: categoryInp == "" || categoryInp === undefined ? "Uncategorised" : categoryInp
   })
   await PostModel.updateOne({ _id: id }, post)
-  post.id = post._id
-  delete post._id
   res.json(post)
 })
 

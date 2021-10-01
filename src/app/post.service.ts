@@ -8,7 +8,7 @@ import { HttpClient } from "@angular/common/http";
 export class PostService {
   postsArr: Post[] = [];
   selectedPostToEdit: Post = null
-  private postArrUpdated = new Subject<Post[]>()
+  public postArrUpdated = new Subject<Post[]>()
 
   constructor(private http: HttpClient) { }
 
@@ -47,17 +47,7 @@ export class PostService {
     formData.append("linkInp", post.link)
     formData.append("categoryInp", post.category === '' ? "Uncategorised" : post.category)
     console.log(formData)
-    this.http.post<{ post: any }>("http://localhost:3000/postApi/upload", formData).subscribe(
-      (postData) => {
-        postData.post.id = postData.post._id
-        delete postData.post._id
-        post = postData.post
-        console.log(post)
-        this.postsArr.push(post)
-        this.postArrUpdated.next([...this.postsArr])
-      },
-      (err) => { console.log(err) }
-    )
+    return this.http.post<{ post: any }>("http://localhost:3000/postApi/upload", formData)
   }
 
   deletePost(id: string) {
@@ -93,7 +83,7 @@ export class PostService {
     editFormData.append("priceInp", post.price)
     editFormData.append("freeShipInp", post.freeShip)
     editFormData.append("categoryInp", post.category)
-    return this.http.put<{ msg: any }>("http://localhost:3000/postApi/update/" + post.id, editFormData)
+    return this.http.put<{ data: any }>("http://localhost:3000/postApi/update/" + post.id, editFormData)
   }
 
   categories() {

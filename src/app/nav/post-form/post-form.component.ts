@@ -1,3 +1,4 @@
+// TODO convert NgForm approach to ReactiveForms 
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -76,6 +77,7 @@ export class PostFormComponent implements OnInit {
     const { desInp, linkInp, titleInp, priceInp } = form.value
     this.postCreationStatus = "uninit"
     if (!this.validForm(desInp, titleInp, priceInp, this.freeShipInp, this.categoryInp)) return
+    this.postCreationStatus = "load"
     this.postService.addPost({
       imgPath: [...this.fileInp],
       link: [linkInp != "" ? linkInp : ""],
@@ -84,7 +86,15 @@ export class PostFormComponent implements OnInit {
       price: priceInp,
       freeShip: this.freeShipInp == undefined ? false : this.freeShipInp,
       category: this.categoryInp == undefined ? "Uncategorised" : this.categoryInp
-    })
+    }).subscribe(
+      (postData) => {
+        postData.post.id = postData.post._id
+        delete postData.post._id
+        console.log(postData.post)
+        this.postService.postsArr.push(postData.post)
+        this.postService.postArrUpdated.next([...this.postService.postsArr])
+        this.postCreationStatus = "success"
+      })
     form.reset()
   }
 
@@ -93,6 +103,8 @@ export class PostFormComponent implements OnInit {
     this.freeShipInp = (<HTMLInputElement>document.getElementById("freeShip")).value
     const { desInp, linkInp, titleInp, priceInp } = form.value
     if (!this.validForm(desInp, titleInp, priceInp, this.freeShipInp, this.categoryInp)) return
+    this.postCreationStatus = "load"
+    console.log(this.postService.selectedPostToEdit.id)
     this.postService.editPost({
       id: this.postService.selectedPostToEdit.id,
       imgToAdd: [...this.fileInp],
@@ -104,14 +116,15 @@ export class PostFormComponent implements OnInit {
       freeShip: !this.freeShipInp ? false : this.freeShipInp,
       category: !this.categoryInp ? "Uncategorised" : this.categoryInp
     }).subscribe((data: any) => {
+      console.log(data)
       this.deletedLinks = []
       form.controls["fileInp"].reset();
+      data.id = data._id
       this.postService.selectedPostToEdit = data
+      this.postCreationStatus = "success"
       this.ngOnInit()
       this.postService.getPosts()
     });
-    (<HTMLInputElement>(document.getElementById("freeShip"))).value = "";
-    (<HTMLInputElement>(document.getElementById("category"))).value = "";
   }
 
   deleteImage(link: string) {
