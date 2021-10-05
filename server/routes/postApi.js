@@ -1,4 +1,4 @@
-// TODO running 2 uploads simultaneaously merges the list of images
+// TODO fix running 2 uploads simultaneaously merging the list of images
 
 const router = require("express").Router()
 const fs = require("fs")
@@ -26,10 +26,12 @@ const uploadImage = async function (req, res) {
   imgUrl = []
   var i = 0;
   for (var el of req.files) {
-    if (el == undefined) continue
+    // && ["jpg", "jpeg", "gif", "png", "webp"].includes(el.mimeType)
+    if (!el) continue
     try {
       i++
-      console.log("uploading file " + i)
+      console.log("preparing upload file " + i)
+      console.log(el)
       var response = await req.drive.files.create({
         requestBody: {
           name: el.originalname,
@@ -41,7 +43,9 @@ const uploadImage = async function (req, res) {
           body: fs.createReadStream(el.path)
         }
       })
+      console.log("Fetching File Id")
       fileId = response.data.id   // file access
+      console.log("creating permissions")
       await req.drive.permissions.create({
         fileId: fileId,
         requestBody: { role: "writer", type: "anyone" }
@@ -117,11 +121,11 @@ router.delete("/delete/:id", async (req, res) => {
 router.put("/update/:id", upload.array("imgToAdd", 12), async (req, res) => {
   const { id } = req.params
   const { links, imgToDel, desInp, titleInp, priceInp, freeShipInp, categoryInp } = req.body
-  console.log(req.body)
+  console.log("body ", req.body)
   var updatedLinks = links
   if (req.files.length > 0) {
-    console.log("imgUrl", imgUrl)
     var imgUrl = await uploadImage(req, res)
+    console.log("imgUrl", imgUrl)
     updatedLinks = updatedLinks.concat(imgUrl)
   }
   if (imgToDel) {

@@ -8,12 +8,14 @@ import { HttpClient } from "@angular/common/http";
 export class PostService {
   postsArr: Post[] = [];
   selectedPostToEdit: Post = null
+  public loadIndex = 0
   public postArrUpdated = new Subject<Post[]>()
 
   constructor(private http: HttpClient) { }
 
   getPosts() {
-    this.http.get<{ data: any }>("http://localhost:3000")
+    console.log()
+    this.http.get<{ data: any }>(`http://localhost:3000?cat=${this.categories()[this.loadIndex]}`)
       .pipe(map((postData) => {
         return postData.data.map(post => {
           post.id = post._id
@@ -22,12 +24,14 @@ export class PostService {
         })
       }))
       .subscribe((mappedPost) => {
+        this.loadIndex++
+        if (mappedPost.length < 1 && this.loadIndex < this.categories().length) {
+          return this.getPosts()
+        }
         console.log(mappedPost)
-        this.postsArr = mappedPost
-        this.postsArr.forEach((post) => {
-          post.imgPath = post.imgPath.filter(link => { return link != "" && link != "null" })
-        })
+        this.postsArr.push(...mappedPost)
         this.postArrUpdated.next([...this.postsArr])
+
       })
   }
   postArrUpdatedListener() {

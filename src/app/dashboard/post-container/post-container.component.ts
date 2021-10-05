@@ -8,27 +8,36 @@ import { Post } from 'src/app/posts.model';
   templateUrl: './post-container.component.html',
   styleUrls: ['./post-container.component.css']
 })
+
+
 export class PostContainerComponent implements OnInit, OnDestroy {
+
   postsArr: Post[];
+  loading = true
   categories = this.PostService.categories()
   private postSub: Subscription
   constructor(public PostService: PostService) {
-
   }
 
   ngOnInit(): void {
     this.PostService.getPosts()
     this.postSub = this.PostService.postArrUpdatedListener().subscribe((postsArr: Post[]) => {
+      this.loading = false
       this.postsArr = postsArr
     })
   }
+
   ngOnDestroy(): void {
     this.postSub.unsubscribe()
+  }
+
+  loadMore() {
+    this.loading = true
+    this.PostService.getPosts()
   }
 
   filterCategories(cat, arr) {
     if (arr === undefined) return
     return arr.some(post => post.category === cat);
   }
-
 }

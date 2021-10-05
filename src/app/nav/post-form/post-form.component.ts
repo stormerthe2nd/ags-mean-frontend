@@ -20,6 +20,7 @@ export class PostFormComponent implements OnInit {
   categoryInp = undefined
   freeShipInp = undefined
   message = ''
+  postSub: any;
 
   constructor(public postService: PostService, public route: ActivatedRoute) {
 
@@ -54,10 +55,6 @@ export class PostFormComponent implements OnInit {
         return false
       }
     }
-    // fileInp.forEach(file => {
-    //   console.log(file.name)
-
-    // });
     if (titleInp == '' || !titleInp) {
       this.setStatus("invalid", "please provide a Title", "title")
       return false
@@ -132,10 +129,10 @@ export class PostFormComponent implements OnInit {
       this.deletedLinks = []
       form.controls["fileInp"].reset();
       data.id = data._id
+      this.postService.postArrUpdated.next([...this.postService.postsArr.map(post => post.id === data.id ? post = data : post)])
       this.postService.selectedPostToEdit = data
       this.postCreationStatus = "success"
       this.ngOnInit()
-      this.postService.getPosts()
     });
   }
 

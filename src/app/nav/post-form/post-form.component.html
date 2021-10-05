@@ -73,13 +73,8 @@
               <option *ngFor="let category of this.postService.categories()" [value]="category">{{category}}</option>
             </select>
           </div>
-          <div *ngIf="postCreationStatus == 'load'" class="text-center mt-2">
-            <div class="spinner-border text-info" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
-          </div>
           <div *ngIf="postCreationStatus=='success' && this.message!=''"
-            class="alert alert-success fade show mt-1 text-center" role="alert">
+            class="alert alert-success fade show ms-1 mb-2 mt-2 text-center" role="alert">
             <strong>{{this.message}}</strong>
           </div>
           <div *ngIf="postCreationStatus=='invalid' && this.message!=''"
@@ -88,6 +83,12 @@
           </div>
         </div>
         <div class="modal-footer bg-dark">
+          <div *ngIf="postCreationStatus == 'load'" style="position: absolute;left: 0;" class="text-center ms-5 mt-2">
+            <div class="spinner-border text-light" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
             (click)="postCreationStatus='uninit';this.message=''">Close</button>
           <button *ngIf="this.postService.selectedPostToEdit==null;else submitBlock" type="submit"

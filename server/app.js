@@ -8,6 +8,8 @@ const indexRouter = require('./routes/index');
 const postApiRouter = require("./routes/postApi")
 const productRouter = require("./routes/product")
 const searchRouter = require("./routes/search")
+const refreshRouter = require("./routes/refresh")
+
 const { DB_URL, GOOGLE_APPLICATION_CREDENTIALS } = process.env
 var app = express();
 
@@ -54,6 +56,7 @@ app.use('/', indexRouter);
 app.use("/postApi", (req, res, next) => { req.drive = drive; req.files = []; next() }, postApiRouter)
 app.use('/product', productRouter)
 app.use('/search', searchRouter)
+app.use('/refresh', refreshRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

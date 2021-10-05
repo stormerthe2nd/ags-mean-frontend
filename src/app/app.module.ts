@@ -16,6 +16,7 @@ import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 import { ProductComponent } from './product/product.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { ImgMagnifier } from 'ng-img-magnifier';
+import { ViewMoreComponent } from './view-more/view-more.component';
 
 
 
@@ -31,6 +32,7 @@ import { ImgMagnifier } from 'ng-img-magnifier';
     ScrollToTopComponent,
     ProductComponent,
     SearchResultComponent,
+    ViewMoreComponent,
 
   ],
   imports: [
