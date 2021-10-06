@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NavComponent {
   date = "00-00-0000"
-  searchQuerys = ["Title", "Description", "Category", "Date"]
+  searchQuerys = ["Description", "Title", "Category", "Date"]
   months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   searchBy: string = this.searchQuerys[0]
   postArr: Post[]
