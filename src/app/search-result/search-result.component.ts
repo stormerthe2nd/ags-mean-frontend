@@ -9,21 +9,40 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./search-result.component.css']
 })
 export class SearchResultComponent implements OnInit {
-  searchBy: string
+  searchBy: string = ""
   query = window.location.href.split("/").splice(-1)[0]
-  index = 4
+  index = 0
   postsArr = [] as Post[]
+  loading = true
+  loadIndex = 0
+  store = { searchBy: this.searchBy, query: this.query }
 
   constructor(private PostService: PostService, private activeRoute: ActivatedRoute) {
     this.activeRoute.paramMap.subscribe(paramMap => {
       this.query = paramMap.get("query");
       this.searchBy = paramMap.get("searchBy");
+      this.index = 0
       PostService.searchPost(this.searchBy, this.query, this.index).then((data) => {
         data.searchResults.forEach(post => { post.id = post._id; delete post._id });
+        this.loading = false
         this.postsArr = data.searchResults;
-        console.log(this.postsArr)
+        this.loadIndex = data.finished
+        console.log(this.postsArr, data.index)
       });
     });
+  }
+
+  loadMore() {
+    this.loading = true
+    this.index += 4
+    this.PostService.searchPost(this.searchBy, this.query, this.index).then((data) => {
+      data.searchResults.forEach(post => { post.id = post._id; delete post._id });
+      this.loading = false
+      this.postsArr.push(...data.searchResults)
+      this.loadIndex = data.finished
+      console.log(this.postsArr, data.index, data.finished)
+
+    })
   }
 
   ngOnInit(): void {
