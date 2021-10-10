@@ -1,17 +1,21 @@
 require("dotenv").config()
 var createError = require('http-errors');
 var express = require('express');
+var session = require("express-session");
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var passport = require("passport");
 const indexRouter = require('./routes/index');
 const postApiRouter = require("./routes/postApi")
 const productRouter = require("./routes/product")
 const searchRouter = require("./routes/search")
 const refreshRouter = require("./routes/refresh")
+const authRouter = require("./routes/auth")
 
 const { DB_URL, GOOGLE_APPLICATION_CREDENTIALS } = process.env
 var app = express();
+app.use(session({ secret: "aiwugua9832][p][p]acc" }))
 
 
 // google drive api setup
@@ -32,7 +36,7 @@ const drive = google.drive({
 })
 
 // database setup
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 mongoose.connect(DB_URL, {
   useNewUrlParser: true, useUnifiedTopology: true,
   useCreateIndex: true, useFindAndModify: false
@@ -42,6 +46,8 @@ mongoose.connect(DB_URL, {
 // express app  essentials
 app.use(logger('dev'));
 app.use(express.json());
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use((req, res, next) => {
@@ -57,6 +63,7 @@ app.use("/postApi", (req, res, next) => { req.drive = drive; req.files = []; nex
 app.use('/product', productRouter)
 app.use('/search', searchRouter)
 app.use('/refresh', refreshRouter)
+app.use('/auth', authRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -64,14 +71,14 @@ app.use(function (req, res, next) {
 });
 
 // error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// app.use(function (err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.redirect('/');
-});
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.redirect('/');
+// });
 
 module.exports = app;

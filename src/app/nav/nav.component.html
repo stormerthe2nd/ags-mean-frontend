@@ -20,6 +20,14 @@
             <a class="nav-link text-shadow"><button class="btn btn-outline-light" data-bs-toggle="modal"
                 data-bs-target="#exampleModal" (click)="this.postService.emptyUploadForm()">Upload Post</button></a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link text-shadow"><button class="btn btn-outline-light" (click)="redirectToGoogle()">
+                Login
+                <img style="height: 20px;width: 20px;"
+                  src="https://lh4.googleusercontent.com/-lxCmTY881es/AAAAAAAAAAI/AAAAAAAAAAA/AaGjVxmq2HY/W96-H96/photo.jpg"
+                  class="rounded-circle">
+              </button></a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
@@ -50,10 +58,9 @@
                 <input class="form-control ms-2 me-2" type="date" id="dateInp" aria-label="Search">
               </div>
             </ng-template>
+            <button id="search" class="btn btn-outline-light ms-2" type="button" (click)="redirect()"><i
+                class="fas fa-search"></i></button>
           </div>
-
-          <button id="search" class="btn btn-outline-light ms-3" type="button" (click)="redirect()"><i
-              class="fas fa-search"></i></button>
         </div>
       </div>
     </div>

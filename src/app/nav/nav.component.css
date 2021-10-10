@@ -8,3 +8,10 @@
   border:none;
   border-radius: 50px;
 }
+
+.profile-image{
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  background-color: aliceblue;
+}

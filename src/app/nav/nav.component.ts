@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
 import { PostService } from '../post.service';
 import { Post } from '../posts.model';
 import * as $ from 'jquery';
 import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -18,7 +18,7 @@ export class NavComponent {
   postArr: Post[]
   query: string
 
-  constructor(public postService: PostService, public router: Router, private activeRoute: ActivatedRoute) {
+  constructor(public postService: PostService, public router: Router, private http: HttpClient) {
   }
   doc = document
   hidden = false
@@ -54,5 +54,10 @@ export class NavComponent {
 
   change() {
     this.query = (<HTMLInputElement>document.getElementById('searchInp')).value
+  }
+
+  redirectToGoogle() {
+    console.log("red")
+    this.http.get("http://localhost:3000/auth/google")
   }
 }
