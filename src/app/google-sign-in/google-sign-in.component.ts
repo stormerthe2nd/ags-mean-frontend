@@ -25,7 +25,6 @@ export class GoogleSignInComponent implements OnInit {
       localStorage.setItem("google_auth", JSON.stringify(data))
       this.userData = data
       this.postService.user = data
-      console.log(data)
     });
   }
 

@@ -12,7 +12,7 @@ import * as $ from "jquery"
 })
 export class SpecificPostComponent implements OnInit {
   @Input() post: Post;
-  constructor(private postService: PostService, private router: Router) {
+  constructor(public postService: PostService, private router: Router) {
     $(document).ready(function () {
       var display = function () {
         if ($(window).width() < 618) {

@@ -9,10 +9,10 @@
           View Post
         </a>
         <hr style="clear: both;visibility: hidden;">
-        <button class="btn btn-primary btn-sm info" style="margin-right: 5px;" data-bs-toggle="modal"
+        <button *ngIf="this.postService.user.name" class="btn btn-primary btn-sm info" style="margin-right: 5px;" data-bs-toggle="modal"
           data-bs-target="#exampleModal" (click)="selectedPost(post)"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-danger btn-sm info" style="margin-left: 5px;" (click)="deleteThisPost(post.id)"><i
-            class="fas fa-trash"></i></button>
+        <button *ngIf="this.postService.user.name" class="btn btn-danger btn-sm info" style="margin-left: 5px;"
+          (click)="deleteThisPost(post.id)"><i class="fas fa-trash"></i></button>
       </div>
     </div>
     <div routerLink="/product/{{post.id}}" class="content-con card-body text-center">
