@@ -14,7 +14,7 @@ export class SearchResultComponent implements OnInit {
   index = 0
   postsArr = [] as Post[]
   loading = true
-  loadIndex = 0
+  loadIndex = this.PostService.loadSearch
   store = { searchBy: this.searchBy, query: this.query }
 
   constructor(private PostService: PostService, private activeRoute: ActivatedRoute) {

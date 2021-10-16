@@ -10,6 +10,7 @@ export class PostService {
   selectedPostToEdit: Post = null
   user: any = {}
   public loadIndex = 0
+  public loadSearch = 0
   public postArrUpdated = new Subject<Post[]>()
 
   constructor(private http: HttpClient) { }
