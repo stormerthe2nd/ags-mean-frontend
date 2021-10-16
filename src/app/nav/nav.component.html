@@ -20,9 +20,6 @@
             <a class="nav-link text-shadow"><button class="btn btn-outline-light" data-bs-toggle="modal"
                 data-bs-target="#exampleModal" (click)="this.postService.emptyUploadForm()">Upload</button></a>
           </li>
-          <li>
-            <app-google-sign-in></app-google-sign-in>
-          </li>
           <li class="nav-item dropdown">
             <a class="nav-link " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
@@ -32,6 +29,9 @@
               <li *ngFor="let category of this.postService.categories()"><a class="dropdown-item"
                   routerLink="/search/Category/{{category}}">{{category}}</a></li>
             </ul>
+          </li>
+          <li>
+            <app-google-sign-in></app-google-sign-in>
           </li>
         </ul>
         <div class="d-flex">
