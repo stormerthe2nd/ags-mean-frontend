@@ -113,7 +113,7 @@ export class PostFormComponent implements OnInit {
     const { desInp, linkInp, titleInp, priceInp } = form.value
     if (!this.validForm(this.fileInp, desInp, titleInp, priceInp, this.freeShipInp, this.categoryInp)) return
     this.postCreationStatus = "load"
-    console.log(this.postService.selectedPostToEdit.id)
+    console.log("form id", this.postService.selectedPostToEdit.id)
     this.postService.editPost({
       id: this.postService.selectedPostToEdit.id,
       imgToAdd: [...this.fileInp],

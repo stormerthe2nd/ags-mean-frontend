@@ -11,14 +11,18 @@ import * as $ from "jquery"
 export class ProductComponent implements OnInit {
   index = 0
   post = { imgPath: [] } as Post
-  constructor(private PostService: PostService) {
+  constructor(public postService: PostService) {
     $(document).ready(() => {
       $("#myimage").css("object-fit", "contain")
     })
   }
 
   ngOnInit(): void {
-    this.PostService.getPostById(window.location.href.split("/").splice(-1)[0]).then((data) => { this.post = data.post })
+    this.postService.getPostById(window.location.href.split("/").splice(-1)[0]).then((data) => {
+      data.post.id = data.post._id
+      delete data.post._id
+      this.post = data.post;
+    })
   }
 
   pushToFrame(img) {
@@ -45,4 +49,5 @@ export class ProductComponent implements OnInit {
   back() {
     history.back()
   }
+
 }

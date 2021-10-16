@@ -16,7 +16,7 @@
           <li class="nav-item">
             <a class="nav-link text-shadow" routerLink="/about"><button class="btn btn-outline-light">About</button></a>
           </li>
-          <li class="nav-item">
+          <li *ngIf="this.postService.user.name" class="nav-item">
             <a class="nav-link text-shadow"><button class="btn btn-outline-light" data-bs-toggle="modal"
                 data-bs-target="#exampleModal" (click)="this.postService.emptyUploadForm()">Upload</button></a>
           </li>
