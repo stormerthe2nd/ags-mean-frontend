@@ -8,6 +8,7 @@ import { HttpClient } from "@angular/common/http";
 export class PostService {
   postsArr: Post[] = [];
   selectedPostToEdit: Post = null
+  user: any = {}
   public loadIndex = 0
   public postArrUpdated = new Subject<Post[]>()
 

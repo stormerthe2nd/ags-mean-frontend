@@ -20,7 +20,7 @@ export class ScrollToTopComponent implements OnInit {
     }
   }
   scrollToTop() {
-    $('body, html').animate({ scrollTop: 0 }, 600);
+    $('body, html').animate({ scrollTop: 0 }, 300);
   }
   ngOnInit() { }
 }

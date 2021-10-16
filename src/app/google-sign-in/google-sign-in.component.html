@@ -1,0 +1,24 @@
+<div class="dropdown mt-2">
+  <button class="btn2 btn btn-outline-light" style="border: none;border-radius: 50px;" type="button"
+    id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+    <i *ngIf="!userData.photoUrl;else imgBlock" class="fas fa-user-circle fa-2x"></i>
+    <ng-template #imgBlock>
+      <img [src]="userData.photoUrl" style="height: 35px;width: 35px;border-radius: 50px;" alt="...">
+    </ng-template>
+  </button>
+  <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+    <button *ngIf="!userData.firstName;else elseBlock" class="btn btn-outline-light me-2 ms-2"
+      (click)="signInWithGoogle()">
+      <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+      Login with Google
+    </button>
+    <ng-template #elseBlock>
+      <button class="btn btn-outline-light me-2 ms-2" (click)="signOut()">
+        <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+        Sign Out from {{userData.firstName}}
+      </button>
+    </ng-template>
+  </div>
+</div>
