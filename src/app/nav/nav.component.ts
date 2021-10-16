@@ -17,13 +17,13 @@ export class NavComponent {
   searchBy: string = this.searchQuerys[0]
   postArr: Post[]
   query: string
-
-  constructor(public postService: PostService, public router: Router, private activeRoute: ActivatedRoute) {
-  }
   doc = document
   hidden = false
   opened = false
   closed = false
+
+  constructor(public postService: PostService, public router: Router, private activeRoute: ActivatedRoute) {
+  }
 
   hideTitle(opened: boolean, closed: boolean) {
     if (!this.hidden) {

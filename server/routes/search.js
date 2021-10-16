@@ -8,7 +8,6 @@ router.get('/:searchBy/:query', async function (req, res) {
   var query = req.params.query.toLowerCase().trim()
   var searchBy = req.params.searchBy
   var index = +req.query.index
-  console.log(index)
   postModel.find().exec((err, data) => {
     if (searchBy === "Description") {
       data.forEach((post, ind) => {
