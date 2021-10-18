@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PostService } from '../post.service';
 import { Post } from '../posts.model';
 import { ActivatedRoute } from '@angular/router';
@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.css']
 })
-export class SearchResultComponent implements OnInit {
+export class SearchResultComponent implements OnInit, OnDestroy {
   searchBy: string = ""
   query = window.location.href.split("/").splice(-1)[0]
   index = 0
@@ -27,9 +27,10 @@ export class SearchResultComponent implements OnInit {
         this.loading = false
         this.postsArr = data.searchResults;
         this.loadIndex = data.finished
-        console.log(this.postsArr, data.index)
       });
     });
+  }
+  ngOnDestroy(): void {
   }
 
   loadMore() {
@@ -41,7 +42,6 @@ export class SearchResultComponent implements OnInit {
       this.postsArr.push(...data.searchResults)
       this.loadIndex = data.finished
       console.log(this.postsArr, data.index, data.finished)
-
     })
   }
 

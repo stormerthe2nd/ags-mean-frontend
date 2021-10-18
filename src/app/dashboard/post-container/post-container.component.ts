@@ -12,7 +12,7 @@ import { Post } from 'src/app/posts.model';
 
 export class PostContainerComponent implements OnInit, OnDestroy {
 
-  postsArr: Post[];
+  postsArr = [] as Post[];
   loading = true
   categories = this.PostService.categories()
   private postSub: Subscription
@@ -20,20 +20,21 @@ export class PostContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.PostService.getPosts()
-    this.postSub = this.PostService.postArrUpdatedListener().subscribe((postsArr: Post[]) => {
-      this.loading = false
-      this.postsArr = postsArr
-    })
+    this.loadMoreCat()
   }
 
   ngOnDestroy(): void {
     this.postSub.unsubscribe()
   }
 
-  loadMore() {
+  loadMoreCat() {
     this.loading = true
     this.PostService.getPosts()
+    this.postSub = this.PostService.postArrUpdatedListener().subscribe((postsArr: Post[]) => {
+      this.loading = false
+      this.postsArr = postsArr
+    })
+    this.PostService.loadIndex++
   }
 
   filterCategories(cat, arr) {

@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./view-more.component.css']
 })
 export class ViewMoreComponent implements OnInit {
-
+  @Input() route: string
   @Input() loading: boolean
   @Input() loadIndex: number
   @Input() categoriesLength: number

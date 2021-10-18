@@ -16,7 +16,8 @@ export class PostService {
   constructor(private http: HttpClient) { }
 
   getPosts() {
-    console.log()
+    console.log(this.loadIndex)
+    console.log(this.categories()[this.loadIndex])
     this.http.get<{ data: any }>(`http://localhost:3000?cat=${this.categories()[this.loadIndex]}`)
       .pipe(map((postData) => {
         return postData.data.map(post => {
@@ -26,8 +27,8 @@ export class PostService {
         })
       }))
       .subscribe((mappedPost) => {
-        this.loadIndex++
         if (mappedPost.length < 1 && this.loadIndex < this.categories().length) {
+          this.loadIndex++
           return this.getPosts()
         }
         console.log(mappedPost)
@@ -93,7 +94,7 @@ export class PostService {
   }
 
   categories() {
-    return ["Watches", "Bags", "Glares", "Headsets/Earbuds", "Cosmetics", "Mens Wear", "Mobile Accessories", "Ladies Wear", "Household", "Foot Wear", "Kids", "Bedsheets", "Uncategorised"]
+    return ["Watches", "Bags", "Glares", "Headsets", "Earbuds", "Cosmetics", "Mens Wear", "Mobile Accessories", "Ladies Wear", "Household", "Foot Wear", "Kids", "Bedsheets", "Uncategorised"]
   }
 
   getPostById(id) {
