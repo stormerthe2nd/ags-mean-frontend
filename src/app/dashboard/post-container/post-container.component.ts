@@ -11,16 +11,23 @@ import { Post } from 'src/app/posts.model';
 
 
 export class PostContainerComponent implements OnInit, OnDestroy {
-
   postsArr = [] as Post[];
   loading = true
   categories = this.PostService.categories()
   private postSub: Subscription
   constructor(public PostService: PostService) {
+    console.log(this.postsArr.length)
+
+    this.PostService.getPosts()
+    this.postSub = this.PostService.postArrUpdatedListener().subscribe((postsArr: Post[]) => {
+      this.loading = false
+      this.postsArr = postsArr
+      this.PostService.pageLoaded = true
+    })
   }
 
   ngOnInit(): void {
-    this.loadMoreCat()
+
   }
 
   ngOnDestroy(): void {
@@ -30,11 +37,6 @@ export class PostContainerComponent implements OnInit, OnDestroy {
   loadMoreCat() {
     this.loading = true
     this.PostService.getPosts()
-    this.postSub = this.PostService.postArrUpdatedListener().subscribe((postsArr: Post[]) => {
-      this.loading = false
-      this.postsArr = postsArr
-    })
-    this.PostService.loadIndex++
   }
 
   filterCategories(cat, arr) {

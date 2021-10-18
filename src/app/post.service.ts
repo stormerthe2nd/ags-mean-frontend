@@ -10,14 +10,13 @@ export class PostService {
   selectedPostToEdit: Post = null
   user: any = {}
   public loadIndex = 0
-  public loadSearch = 0
+  public pageLoaded = false
   public postArrUpdated = new Subject<Post[]>()
 
   constructor(private http: HttpClient) { }
 
   getPosts() {
     console.log(this.loadIndex)
-    console.log(this.categories()[this.loadIndex])
     this.http.get<{ data: any }>(`http://localhost:3000?cat=${this.categories()[this.loadIndex]}`)
       .pipe(map((postData) => {
         return postData.data.map(post => {
@@ -25,16 +24,15 @@ export class PostService {
           delete post._id
           return post
         })
-      }))
-      .subscribe((mappedPost) => {
+      })).subscribe(mappedPost => {
         if (mappedPost.length < 1 && this.loadIndex < this.categories().length) {
           this.loadIndex++
           return this.getPosts()
         }
+        this.loadIndex++
         console.log(mappedPost)
         this.postsArr.push(...mappedPost)
         this.postArrUpdated.next([...this.postsArr])
-
       })
   }
   postArrUpdatedListener() {
