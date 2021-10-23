@@ -1,7 +1,6 @@
 require("dotenv").config()
 var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const indexRouter = require('./routes/index');
@@ -9,8 +8,10 @@ const postApiRouter = require("./routes/postApi")
 const productRouter = require("./routes/product")
 const searchRouter = require("./routes/search")
 const refreshRouter = require("./routes/refresh")
+const authRouter = require("./routes/auth")
 
-const { DB_URL, GOOGLE_APPLICATION_CREDENTIALS } = process.env
+const { DB_URL, GOOGLE_APPLICATION_CREDENTIALS, USERS } = process.env
+const users = require(USERS)
 var app = express();
 
 
@@ -51,12 +52,14 @@ app.use((req, res, next) => {
   next()
 })
 
+app.use((req, res, next) => { req.users = users; next() })
 // binding routers to path
 app.use('/', indexRouter);
 app.use("/postApi", (req, res, next) => { req.drive = drive; req.files = []; next() }, postApiRouter)
 app.use('/product', productRouter)
 app.use('/search', searchRouter)
 app.use('/refresh', refreshRouter)
+app.use("/auth", authRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

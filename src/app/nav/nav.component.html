@@ -16,7 +16,7 @@
           <li class="nav-item">
             <a class="nav-link text-shadow" routerLink="/about"><button class="btn btn-outline-light">About</button></a>
           </li>
-          <li *ngIf="this.postService.user.name" class="nav-item">
+          <li *ngIf="this.postService.isAdmin" class="nav-item">
             <a class="nav-link text-shadow"><button class="btn btn-outline-light" data-bs-toggle="modal"
                 data-bs-target="#exampleModal" (click)="this.postService.emptyUploadForm()">Upload</button></a>
           </li>
@@ -43,7 +43,7 @@
             <ul style="position: absolute;" class="dropdown-menu dropdown-menu-dark"
               aria-labelledby="navbarDarkDropdownMenuLink2">
               <li *ngFor="let item of searchQuerys">
-                <a (click)="this.searchBy = item" class="dropdown-item">{{item}}</a>
+                <button (click)="this.searchBy = item" class="dropdown-item">{{item}}</button>
               </li>
             </ul>
             <input *ngIf="searchBy !== 'Date';else dateBlock" class="form-control ms-2" type="search"

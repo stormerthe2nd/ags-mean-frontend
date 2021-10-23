@@ -9,6 +9,7 @@ export class PostService {
   postsArr: Post[] = [];
   selectedPostToEdit: Post = null
   user: any = {}
+  public isAdmin = false
   public loadIndex = 0
   public pageLoaded = false
   public postArrUpdated = new Subject<Post[]>()
@@ -101,5 +102,11 @@ export class PostService {
 
   searchPost(searchBy: string, query: string, index: number) {
     return this.http.get<any>(`http://localhost:3000/search/${searchBy}/${query}?index=${index}`).toPromise()
+  }
+
+  authorize(email: string) {
+    this.http.get<{ admin: boolean }>(`http://localhost:3000/auth?email=${email.split("@")[0]}`).subscribe(data => {
+      this.isAdmin = data.admin
+    })
   }
 }
