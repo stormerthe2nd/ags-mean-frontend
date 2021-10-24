@@ -1,11 +1,20 @@
 const router = require("express").Router()
+const userModel = require("../model/userModel")
 
-router.get("/", function (req, res) {
-  console.log(req.query.email)
-  if (req.users.admins.includes(req.query.email + "@gmail.com")) {
-    return res.json({ admin: true })
+router.get("/", async function (req, res) {
+  var email = req.query.email + "@gmail.com"
+  if (await userModel.findOne({ email: email })) {
+    console.log("user exists")
+    return res.json({ admin: false })
   }
-  res.json({ admin: false })
+  var user = await new userModel({
+    email: email,
+    role: email !== req.dev ? "client" : "dev",
+    createdPosts: [],
+    savedPosts: []
+  })
+  user.save()
+  res.json({ admin: false, user: user })
 })
 
 module.exports = router

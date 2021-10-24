@@ -105,7 +105,7 @@ export class PostService {
   }
 
   authorize(email: string) {
-    this.http.get<{ admin: boolean }>(`http://localhost:3000/auth?email=${email.split("@")[0]}`).subscribe(data => {
+    this.http.get<any>(`http://localhost:3000/auth?email=${email.split("@")[0]}`).subscribe(data => {
       this.isAdmin = data.admin
     })
   }

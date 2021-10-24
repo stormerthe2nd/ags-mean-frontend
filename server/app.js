@@ -10,7 +10,7 @@ const searchRouter = require("./routes/search")
 const refreshRouter = require("./routes/refresh")
 const authRouter = require("./routes/auth")
 
-const { DB_URL, GOOGLE_APPLICATION_CREDENTIALS, USERS } = process.env
+const { DB_URL, GOOGLE_APPLICATION_CREDENTIALS, USERS, DEV } = process.env
 const users = require(USERS)
 var app = express();
 
@@ -60,7 +60,7 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use((req, res, next) => { req.users = users; next() })
+app.use((req, res, next) => { req.users = users; req.dev = DEV; next() })
 // binding routers to path
 app.use('/', indexRouter);
 app.use("/postApi", (req, res, next) => { req.drive = drive; req.files = []; next() }, postApiRouter)
