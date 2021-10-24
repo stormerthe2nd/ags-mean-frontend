@@ -3,7 +3,6 @@ import { SocialAuthService } from "angularx-social-login";
 import { SocialUser } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";
 import { PostService } from '../post.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-google-sign-in',
@@ -36,5 +35,6 @@ export class GoogleSignInComponent implements OnInit {
     this.userData = {}
     this.postService.user = {}
     this.postService.role = "client"
+    this.postService.savedPosts = []
   }
 }

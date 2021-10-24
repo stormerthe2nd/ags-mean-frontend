@@ -11,7 +11,8 @@ import * as $ from "jquery"
   styleUrls: ['./specific-post.component.css']
 })
 export class SpecificPostComponent implements OnInit {
-  @Input() post: Post;
+  @Input() post = {} as Post;
+  showSave: boolean = true
   constructor(public postService: PostService, private router: Router) {
     $(document).ready(function () {
       var display = function () {
@@ -40,6 +41,22 @@ export class SpecificPostComponent implements OnInit {
   redirect(id) {
     console.log(this.post)
     this.router.navigate(["/product", id])
+  }
+
+  savePost(id: string) {
+    if (!this.postService.user.email) {
+      return alert("This Functionality Requires Login")
+    }
+    this.postService.savePost(id, this.postService.user.email).then(data => {
+      this.postService.savedPosts.push(id)
+    })
+  }
+
+  unSavePost(id: string) {
+    this.postService.unSavePost(id, this.postService.user.email).then(data => {
+
+      this.postService.savedPosts.splice(this.postService.savedPosts.indexOf(id), 1)
+    })
   }
 
 }

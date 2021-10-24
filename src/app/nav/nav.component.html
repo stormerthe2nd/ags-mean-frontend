@@ -16,6 +16,7 @@
           <li class="nav-item">
             <a class="nav-link text-shadow" routerLink="/about"><button class="btn btn-outline-light">About</button></a>
           </li>
+
           <li *ngIf="this.postService.role!=='client'" class="nav-item dropdown">
             <a class="nav-link " href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">

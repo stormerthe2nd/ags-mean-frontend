@@ -10,10 +10,15 @@
         <a class="mt-5 mb-5 info" (click)="redirect(post.id)">
           View Post
         </a>
-        <hr style="clear: both;visibility: hidden;">
+        <br>
+        <button *ngIf="!postService.savedPosts.includes(post.id);else unSave" (click)="savePost(post.id)"
+          class="btn btn-danger"><i class="fas fa-plus"></i> Save</button>
+        <ng-template #unSave>
+          <button (click)="unSavePost(post.id)" class="btn btn-danger"><i class="fas fa-times"></i> Unsave</button>
+        </ng-template>
       </div>
     </div>
-    <div routerLink="/product/{{post.id}}" class="content-con card-body text-center">
+    <div routerLink=" /product/{{post.id}}" class="content-con card-body text-center">
       <h5>{{post.title[21]?post.title.slice(0,20)+"...":post.title}}</h5>
       <p class="small text-muted text-uppercase mb-2 un-imp">{{post.category}}</p>
       <p class="un-imp">{{post.des[26]?post.des.slice(0,25)+"...":post.des}}</p>

@@ -23,6 +23,7 @@ export class DevComponent implements OnInit {
     postService.authorize(this.userData.email, true).then(data => {
       var role = data.user.role
       this.postService.role = role
+      this.postService.savedPosts = data.user.savedPosts
       if (role !== "dev") {
         return this.router.navigate(["/"])
       }

@@ -10,11 +10,14 @@ export class PostService {
   selectedPostToEdit: Post = null
   public user: any = {}
   public role = "client"
+  public savedPosts = []
   public loadIndex = 0
   public pageLoaded = false
   public postArrUpdated = new Subject<Post[]>()
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+
+  }
 
   getPosts() {
     console.log(this.loadIndex)
@@ -110,6 +113,7 @@ export class PostService {
     }
     this.http.get<any>(`http://localhost:3000/auth?email=${email.split("@")[0]}`).subscribe(data => {
       this.role = data.user.role
+      this.savedPosts = data.user.savedPosts
     })
   }
 
@@ -119,5 +123,13 @@ export class PostService {
 
   updateUserRole(email: string, role: string) {
     return this.http.get<any>(`http://localhost:3000/auth/update?role=${role}&email=${email}`).toPromise()
+  }
+
+  savePost(id: string, email: string) {
+    return this.http.post<any>(`http://localhost:3000/auth/savePost`, { id: id, email: email }).toPromise()
+  }
+
+  unSavePost(id: string, email: string) {
+    return this.http.post<any>(`http://localhost:3000/auth/unSavePost`, { id: id, email: email }).toPromise()
   }
 }
