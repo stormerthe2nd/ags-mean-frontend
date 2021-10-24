@@ -32,6 +32,14 @@ const drive = google.drive({
   auth: auth
 })
 
+// auth function
+const authorize = (req, res, next) => {
+  if (req.users.admins.includes(req.query.email + "@gmail.com")) {
+    return next()
+  }
+  return res.json({ admin: false })
+}
+
 // database setup
 const mongoose = require("mongoose")
 mongoose.connect(DB_URL, {

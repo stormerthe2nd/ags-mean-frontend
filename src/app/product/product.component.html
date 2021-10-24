@@ -1,6 +1,6 @@
 <app-nav></app-nav>
 <div class="container text-center">
-  <button class="btn btn-outline-light w-25 mt-2" (click)="back()"><i class="fas fa-arrow-left"></i> Back</button>
+  <button class="btn btn-outline-light w-25 mt-2 mb-1" (click)="back()"><i class="fas fa-arrow-left"></i> Back</button>
 </div>
 <div class="con container-fluid ">
   <div class="images">
@@ -26,7 +26,7 @@
       <h4 class="fw-bold fs-2 text-danger"><span class="fw-normal text-light">Price:</span> ₹{{post.price}}</h4>
     </div>
     <p class="fw-normal fs-5"><em>{{post.freeShip?'Free Shipping':'Shipping Extra'}}</em></p>
-    <div class="description m-3">
+    <div class="description m-3 mb-5">
       <div class="card card-body border border-light" style="background-color: black;">
         <p class="fw-normal fs-3 text-light">Description <button class="btn btn-outline-light btn-sm shadow-none"
             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Copied"><i id="copy" class="fas fa-copy"

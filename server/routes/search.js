@@ -28,7 +28,7 @@ router.get('/:searchBy/:query', async function (req, res) {
         post.updated.toLowerCase().includes(query) ? searchResults.push(post) : {}
       })
     }
-    searchResults = searchResults.slice(index, index + 4)
+    searchResults = searchResults.slice(index, index + 12)
     return res.json({ searchResults: searchResults, index: index, finished: searchResults.length === 0 ? 2 : 0 });
   })
 });

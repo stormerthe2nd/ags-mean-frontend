@@ -35,7 +35,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
 
   loadMore() {
     this.loading = true
-    this.index += 4
+    this.index += 12
     this.PostService.searchPost(this.searchBy, this.query, this.index).then((data) => {
       data.searchResults.forEach(post => { post.id = post._id; delete post._id });
       this.loading = false
