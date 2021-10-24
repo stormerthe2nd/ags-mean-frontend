@@ -18,4 +18,16 @@ router.get("/", async function (req, res) {
   res.json({ user: { email: user.email, role: user.role } })
 })
 
+router.get("/users/:amt", async function (req, res) {
+  var amt = +req.params.amt
+  var users = await userModel.find({}).skip(amt, amt + 30)
+  res.json({ users: users })
+})
+
+router.get("/update", async function (req, res) {
+  const { email, role } = req.query
+  await userModel.findOneAndUpdate({ email: email }, { role: role })
+  res.json({ email: email, role: role })
+})
+
 module.exports = router

@@ -9,6 +9,9 @@ import { Router } from "@angular/router"
 })
 export class DevComponent implements OnInit {
 
+  amt = 0
+  loading = false
+  usersArr = []
   renderPage = false
   userData = JSON.parse(localStorage.getItem("google_auth")) || {}
 
@@ -24,8 +27,27 @@ export class DevComponent implements OnInit {
         return this.router.navigate(["/"])
       }
       this.renderPage = true
+      this.getUsers()
     })
 
+  }
+
+  getUsers() {
+    this.postService.getUsers(this.amt).then(data => {
+      this.usersArr = data.users
+      console.log(data.users)
+      this.amt += 30
+    })
+  }
+
+  saveChanges(email: string, id: string) {
+    this.loading = true
+    this.postService.updateUserRole(email, (<HTMLInputElement>document.getElementById(id)).value).then(data => {
+      this.usersArr.map(user => {
+        user.email === data.email ? user.role = data.role : {}
+        this.loading = false
+      })
+    })
   }
 
   ngOnInit(): void {

@@ -112,4 +112,12 @@ export class PostService {
       this.role = data.user.role
     })
   }
+
+  getUsers(amt: number) {
+    return this.http.get<{ users: any }>(`http://localhost:3000/auth/users/${amt}`).toPromise()
+  }
+
+  updateUserRole(email: string, role: string) {
+    return this.http.get<any>(`http://localhost:3000/auth/update?role=${role}&email=${email}`).toPromise()
+  }
 }
