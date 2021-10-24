@@ -104,7 +104,10 @@ export class PostService {
     return this.http.get<any>(`http://localhost:3000/search/${searchBy}/${query}?index=${index}`).toPromise()
   }
 
-  authorize(email: string) {
+  authorize(email: string, returnData = false) {
+    if (returnData) {
+      return this.http.get<any>(`http://localhost:3000/auth?email=${email.split("@")[0]}`).toPromise()
+    }
     this.http.get<any>(`http://localhost:3000/auth?email=${email.split("@")[0]}`).subscribe(data => {
       this.role = data.user.role
     })
