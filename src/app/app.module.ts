@@ -22,6 +22,7 @@ import { ViewMoreComponent } from './view-more/view-more.component';
 import { GoogleSignInComponent } from './google-sign-in/google-sign-in.component';
 import { environment } from 'src/environments/environment';
 import { DevComponent } from './dev/dev.component';
+import { SavedPostsComponent } from './saved-posts/saved-posts.component';
 
 const { clientId } = environment
 
@@ -39,7 +40,8 @@ const { clientId } = environment
     SearchResultComponent,
     ViewMoreComponent,
     GoogleSignInComponent,
-    DevComponent
+    DevComponent,
+    SavedPostsComponent
   ],
   imports: [
     BrowserModule,

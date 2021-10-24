@@ -1,5 +1,6 @@
 const router = require("express").Router()
 const userModel = require("../model/userModel")
+const postModel = require("../model/postModel")
 
 router.get("/", async function (req, res) {
   var email = req.query.email + "@gmail.com"
@@ -18,6 +19,7 @@ router.get("/", async function (req, res) {
   res.json({ user: { email: user.email, role: user.role, savedPosts: user.savedPosts } })
 })
 
+// TODO check amt loading below
 router.get("/users/:amt", async function (req, res) {
   var amt = +req.params.amt
   var users = await userModel.find({}).skip(amt, amt + 30)
@@ -42,6 +44,13 @@ router.post("/unSavePost", async function (req, res) {
   console.log(id, email)
   await userModel.findOneAndUpdate({ email: email }, { $pull: { savedPosts: id } })
   res.json({ msg: "unsaved" })
+})
+
+router.get("/getSavedPosts", async function (req, res) {
+  const { email } = req.query
+  var user = await userModel.findOne({ email: email })
+  postsArr = await postModel.find({ "_id": { $in: user.savedPosts } })
+  res.json({ postsArr: postsArr })
 })
 
 module.exports = router

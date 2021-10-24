@@ -132,4 +132,8 @@ export class PostService {
   unSavePost(id: string, email: string) {
     return this.http.post<any>(`http://localhost:3000/auth/unSavePost`, { id: id, email: email }).toPromise()
   }
+
+  getSavedPosts(email) {
+    return this.http.get<any>(`http://localhost:3000/auth/getSavedPosts?email=${email}`).toPromise()
+  }
 }

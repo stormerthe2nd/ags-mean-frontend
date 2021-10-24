@@ -1,0 +1,8 @@
+<app-nav></app-nav>
+<div class="container-fluid mt-5 text-light">
+  <div id="post-container" *ngFor="let post of postsArr" class="card-group mb-3"
+    style="overflow: hidden;display:inline-block">
+    <app-specific-post [post]="post"></app-specific-post>
+    <hr style="color: white;">
+  </div>
+</div>

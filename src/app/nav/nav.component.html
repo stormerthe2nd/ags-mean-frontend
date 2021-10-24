@@ -16,14 +16,13 @@
           <li class="nav-item">
             <a class="nav-link text-shadow" routerLink="/about"><button class="btn btn-outline-light">About</button></a>
           </li>
-
-          <li *ngIf="this.postService.role!=='client'" class="nav-item dropdown">
+          <li *ngIf="this.postService.user.email" class="nav-item dropdown">
             <a class="nav-link " href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
-              <button class="btn btn-outline-light dropdown-toggle">Admin</button>
+              <button class="btn btn-outline-light dropdown-toggle">User</button>
             </a>
             <ul style="position: absolute;" class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown3">
-              <li>
+              <li *ngIf="this.postService.role==='dev' || this.postService.role === 'admin'">
                 <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal"
                   (click)="this.postService.emptyUploadForm()">Upload</button>
               </li>
