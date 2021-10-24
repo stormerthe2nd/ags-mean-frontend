@@ -3,18 +3,19 @@ const userModel = require("../model/userModel")
 
 router.get("/", async function (req, res) {
   var email = req.query.email + "@gmail.com"
-  if (await userModel.findOne({ email: email })) {
+  var user = await userModel.findOne({ email: email })
+  if (user) {
     console.log("user exists")
-    return res.json({ admin: false })
+    return res.json({ user: { email: user.email, role: user.role } })
   }
-  var user = await new userModel({
+  user = await new userModel({
     email: email,
     role: email !== req.dev ? "client" : "dev",
     createdPosts: [],
     savedPosts: []
   })
   user.save()
-  res.json({ admin: false, user: user })
+  res.json({ user: { email: user.email, role: user.role } })
 })
 
 module.exports = router

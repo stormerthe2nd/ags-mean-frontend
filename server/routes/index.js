@@ -4,7 +4,6 @@ var router = express.Router();
 
 router.get('/', async function (req, res) {
   try {
-    console.log(req.users)
     var postsArr = await postModel.find({ category: req.query.cat }, null, { limit: 10 })
     return res.json({ data: postsArr });
   } catch (error) {

@@ -1,6 +1,6 @@
 <div class="post1">
   <div class="card border-dark text-dark hovereffect"
-    [ngStyle]="{'border-bottom-left-radius': this.postService.isAdmin?'0px':'10px','border-bottom-right-radius':this.postService.isAdmin?'0px':'10px'}"
+    [ngStyle]="{'border-bottom-left-radius': this.postService.role!=='client'?'0px':'10px','border-bottom-right-radius':this.postService.role!=='client'?'0px':'10px'}"
     style="border-radius: 10px;">
     <div class="image-con">
       <img routerLink="/product/{{post.id}}" [src]="post.imgPath[0]" class="in-img rounded" style="object-fit: cover;"
@@ -27,11 +27,11 @@
       </h6>
     </div>
   </div>
-  <button *ngIf="this.postService.isAdmin" class="btn btn-primary btn-sm"
+  <button *ngIf="this.postService.role!=='client'" class="btn btn-primary btn-sm"
     style="width: 50%;border-top-left-radius:0px;border-top-right-radius:0px; border-bottom-right-radius: 0px;"
     data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="selectedPost(post)"><i
       class="fas fa-edit"></i></button>
-  <button *ngIf="this.postService.isAdmin" class="btn btn-danger btn-sm"
+  <button *ngIf="this.postService.role!=='client'" class="btn btn-danger btn-sm"
     style="width: 50%;border-top-left-radius:0px;border-top-right-radius:0px;border-bottom-left-radius: 0px;"
     (click)="deleteThisPost(post.id)"><i class="fas fa-trash"></i></button>
 </div>

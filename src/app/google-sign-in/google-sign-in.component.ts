@@ -35,6 +35,6 @@ export class GoogleSignInComponent implements OnInit {
     localStorage.removeItem("google_auth")
     this.userData = {}
     this.postService.user = {}
-    this.postService.isAdmin = false
+    this.postService.role = "client"
   }
 }

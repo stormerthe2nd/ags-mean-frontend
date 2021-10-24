@@ -8,8 +8,8 @@ import { HttpClient } from "@angular/common/http";
 export class PostService {
   postsArr: Post[] = [];
   selectedPostToEdit: Post = null
-  user: any = {}
-  public isAdmin = false
+  public user: any = {}
+  public role = "client"
   public loadIndex = 0
   public pageLoaded = false
   public postArrUpdated = new Subject<Post[]>()
@@ -106,7 +106,7 @@ export class PostService {
 
   authorize(email: string) {
     this.http.get<any>(`http://localhost:3000/auth?email=${email.split("@")[0]}`).subscribe(data => {
-      this.isAdmin = data.admin
+      this.role = data.user.role
     })
   }
 }
