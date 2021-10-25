@@ -43,7 +43,6 @@ export class SpecificPostComponent implements OnInit {
   }
 
   savePost(id: string) {
-    console.log("saved was clicked")
     if (!this.postService.user.email) {
       return alert("This Functionality Requires Login")
     }
@@ -53,7 +52,6 @@ export class SpecificPostComponent implements OnInit {
   }
 
   unSavePost(id: string) {
-    console.log("unsaved was clicked")
     this.postService.unSavePost(id, this.postService.user.email).then(data => {
 
       this.postService.savedPosts.splice(this.postService.savedPosts.indexOf(id), 1)
