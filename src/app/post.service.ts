@@ -8,7 +8,7 @@ import { HttpClient } from "@angular/common/http";
 export class PostService {
   postsArr: Post[] = [];
   selectedPostToEdit: Post = null
-  public user: any = {}
+  public user: any = JSON.parse(localStorage.getItem("google_auth")) || {}
   public role = "client"
   public savedPosts = []
   public loadIndex = 0
@@ -56,11 +56,11 @@ export class PostService {
     formData.append("linkInp", post.link)
     formData.append("categoryInp", post.category === '' ? "Uncategorised" : post.category)
     console.log(formData)
-    return this.http.post<{ post: any }>("http://localhost:3000/postApi/upload", formData)
+    return this.http.post<{ post: any }>("http://localhost:3000/postApi/upload" + `?email=${this.user.email}`, formData)
   }
 
   deletePost(id: string) {
-    this.http.delete<{ deleted: boolean }>("http://localhost:3000/postApi/delete/" + id).subscribe((data) => {
+    this.http.delete<{ deleted: boolean }>("http://localhost:3000/postApi/delete/" + id + `?email=${this.user.email}`).subscribe((data) => {
       if (data.deleted) {
         this.postsArr = this.postsArr.filter(item => item.id !== id)
         this.postArrUpdated.next([...this.postsArr])
@@ -92,7 +92,7 @@ export class PostService {
     editFormData.append("priceInp", post.price)
     editFormData.append("freeShipInp", post.freeShip)
     editFormData.append("categoryInp", post.category)
-    return this.http.put<{ data: any }>("http://localhost:3000/postApi/update/" + post.id, editFormData)
+    return this.http.put<{ data: any }>("http://localhost:3000/postApi/update/" + post.id + `?email=${this.user.email}`, editFormData)
   }
 
   categories() {

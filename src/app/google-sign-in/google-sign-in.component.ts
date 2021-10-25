@@ -13,7 +13,6 @@ export class GoogleSignInComponent implements OnInit {
   public user: SocialUser = new SocialUser;
   userData = JSON.parse(localStorage.getItem("google_auth")) || {}
   constructor(private authService: SocialAuthService, public postService: PostService) {
-    this.postService.user = this.userData
     if (this.userData.email) this.postService.authorize(this.userData?.email)
   }
 

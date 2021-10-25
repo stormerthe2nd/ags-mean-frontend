@@ -30,6 +30,8 @@ export class SavedPostsComponent implements OnInit {
         this.amt = data.amt
         if (+data.amt >= +data.length) this.loadIndex = 2
       })
+    } else {
+      router.navigate(["/"])
     }
   }
 
