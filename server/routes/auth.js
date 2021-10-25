@@ -19,10 +19,8 @@ router.get("/", async function (req, res) {
   res.json({ user: { email: user.email, role: user.role, savedPosts: user.savedPosts } })
 })
 
-// TODO check amt loading below
-router.get("/users/:amt", async function (req, res) {
-  var amt = +req.params.amt
-  var users = await userModel.find({}).skip(amt, amt + 30)
+router.get("/users/all", async function (req, res) {
+  var users = await userModel.find({})
   res.json({ users: users })
 })
 
@@ -47,10 +45,11 @@ router.post("/unSavePost", async function (req, res) {
 })
 
 router.get("/getSavedPosts", async function (req, res) {
-  const { email } = req.query
+  const { email, amt } = req.query
+  var amt2 = +amt
   var user = await userModel.findOne({ email: email })
-  postsArr = await postModel.find({ "_id": { $in: user.savedPosts } })
-  res.json({ postsArr: postsArr })
+  var postsArr = await postModel.find({ "_id": { $in: user.savedPosts.slice(amt2, amt2 + 12) } })
+  res.json({ postsArr: postsArr, amt: amt2 + 12, length: user.savedPosts.length })
 })
 
 module.exports = router

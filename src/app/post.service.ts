@@ -117,8 +117,8 @@ export class PostService {
     })
   }
 
-  getUsers(amt: number) {
-    return this.http.get<{ users: any }>(`http://localhost:3000/auth/users/${amt}`).toPromise()
+  getUsers() {
+    return this.http.get<{ users: any }>(`http://localhost:3000/auth/users/all`).toPromise()
   }
 
   updateUserRole(email: string, role: string) {
@@ -133,7 +133,7 @@ export class PostService {
     return this.http.post<any>(`http://localhost:3000/auth/unSavePost`, { id: id, email: email }).toPromise()
   }
 
-  getSavedPosts(email) {
-    return this.http.get<any>(`http://localhost:3000/auth/getSavedPosts?email=${email}`).toPromise()
+  getSavedPosts(email, amt) {
+    return this.http.get<any>(`http://localhost:3000/auth/getSavedPosts?email=${email}&amt=${amt}`).toPromise()
   }
 }

@@ -13,6 +13,6 @@
   </div>
 </div>
 <div class="d-flex justify-content-center mt-1">
-  <app-view-more [route]="'index'" [loadIndex]="this.PostService.loadIndex" [loading]="this.loading"
+  <app-view-more [loadIndex]="this.PostService.loadIndex" [loading]="this.loading"
     [categoriesLength]="this.PostService.categories().length" (click)="this.loadMoreCat()"></app-view-more>
 </div>

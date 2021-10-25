@@ -9,7 +9,6 @@ import { Router } from "@angular/router"
 })
 export class DevComponent implements OnInit {
 
-  amt = 0
   loading = false
   usersArr = []
   renderPage = false
@@ -34,10 +33,9 @@ export class DevComponent implements OnInit {
   }
 
   getUsers() {
-    this.postService.getUsers(this.amt).then(data => {
+    this.postService.getUsers().then(data => {
       this.usersArr = data.users
       console.log(data.users)
-      this.amt += 30
     })
   }
 

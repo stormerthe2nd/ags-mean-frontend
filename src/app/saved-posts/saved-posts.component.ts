@@ -10,14 +10,42 @@ import { Post } from '../posts.model';
 })
 export class SavedPostsComponent implements OnInit {
   postsArr: Post[] = []
+  userData = JSON.parse(localStorage.getItem("google_auth")) || {}
+  render = false
+  loadIndex = 0
+  amt = 0
   loading = true
   constructor(public postService: PostService, router: Router) {
-    if (!this.postService.user.email) {
-      router.navigate(["/"])
-      return
+    if (this.userData.email) {
+      console.log("user")
+      postService.getSavedPosts(this.userData.email, this.amt).then(data => {
+        data.postsArr.forEach(post => {
+          post.id = post._id
+          delete post._id
+        });
+        console.log(data)
+        this.postsArr = data.postsArr
+        this.render = true
+        this.loading = false
+        this.amt = data.amt
+        if (+data.amt >= +data.length) this.loadIndex = 2
+      })
     }
-    postService.getSavedPosts(postService.user?.email).then(data => {
-      this.postsArr = data.postsArr
+  }
+
+  loadMore() {
+    this.loading = true
+    this.postService.getSavedPosts(this.userData.email, this.amt).then(data => {
+      data.postsArr.forEach(post => {
+        post.id = post._id
+        delete post._id
+      });
+      console.log(data)
+      this.postsArr = this.postsArr.concat(data.postsArr)
+      this.render = true
+      this.loading = false
+      this.amt = data.amt
+      if (+data.amt >= +data.length) this.loadIndex = 2
     })
   }
 
