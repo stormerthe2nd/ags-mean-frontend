@@ -23,17 +23,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   constructor(private PostService: PostService, private activeRoute: ActivatedRoute) {
   }
 
-  ngOnDestroy(): void {
-    this.postSub.unsubscribe()
-    this.routeSub.unsubscribe()
-  }
-
-  loadMore() {
-    this.loading = true
-    this.index += 12
-    this.PostService.searchPost(this.searchBy, this.query, this.index)
-  }
-
   ngOnInit(): void {
     this.routeSub = this.activeRoute.paramMap.subscribe(paramMap => {
       this.query = paramMap.get("query");
@@ -43,8 +32,19 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       this.postSub = this.PostService.resultArrUpdatedListner().subscribe((data) => {
         this.loading = false
         this.postsArr = data.searchResults;
-        this.loadIndex = data.finished
+        this.loadIndex = data.finished ? data.finished : this.loadIndex
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.postSub.unsubscribe()
+    this.routeSub.unsubscribe()
+  }
+
+  loadMore() {
+    this.loading = true
+    this.index += 12
+    this.PostService.searchPost(this.searchBy, this.query, this.index)
   }
 }

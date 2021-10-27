@@ -3,6 +3,7 @@ import { Subject } from "rxjs";
 import { map } from "rxjs/operators"
 import { Post } from "./posts.model";
 import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Injectable({ providedIn: "root" })
 export class PostService {
@@ -16,7 +17,7 @@ export class PostService {
   public postArrUpdated = new Subject<Post[]>()
   public resultArrUpdated = new Subject<any>()
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public router: Router) {
 
   }
 
@@ -39,27 +40,19 @@ export class PostService {
         this.postArrUpdated.next([...this.postsArr])
       })
   }
-  postArrUpdatedListener() {
-    return this.postArrUpdated.asObservable()
-  }
 
-  resultArrUpdatedListner() {
-    return this.resultArrUpdated.asObservable()
-  }
+  postArrUpdatedListener() { return this.postArrUpdated.asObservable() }
+  resultArrUpdatedListner() { return this.resultArrUpdated.asObservable() }
 
   addPost(post: any) {
-    console.log(post)
     const formData = new FormData()
-    post.imgPath.forEach(element => {
-      formData.append("fileInp", element)
-    });
+    post.imgPath.forEach(element => { formData.append("fileInp", element) })
     formData.append("desInp", post.des)
     formData.append("titleInp", post.title)
     formData.append("priceInp", post.price)
     formData.append("freeShipInp", post.freeShip)
     formData.append("linkInp", post.link)
     formData.append("categoryInp", post.category === '' ? "Uncategorised" : post.category)
-    console.log(formData)
     return this.http.post<{ post: any }>("http://localhost:3000/postApi/upload" + `?email=${this.user.email}`, formData)
   }
 
@@ -68,6 +61,13 @@ export class PostService {
       if (data.deleted) {
         this.postsArr = this.postsArr.filter(item => item.id !== id)
         this.postArrUpdated.next([...this.postsArr])
+        if (this.router.url.split("/")[1] === "search") {
+          this.resultArr = this.resultArr.filter(item => item.id !== id)
+          this.resultArrUpdated.next({ searchResults: [...this.resultArr] })
+        } else if (this.router.url.split("/")[2] === "saved") {
+          this.resultArr = this.resultArr.filter(item => item.id !== id)
+          this.resultArrUpdated.next({ postsArr: [...this.resultArr] })
+        }
       }
     })
   }
@@ -144,6 +144,10 @@ export class PostService {
   }
 
   getSavedPosts(email, amt) {
-    return this.http.get<any>(`http://localhost:3000/auth/getSavedPosts?email=${email}&amt=${amt}`).toPromise()
+    return this.http.get<any>(`http://localhost:3000/auth/getSavedPosts?email=${email}&amt=${amt}`).subscribe(data => {
+      data.postsArr.forEach(post => { post.id = post._id; delete post._id });
+      this.resultArr.push(...data.postsArr)
+      this.resultArrUpdated.next({ postsArr: [...this.resultArr], amt: data.amt, length: data.length })
+    })
   }
 }
