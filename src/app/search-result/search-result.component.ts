@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PostService } from '../post.service';
 import { Post } from '../posts.model';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-result',
@@ -10,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SearchResultComponent implements OnInit, OnDestroy {
   searchBy: string = ""
+  postSub: Subscription
+  routeSub: Subscription
   query = window.location.href.split("/").splice(-1)[0]
   index = 0
   postsArr = [] as Post[]
@@ -18,33 +21,30 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   store = { searchBy: this.searchBy, query: this.query }
 
   constructor(private PostService: PostService, private activeRoute: ActivatedRoute) {
-    this.activeRoute.paramMap.subscribe(paramMap => {
-      this.query = paramMap.get("query");
-      this.searchBy = paramMap.get("searchBy");
-      this.index = 0
-      PostService.searchPost(this.searchBy, this.query, this.index).then((data) => {
-        data.searchResults.forEach(post => { post.id = post._id; delete post._id });
-        this.loading = false
-        this.postsArr = data.searchResults;
-        this.loadIndex = data.finished
-      });
-    });
   }
+
   ngOnDestroy(): void {
+    this.postSub.unsubscribe()
+    this.routeSub.unsubscribe()
   }
 
   loadMore() {
     this.loading = true
     this.index += 12
-    this.PostService.searchPost(this.searchBy, this.query, this.index).then((data) => {
-      data.searchResults.forEach(post => { post.id = post._id; delete post._id });
-      this.loading = false
-      this.postsArr.push(...data.searchResults)
-      this.loadIndex = data.finished
-      console.log(this.postsArr, data.index, data.finished)
-    })
+    this.PostService.searchPost(this.searchBy, this.query, this.index)
   }
 
   ngOnInit(): void {
+    this.routeSub = this.activeRoute.paramMap.subscribe(paramMap => {
+      this.query = paramMap.get("query");
+      this.searchBy = paramMap.get("searchBy");
+      this.index = 0
+      this.PostService.searchPost(this.searchBy, this.query, this.index)
+      this.postSub = this.PostService.resultArrUpdatedListner().subscribe((data) => {
+        this.loading = false
+        this.postsArr = data.searchResults;
+        this.loadIndex = data.finished
+      });
+    });
   }
 }

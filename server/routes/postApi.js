@@ -85,6 +85,9 @@ const deleteImage = async function (req, res, imgPath) {
 
 
 router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
+  if (!req.query.email) {
+    return res.json({ msg: "unathorized" })
+  }
   req.files = req.files.filter(el => { return el !== undefined })
   let imgUrl = await uploadImage(req, res)
   console.log("req body", req.body)
@@ -109,6 +112,9 @@ router.post("/upload", upload.array("fileInp", 12), async function (req, res) {
 
 
 router.delete("/delete/:id", async (req, res) => {
+  if (!req.query.email) {
+    return res.json({ msg: "unathorized" })
+  }
   const { id } = req.params
   var post = await PostModel.findOne({ _id: id })
   console.log(post)
@@ -119,6 +125,9 @@ router.delete("/delete/:id", async (req, res) => {
 
 
 router.put("/update/:id", upload.array("imgToAdd", 12), async (req, res) => {
+  if (!req.query.email) {
+    return res.json({ msg: "unathorized" })
+  }
   const { id } = req.params
   const { links, imgToDel, desInp, titleInp, priceInp, freeShipInp, categoryInp } = req.body
   console.log("body ", req.body)

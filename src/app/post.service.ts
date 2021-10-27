@@ -7,20 +7,20 @@ import { HttpClient } from "@angular/common/http";
 @Injectable({ providedIn: "root" })
 export class PostService {
   postsArr: Post[] = [];
+  resultArr: Post[] = []
+  savedPosts = []
   selectedPostToEdit: Post = null
-  public user: any = {}
+  public user: any = JSON.parse(localStorage.getItem("google_auth")) || {}
   public role = "client"
-  public savedPosts = []
   public loadIndex = 0
-  public pageLoaded = false
   public postArrUpdated = new Subject<Post[]>()
+  public resultArrUpdated = new Subject<any>()
 
   constructor(private http: HttpClient) {
 
   }
 
   getPosts() {
-    console.log(this.loadIndex)
     this.http.get<{ data: any }>(`http://localhost:3000?cat=${this.categories()[this.loadIndex]}`)
       .pipe(map((postData) => {
         return postData.data.map(post => {
@@ -43,6 +43,10 @@ export class PostService {
     return this.postArrUpdated.asObservable()
   }
 
+  resultArrUpdatedListner() {
+    return this.resultArrUpdated.asObservable()
+  }
+
   addPost(post: any) {
     console.log(post)
     const formData = new FormData()
@@ -56,11 +60,11 @@ export class PostService {
     formData.append("linkInp", post.link)
     formData.append("categoryInp", post.category === '' ? "Uncategorised" : post.category)
     console.log(formData)
-    return this.http.post<{ post: any }>("http://localhost:3000/postApi/upload", formData)
+    return this.http.post<{ post: any }>("http://localhost:3000/postApi/upload" + `?email=${this.user.email}`, formData)
   }
 
   deletePost(id: string) {
-    this.http.delete<{ deleted: boolean }>("http://localhost:3000/postApi/delete/" + id).subscribe((data) => {
+    this.http.delete<{ deleted: boolean }>("http://localhost:3000/postApi/delete/" + id + `?email=${this.user.email}`).subscribe((data) => {
       if (data.deleted) {
         this.postsArr = this.postsArr.filter(item => item.id !== id)
         this.postArrUpdated.next([...this.postsArr])
@@ -92,7 +96,7 @@ export class PostService {
     editFormData.append("priceInp", post.price)
     editFormData.append("freeShipInp", post.freeShip)
     editFormData.append("categoryInp", post.category)
-    return this.http.put<{ data: any }>("http://localhost:3000/postApi/update/" + post.id, editFormData)
+    return this.http.put<{ data: any }>("http://localhost:3000/postApi/update/" + post.id + `?email=${this.user.email}`, editFormData)
   }
 
   categories() {
@@ -104,7 +108,13 @@ export class PostService {
   }
 
   searchPost(searchBy: string, query: string, index: number) {
-    return this.http.get<any>(`http://localhost:3000/search/${searchBy}/${query}?index=${index}`).toPromise()
+    if (index === 0) this.resultArr = []
+    this.http.get<any>(`http://localhost:3000/search/${searchBy}/${query}?index=${index}`).subscribe((data: any) => {
+      data.searchResults.forEach(post => { post.id = post._id; delete post._id });
+      console.log(data)
+      this.resultArr.push(...data.searchResults)
+      this.resultArrUpdated.next({ searchResults: [...this.resultArr], index: data.index, finished: data.finished })
+    })
   }
 
   authorize(email: string, returnData = false) {

@@ -99,8 +99,9 @@ export class PostFormComponent implements OnInit {
       (postData) => {
         postData.post.id = postData.post._id
         delete postData.post._id
-        console.log(postData.post)
-        this.postService.postsArr.push(postData.post)
+        if (this.postService.categories().indexOf(postData.post.category) < this.postService.loadIndex) {
+          this.postService.postsArr.push(postData.post)
+        }
         this.postService.postArrUpdated.next([...this.postService.postsArr])
         this.postCreationStatus = "success"
       })
