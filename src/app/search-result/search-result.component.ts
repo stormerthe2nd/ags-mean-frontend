@@ -32,7 +32,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       this.postSub = this.PostService.resultArrUpdatedListner().subscribe((data) => {
         this.loading = false
         this.postsArr = data.searchResults;
-        this.loadIndex = data.finished ? data.finished : this.loadIndex
+        this.loadIndex = data.finished
       });
     });
   }
