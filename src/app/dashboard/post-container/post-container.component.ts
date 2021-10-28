@@ -16,13 +16,10 @@ export class PostContainerComponent implements OnInit, OnDestroy {
   categories = this.PostService.categories()
   private postSub: Subscription
   constructor(public PostService: PostService) {
-    console.log(this.postsArr.length)
-
     this.PostService.getPosts()
     this.postSub = this.PostService.postArrUpdatedListener().subscribe((postsArr: Post[]) => {
       this.loading = false
       this.postsArr = postsArr
-      this.PostService.pageLoaded = true
     })
   }
 
