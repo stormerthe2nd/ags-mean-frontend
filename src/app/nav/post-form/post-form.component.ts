@@ -1,7 +1,7 @@
 // TODO convert NgForm approach to ReactiveForms 
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/post.service';
 import { Post } from 'src/app/posts.model';
 
@@ -22,7 +22,7 @@ export class PostFormComponent implements OnInit {
   message = ''
   postSub: any;
 
-  constructor(public postService: PostService, public route: ActivatedRoute) {
+  constructor(public postService: PostService, public route: ActivatedRoute, public router: Router) {
 
   }
   ngOnInit() {
@@ -102,7 +102,15 @@ export class PostFormComponent implements OnInit {
         if (this.postService.categories().indexOf(postData.post.category) < this.postService.loadIndex) {
           this.postService.postsArr.push(postData.post)
         }
-        this.postService.postArrUpdated.next([...this.postService.postsArr])
+        if (this.router.url.split("/")[1] === "search") {
+          this.postService.resultArr.push(postData.post)
+          this.postService.resultArrUpdated.next({ searchResults: [...this.postService.resultArr] })
+        } else if (this.router.url.split("/")[2] === "saved") {
+          this.postService.resultArr.push(postData.post)
+          this.postService.resultArrUpdated.next({ postsArr: [...this.postService.resultArr] })
+        } else {
+          this.postService.postArrUpdated.next([...this.postService.postsArr])
+        }
         this.postCreationStatus = "success"
       })
     form.reset()
@@ -130,7 +138,14 @@ export class PostFormComponent implements OnInit {
       this.deletedLinks = []
       form.controls["fileInp"].reset();
       data.id = data._id
-      this.postService.postArrUpdated.next([...this.postService.postsArr.map(post => post.id === data.id ? post = data : post)])
+      if (this.router.url.split("/")[1] === "search") {
+        this.postService.resultArrUpdated.next({ searchResults: [...this.postService.resultArr.map(post => post.id === data.id ? post = data : post)] })
+      } else if (this.router.url.split("/")[2] === "saved") {
+        this.postService.resultArrUpdated.next({ postsArr: this.postService.resultArr.map(post => post.id === data.id ? post = data : post) })
+      } else {
+        this.postService.postArrUpdated.next([...this.postService.postsArr.map(post => post.id === data.id ? post = data : post)])
+      }
+
       this.postService.selectedPostToEdit = data
       this.postCreationStatus = "success"
       this.ngOnInit()
