@@ -18,46 +18,34 @@ export class NavComponent {
   postArr: Post[]
   query: string
   doc = document
-  hidden = false
-  opened = false
-  closed = false
 
-  constructor(public postService: PostService, public router: Router, private activeRoute: ActivatedRoute) {
-  }
-
-  hideTitle(opened: boolean, closed: boolean) {
-    // if (!this.hidden) {
-    //   $('.main-title').hide(200);
-    //   $('.btn-lg').hide(200);
-    //   this.hidden = true
-    // } else {
-    //   $('.main-title').show(300);
-    //   $('.btn-lg').show(300);
-    //   this.hidden = false
-    // }
+  constructor(public postService: PostService, public router: Router) {
   }
 
   redirect(event: any) {
-    this.change()
     if (!event) { }
     else if (event.keyCode === 13) { }
     else return
     console.log(event)
     if (this.searchBy === "Date") {
-      this.query = (<HTMLInputElement>document.getElementById('dateInp')).value
       var date = this.query.split("-")
+      console.log(date)
       var index: any = Number(date[1] != "10" ? date[1].replace("0", "") : date[1]) - 1
       date[1] = this.months[index]
       index = date[2]
       date[2] = date[0]
       date[0] = index
       this.query = date.join("-")
-    }
+    } else this.change()
     if (!this.query) return alert("Please Provide a Query")
     this.router.navigate(['/search', this.searchBy, this.query]);
   }
 
   change() {
     this.query = (<HTMLInputElement>document.getElementById('searchInp')).value
+  }
+
+  dateChange() {
+    this.query = (<HTMLInputElement>document.getElementById('dateInp')).value
   }
 }
