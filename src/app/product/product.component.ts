@@ -10,6 +10,7 @@ import * as $ from "jquery"
 })
 export class ProductComponent implements OnInit {
   index = 0
+  url = window.location.href
   post = { imgPath: [] } as Post
   constructor(public postService: PostService) {
     $(document).ready(() => {

@@ -1,6 +1,7 @@
 <app-nav></app-nav>
 <div class="container-fluid text-light" style="margin-top: 150px;">
   <div>
+    <h3 *ngIf="postsArr.length<1" class="text-center">No Posts to Display</h3>
     <div *ngIf="render" class="text-center">
       <div id="post-container" *ngFor="let post of postsArr" class="card-group mb-3"
         style="overflow: hidden;display:inline-block">

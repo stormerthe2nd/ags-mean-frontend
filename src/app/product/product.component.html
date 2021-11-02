@@ -27,11 +27,14 @@
     </div>
     <p class="fw-normal fs-5"><em>{{post.freeShip?'Free Shipping':'Shipping Extra'}}</em></p>
     <button *ngIf="!postService.savedPosts.includes(post.id);else unSave" (click)="savePost(post.id)"
-      class="btn btn-lg btn-outline-danger"><i class="fas fa-plus"></i> Save Post</button>
+      class="btn btn-lg btn-outline-danger me-1"><i class="fas fa-plus"></i> Save Post</button>
     <ng-template #unSave>
-      <button (click)="unSavePost(post.id)" class="btn btn-lg btn-outline-danger"><i class="fas fa-times"></i>
+      <button (click)="unSavePost(post.id)" class="btn btn-lg btn-outline-danger me-1"><i class="fas fa-times"></i>
         Unsave Post</button>
     </ng-template>
+    <a href="https://api.whatsapp.com/send?phone=919892503028&text=Hi I'm Interested in this%0A{{url}}">
+      <button class="btn btn-lg btn-success ms-1"><i class="fab fa-whatsapp"></i> Message</button>
+    </a>
     <div class="description m-3 mb-5">
       <div class="card card-body border border-light" style="background-color: black;">
         <p class="fw-normal fs-3 text-light">Description <button class="btn btn-outline-light btn-sm shadow-none"
