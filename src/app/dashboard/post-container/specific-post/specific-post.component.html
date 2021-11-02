@@ -19,7 +19,7 @@
       </div>
     </div>
     <div routerLink=" /product/{{post.id}}" class="content-con card-body text-center">
-      <h5>{{post.title[21]?post.title.slice(0,20)+"...":post.title}}</h5>
+      <h5 id="post-title">{{post.title[21]?post.title.slice(0,20)+"...":post.title}}</h5>
       <p class="small text-muted text-uppercase mb-2 un-imp">{{post.category}}</p>
       <p class="un-imp">{{post.des[26]?post.des.slice(0,25)+"...":post.des}}</p>
       <hr>

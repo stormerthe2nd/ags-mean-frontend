@@ -26,15 +26,15 @@ export class NavComponent {
   }
 
   hideTitle(opened: boolean, closed: boolean) {
-    if (!this.hidden) {
-      $('.main-title').hide(200);
-      $('.btn-lg').hide(200);
-      this.hidden = true
-    } else {
-      $('.main-title').show(300);
-      $('.btn-lg').show(300);
-      this.hidden = false
-    }
+    // if (!this.hidden) {
+    //   $('.main-title').hide(200);
+    //   $('.btn-lg').hide(200);
+    //   this.hidden = true
+    // } else {
+    //   $('.main-title').show(300);
+    //   $('.btn-lg').show(300);
+    //   this.hidden = false
+    // }
   }
 
   redirect(event: any) {
