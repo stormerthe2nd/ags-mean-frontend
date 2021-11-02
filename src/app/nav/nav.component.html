@@ -68,8 +68,8 @@
               </div>
             </ng-template>
           </div>
-          <button id="search" class="btn btn-outline-light ms-2" type="button" (click)="redirect()"><i
-              class="fas fa-search"></i></button>
+          <button id="search" class="btn btn-outline-light ms-2" type="button" (window:keypress)="redirect($event)"
+            (click)="redirect(undefined)"><i class="fas fa-search"></i></button>
         </div>
       </div>
     </div>

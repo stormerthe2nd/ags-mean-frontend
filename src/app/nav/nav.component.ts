@@ -37,7 +37,12 @@ export class NavComponent {
     }
   }
 
-  redirect() {
+  redirect(event: any) {
+    this.change()
+    if (!event) { }
+    else if (event.keyCode === 13) { }
+    else return
+    console.log(event)
     if (this.searchBy === "Date") {
       this.query = (<HTMLInputElement>document.getElementById('dateInp')).value
       var date = this.query.split("-")

@@ -2,7 +2,7 @@
 /* mobile */
 @media only screen and (max-device-width: 799px) {
   .con{
-    overflow-y:scroll;
+    overflow-y:unset;
     background-color: black;
     color: white;
     width: fit-content;
