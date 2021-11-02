@@ -2,9 +2,8 @@
   <nav id="nav1" class="navbar navbar-dark bg-dark navbar-expand-lg shadow-lg position-relative">
     <div class="container-fluid fs-4 fw-bolder">
       <a class="navbar-brand fs-3 text-shadow text-light" href="#">AGS Market</a>
-      <button class="navbar-toggler" (click)="hideTitle(true,false)" type="button" data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-        aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -64,12 +63,12 @@
               placeholder="Search by {{searchBy}}" (change)="change()" id="searchInp" aria-label="Search">
             <ng-template #dateBlock>
               <div>
-                <input class="form-control ms-2 me-2" type="date" id="dateInp" aria-label="Search">
+                <input class="form-control ms-2 " (change)="dateChange()" type="date" id="dateInp" aria-label="Search">
               </div>
             </ng-template>
           </div>
-          <button id="search" class="btn btn-outline-light ms-2" type="button" (click)="redirect()"><i
-              class="fas fa-search"></i></button>
+          <button id="search" class="btn btn-outline-light {{ searchBy !== 'Date'?'ms-2':'ms-4'}}" type="button"
+            (window:keypress)="redirect($event)" (click)="redirect(undefined)"><i class="fas fa-search"></i></button>
         </div>
       </div>
     </div>

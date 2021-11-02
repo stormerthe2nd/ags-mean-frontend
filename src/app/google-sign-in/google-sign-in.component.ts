@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SocialAuthService } from "angularx-social-login";
 import { SocialUser } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";
@@ -12,7 +13,7 @@ import { PostService } from '../post.service';
 export class GoogleSignInComponent implements OnInit {
   public user: SocialUser = new SocialUser;
   userData = JSON.parse(localStorage.getItem("google_auth")) || {}
-  constructor(private authService: SocialAuthService, public postService: PostService) {
+  constructor(private authService: SocialAuthService, public postService: PostService, public router: Router) {
     if (this.userData.email) this.postService.authorize(this.userData?.email)
   }
 
@@ -35,5 +36,6 @@ export class GoogleSignInComponent implements OnInit {
     this.postService.user = {}
     this.postService.role = "client"
     this.postService.savedPosts = []
+    this.router.navigate(["/"])
   }
 }

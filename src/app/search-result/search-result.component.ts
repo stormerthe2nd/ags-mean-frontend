@@ -29,6 +29,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       this.searchBy = paramMap.get("searchBy");
       this.index = 0
       this.PostService.searchPost(this.searchBy, this.query, this.index)
+      this.loading = true
       this.postSub = this.PostService.resultArrUpdatedListner().subscribe((data) => {
         this.loading = false
         this.postsArr = data.searchResults;

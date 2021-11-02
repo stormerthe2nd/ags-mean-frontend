@@ -102,12 +102,18 @@
   }
 
   @media only screen and (max-device-width: 616px) {
-    .post1{
-      width:10em;min-height: 15em;margin-inline: 4px
+    #post-title{
+      font-size:unset;
     }
+
+    .post1{
+      width:10em;height: 17em;margin-inline: 4px
+    }
+
     .image-con{
       height: 7em;overflow: hidden;min-height: 7em;
     }
+
     .in-img{
       height: 100%;
       width: 100%;

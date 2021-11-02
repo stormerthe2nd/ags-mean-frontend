@@ -3,9 +3,12 @@
   <div>
     <div class="text-center">
       <div class="text-center mb-2 p-1">
-        <p id="" class="display-5 text-light text-decoration-underline">Showing Results of '{{this.query}}' filtered by
+        <p class="display-2 text-light">Showing Results of '{{this.query}}'</p>
+        <hr>
+        <p class="display-4 text-light">filtered by
           '{{this.searchBy}}'</p>
       </div>
+      <h3 *ngIf="postsArr.length<1" class="text-center mt-5">No Posts to Display</h3>
       <div id="post-container" *ngFor="let post of postsArr" class="card-group mb-3"
         style="overflow: hidden;display:inline-block">
         <app-specific-post [post]="post"></app-specific-post>

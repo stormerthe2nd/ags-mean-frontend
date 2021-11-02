@@ -8,7 +8,7 @@ router.get('/', async function (req, res) {
     return res.json({ data: postsArr });
   } catch (error) {
     console.log(error)
-    return res.json({ data: [] })
+    return res.json({ data: [], error: error })
   }
 });
 
