@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   clientId: "293019557085-bdtl828coo47kn5pqv4qi77rgj6c5rk0.apps.googleusercontent.com",
-  domain: "192.168.0.105"
+  domain: "https://ags-market.herokuapp.com"
 };
 
 /*
