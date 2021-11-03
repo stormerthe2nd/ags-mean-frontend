@@ -1,8 +1,0 @@
-.modal-body{
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
-}
-
-/* .form-control, .form-select{
-  box-shadow: 0px 2px rgb(253, 140, 140);
-} */
