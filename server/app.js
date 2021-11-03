@@ -10,8 +10,7 @@ const searchRouter = require("./routes/search")
 const refreshRouter = require("./routes/refresh")
 const authRouter = require("./routes/auth")
 
-const { DB_URL, GOOGLE_APPLICATION_CREDENTIALS, USERS, DEV } = process.env
-const users = require(USERS)
+const { DB_URL, GOOGLE_APPLICATION_CREDENTIALS, DEV } = process.env
 var app = express();
 
 
@@ -32,13 +31,6 @@ const drive = google.drive({
   auth: auth
 })
 
-// auth function
-const authorize = (req, res, next) => {
-  if (req.users.admins.includes(req.query.email + "@gmail.com")) {
-    return next()
-  }
-  return res.json({ admin: false })
-}
 
 // database setup
 const mongoose = require("mongoose")

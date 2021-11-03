@@ -2,7 +2,6 @@
 server/.env
 server/node_modules
 server/serviceAccountCreds.json
-server/users.json
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 # compiled output
 /dist
