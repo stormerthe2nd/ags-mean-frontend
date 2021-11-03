@@ -52,7 +52,7 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use((req, res, next) => { req.users = users; req.dev = DEV; next() })
+app.use((req, res, next) => { req.dev = DEV; next() })
 // binding routers to path
 app.use('/', indexRouter);
 app.use("/postApi", (req, res, next) => { req.drive = drive; req.files = []; next() }, postApiRouter)
