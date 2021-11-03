@@ -24,7 +24,7 @@ export class PostService {
   }
 
   getPosts() {
-    this.http.get<{ data: any }>(`${this.domain}:3000?cat=${this.categories()[this.loadIndex]}`)
+    this.http.get<{ data: any }>(`${this.domain}?cat=${this.categories()[this.loadIndex]}`)
       .pipe(map((postData) => {
         return postData.data.map(post => {
           post.id = post._id
@@ -55,11 +55,11 @@ export class PostService {
     formData.append("freeShipInp", post.freeShip)
     formData.append("linkInp", post.link)
     formData.append("categoryInp", post.category === '' ? "Uncategorised" : post.category)
-    return this.http.post<{ post: any }>(`${this.domain}:3000/postApi/upload` + `?email=${this.user.email}`, formData)
+    return this.http.post<{ post: any }>(`${this.domain}/postApi/upload` + `?email=${this.user.email}`, formData)
   }
 
   deletePost(id: string) {
-    this.http.delete<{ deleted: boolean }>(`${this.domain}:3000/postApi/delete/` + id + `?email=${this.user.email}`).subscribe((data) => {
+    this.http.delete<{ deleted: boolean }>(`${this.domain}/postApi/delete/` + id + `?email=${this.user.email}`).subscribe((data) => {
       if (data.deleted) {
         this.postsArr = this.postsArr.filter(item => item.id !== id)
         this.postArrUpdated.next([...this.postsArr])
@@ -98,7 +98,7 @@ export class PostService {
     editFormData.append("priceInp", post.price)
     editFormData.append("freeShipInp", post.freeShip)
     editFormData.append("categoryInp", post.category)
-    return this.http.put<{ data: any }>(`${this.domain}:3000/postApi/update/` + post.id + `?email=${this.user.email}`, editFormData)
+    return this.http.put<{ data: any }>(`${this.domain}/postApi/update/` + post.id + `?email=${this.user.email}`, editFormData)
   }
 
   categories() {
@@ -106,12 +106,12 @@ export class PostService {
   }
 
   getPostById(id) {
-    return this.http.get<any>(`${this.domain}:3000/product/${id}`).toPromise()
+    return this.http.get<any>(`${this.domain}/product/${id}`).toPromise()
   }
 
   searchPost(searchBy: string, query: string, index: number) {
     if (index === 0) this.resultArr = []
-    this.http.get<any>(`${this.domain}:3000/search/${searchBy}/${query}?index=${index}`).subscribe((data: any) => {
+    this.http.get<any>(`${this.domain}/search/${searchBy}/${query}?index=${index}`).subscribe((data: any) => {
       data.searchResults.forEach(post => { post.id = post._id; delete post._id });
       console.log(data)
       this.resultArr.push(...data.searchResults)
@@ -121,32 +121,32 @@ export class PostService {
 
   authorize(email: string, returnData = false) {
     if (returnData) {
-      return this.http.get<any>(`${this.domain}:3000/auth?email=${email.split("@")[0]}`).toPromise()
+      return this.http.get<any>(`${this.domain}/auth?email=${email.split("@")[0]}`).toPromise()
     }
-    this.http.get<any>(`${this.domain}:3000/auth?email=${email.split("@")[0]}`).subscribe(data => {
+    this.http.get<any>(`${this.domain}/auth?email=${email.split("@")[0]}`).subscribe(data => {
       this.role = data.user.role
       this.savedPosts = data.user.savedPosts
     })
   }
 
   getUsers() {
-    return this.http.get<{ users: any }>(`${this.domain}:3000/auth/users/all`).toPromise()
+    return this.http.get<{ users: any }>(`${this.domain}/auth/users/all`).toPromise()
   }
 
   updateUserRole(email: string, role: string) {
-    return this.http.get<any>(`${this.domain}:3000/auth/update?role=${role}&email=${email}`).toPromise()
+    return this.http.get<any>(`${this.domain}/auth/update?role=${role}&email=${email}`).toPromise()
   }
 
   savePost(id: string, email: string) {
-    return this.http.post<any>(`${this.domain}:3000/auth/savePost`, { id: id, email: email }).toPromise()
+    return this.http.post<any>(`${this.domain}/auth/savePost`, { id: id, email: email }).toPromise()
   }
 
   unSavePost(id: string, email: string) {
-    return this.http.post<any>(`${this.domain}:3000/auth/unSavePost`, { id: id, email: email }).toPromise()
+    return this.http.post<any>(`${this.domain}/auth/unSavePost`, { id: id, email: email }).toPromise()
   }
 
   getSavedPosts(email, amt) {
-    return this.http.get<any>(`${this.domain}:3000/auth/getSavedPosts?email=${email}&amt=${amt}`).subscribe(data => {
+    return this.http.get<any>(`${this.domain}/auth/getSavedPosts?email=${email}&amt=${amt}`).subscribe(data => {
       data.postsArr.forEach(post => { post.id = post._id; delete post._id });
       this.resultArr.push(...data.postsArr)
       this.resultArrUpdated.next({ postsArr: [...this.resultArr], amt: data.amt, length: data.length })
