@@ -1,6 +1,6 @@
 .bg-img {
   /* The image used */
-  background-image: url("/assets/images/b4.jpg");
+  background-image: url("../../assets/images/b4.jpg");
   color: azure;
   height: 500px;
 
